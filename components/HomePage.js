@@ -4,9 +4,9 @@ import Link from "next/link";
 
 const HomePage = () => {
   return (
-    <>
-      <div className='grid grid-cols-2 gap-16 mx-auto w-11/12 p-8'>
-        <div className='flex flex-col justify-center items-start '>
+    <div className='flex flex-col'>
+      <div className='flex flex-col md:grid grid-cols-2 gap-16 mx-auto w-11/12 p-8'>
+        <div className='flex flex-col justify-center items-start mt-12 '>
           <h1 className='text-[#102a42] font-bold mb-4'>
             Design Your <br /> Comfort Zone
           </h1>
@@ -17,12 +17,12 @@ const HomePage = () => {
             quis alias?
           </h5>
           <Link href='/products'>
-            <button className='bg-[#ab7a5f] text-white px-12 tracking-widest rounded-md py-4'>
+            <button className='bg-[#ab7a5f] text-white px-6 md:px-12 tracking-widest rounded-md py-2 mt-4 md:py-4'>
               Shop Now
             </button>
           </Link>
         </div>
-        <article className='relative after before:bg-[#decbc0] self-end w-[400px]'>
+        <article className=' hidden md:contents relative after before:bg-[#decbc0] self-end w-[400px]'>
           <div className='relative'>
             <Image
               src='/hero-bcg.jpeg'
@@ -40,12 +40,11 @@ const HomePage = () => {
             </div>
           </div>
         </article>
-        <div></div>
       </div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </>
+      <div>now</div>
+      <div>you see</div>
+      <div>me here</div>
+    </div>
   );
 };
 

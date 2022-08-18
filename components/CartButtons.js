@@ -9,9 +9,9 @@ const CartButtons = () => {
       <ul className='flex gap-4 items-center'>
         <li>
           <Link href='/cart'>
-            <a className='flex   items-center'>
+            <a className='flex items-center text-2xl md:text-xl'>
               <h4>Cart</h4>
-              <span>
+              <span className='text-xl'>
                 <FaShoppingCart />
               </span>
             </a>
@@ -19,9 +19,9 @@ const CartButtons = () => {
         </li>
         <li>
           <Link href='/login'>
-            <a className='flex   items-center'>
+            <a className='flex items-center text-2xl md:text-xl'>
               <h4>Login</h4>
-              <span>
+              <span className='text-xl'>
                 <BsPersonPlusFill />
               </span>
             </a>
