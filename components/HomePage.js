@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Services from "./Services";
+import Newsletter from "./Newsletter";
 
 const HomePage = () => {
   return (
@@ -22,15 +24,15 @@ const HomePage = () => {
             </button>
           </Link>
         </div>
-        <article className=' hidden md:contents relative after before:bg-[#decbc0] self-end w-[400px]'>
-          <div className='relative'>
+        <article className=' hidden md:contents relative  self-end w-[400px]'>
+          <div className='relative after before:bg-[#decbc0]'>
             <Image
               src='/hero-bcg.jpeg'
               alt='hero-img'
               width={400}
               height={550}
             />
-            <div className='absolute -left-40 bottom-0 '>
+            <div className='absolute left-0 -translate-x-1/2 bottom-0 '>
               <Image
                 src='/hero-bcg-2.jpeg'
                 alt='hero-img'
@@ -42,8 +44,12 @@ const HomePage = () => {
         </article>
       </div>
       <div>now</div>
-      <div>you see</div>
-      <div>me here</div>
+      <div>
+        <Services />
+      </div>
+      <div>
+        <Newsletter />
+      </div>
     </div>
   );
 };

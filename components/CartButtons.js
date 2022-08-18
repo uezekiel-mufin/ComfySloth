@@ -2,12 +2,14 @@ import Link from "next/link";
 import React from "react";
 import { BsPersonPlusFill } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
-
+import { useSelector, useDispatch } from "react-redux";
+import { menuState } from "../Slices/productSlice";
 const CartButtons = () => {
+  const dispatch = useDispatch();
   return (
     <div>
       <ul className='flex gap-4 items-center'>
-        <li>
+        <li onClick={() => dispatch(menuState())}>
           <Link href='/cart'>
             <a className='flex items-center text-2xl md:text-xl'>
               <h4>Cart</h4>
@@ -17,7 +19,7 @@ const CartButtons = () => {
             </a>
           </Link>
         </li>
-        <li>
+        <li onClick={() => dispatch(menuState())}>
           <Link href='/login'>
             <a className='flex items-center text-2xl md:text-xl'>
               <h4>Login</h4>

@@ -6,9 +6,13 @@ import Link from "next/link";
 import CartButtons from "./CartButtons";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import Sidebar from "./SIdebar";
+import { useSelector, useDispatch } from "react-redux";
+import { menuState } from "../Slices/productSlice";
 
 const Layout = ({ children, title }) => {
-  const [isMenu, setIsMenu] = useState(false);
+  const dispatch = useDispatch();
+  const isMenu = useSelector((state) => state.productSlice.isMenu);
+
   return (
     <div className='relative'>
       <Head>
@@ -29,7 +33,7 @@ const Layout = ({ children, title }) => {
 
             <div
               className='flex md:hidden text-5xl mr-2 font-bold text-[#ab7a5f]'
-              onClick={() => setIsMenu(true)}
+              onClick={() => dispatch(menuState())}
             >
               <AiOutlineMenuFold />
             </div>
@@ -55,7 +59,7 @@ const Layout = ({ children, title }) => {
             isMenu ? "translate-x-0  " : "-translate-x-full"
           }`}
         >
-          <Sidebar isMenu={isMenu} setIsMenu={setIsMenu} />
+          <Sidebar />
         </div>
 
         <footer className='footer bg-[#222]'>

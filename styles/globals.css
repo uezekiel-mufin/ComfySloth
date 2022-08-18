@@ -138,5 +138,5 @@ p {
 }
 
 .after {
-  @apply before:absolute before:-left-[8%] before:h-4/5 before:w-1/12 before:bottom-0 before:rounded-md;
+  @apply before:absolute before:-left-[8%] before:h-4/5 before:mb-4 before:w-1/12 before:bottom-0 before:rounded-md;
 }
