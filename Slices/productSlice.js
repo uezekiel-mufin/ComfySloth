@@ -10,7 +10,8 @@ const initialState = {
   products: [],
   product_loading: false,
   product_error: "",
-  product: [],
+  product: {},
+
   featured_products: [],
 };
 
@@ -18,6 +19,14 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     const resp = await axios.get(url);
+    return resp.data;
+  }
+);
+
+export const fetchProduct = createAsyncThunk(
+  "product/fetchProduct",
+  async (id) => {
+    const resp = await axios.get(`${single_product_url}${id}`);
     return resp.data;
   }
 );
@@ -45,6 +54,19 @@ const productSlice = createSlice({
       state.products_loading = false;
       state.products = [];
       state.products_error = "There was an error";
+    });
+    builder.addCase(fetchProduct.pending, (state) => {
+      state.product_loading = true;
+    });
+    builder.addCase(fetchProduct.fulfilled, (state, action) => {
+      (state.product_loading = false),
+        (state.product = action.payload),
+        (state.product_error = "");
+    });
+    builder.addCase(fetchProduct.rejected, (state, action) => {
+      (state.product_loading = false),
+        (state.product = {}),
+        (state.product_error = "There was an error fetching this Product");
     });
   },
 });
