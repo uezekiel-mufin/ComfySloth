@@ -13,8 +13,11 @@ const CartButtons = () => {
           <Link href='/cart'>
             <a className='flex items-center text-2xl md:text-xl'>
               <h4>Cart</h4>
-              <span className='text-xl'>
+              <span className='text-2xl relative'>
                 <FaShoppingCart />
+                <span className='absolute -top-3 -right-3 flex text-white text-xs bg-[#ab7a5f] rounded-full h-6 w-6 justify-center items-center'>
+                  3
+                </span>
               </span>
             </a>
           </Link>

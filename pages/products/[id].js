@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
@@ -37,9 +37,10 @@ const SingleProduct = () => {
     reviews,
   } = product;
 
-  const [viewImage, setViewImage] = useState(
-    images ? images[0].url : "/hero-bcg.jpeg"
-  );
+  const [viewImage, setViewImage] = useState("/hero-bcg.jpeg");
+  useLayoutEffect(() => {
+    images && setViewImage(images[0].url);
+  }, [images]);
 
   return (
     <div>
@@ -96,7 +97,7 @@ const SingleProduct = () => {
               </div>
               <hr />
               <div className='flex capitalize items-center gap-8 flex-1 '>
-                <span className='font-bold '>Colors:</span>
+                <span className='font-bold'>Colors:</span>
                 <div className='flex gap-2'>
                   {colors?.map((color) => (
                     <span

@@ -49,16 +49,19 @@ const Featured = () => {
       <div>
         {loading && <h4>Loading......</h4>}
         {error && <h4>There was an error......</h4>}
-        <div className='grid grid-cols-3'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:justify-items-stretch gap-2 md:gap-4 lg:px-16'>
           {featured.slice(0, 3).map((item) => (
-            <div key={item.id} className='w-5/6 h-4/6 my-8 relative'>
+            <div
+              key={item.id}
+              className=' my-2 md:my-8 relative flex flex-col justify-center'
+            >
               <Image
                 src={item.image}
                 alt={item.name}
-                layout='responsive'
-                width='100px'
-                height='100px'
-                className='rounded-lg hover:brightness-50 transition-all duration-300 ease-linear'
+                layout='intrinsic'
+                width='395px'
+                height='200px'
+                className='rounded-lg hover:brightness-50  transition-all duration-300 ease-linear'
               />
 
               <Link href={`products/${item.id}`}>
@@ -67,7 +70,7 @@ const Featured = () => {
                 </a>
               </Link>
 
-              <div className='flex justify-between mt-6'>
+              <div className='flex justify-between mt-6 '>
                 <p className='text-xl capitalize '>{item.name}</p>
                 <p className='text-[#ab7a5f]'>{formatPrice(item.price)}</p>
               </div>
