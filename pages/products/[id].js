@@ -8,6 +8,7 @@ import { fetchProduct } from "../../Slices/productSlice";
 import { BiCheck } from "react-icons/bi";
 import { formatPrice } from "../../utils/helpers";
 import Stars from "../../components/Stars";
+import { addToCart, removeFromCart } from "../../Slices/cartSlice";
 
 const SingleProduct = () => {
   const [quantityOrdered, setQuantityOrdered] = useState(1);
@@ -20,6 +21,8 @@ const SingleProduct = () => {
   }, []);
 
   const product = useSelector((state) => state.productSlice.product);
+  const cart = useSelector((state) => state.cartSlice.cart.cartItems);
+  console.log(cart);
   console.log(product);
   const {
     images,
@@ -128,7 +131,14 @@ const SingleProduct = () => {
               </div>
               <div>
                 {stock > 0 && (
-                  <button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-6 md:px-12 tracking-widest rounded-md py-2 mt-4 md:py-4'>
+                  <button
+                    className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-6 md:px-12 tracking-widest rounded-md py-2 mt-4 md:py-4'
+                    onClick={() =>
+                      dispatch(
+                        addToCart({ ...product, quantity: quantityOrdered })
+                      )
+                    }
+                  >
                     add to cart
                   </button>
                 )}
@@ -142,3 +152,26 @@ const SingleProduct = () => {
 };
 
 export default SingleProduct;
+
+// export async function getServerSideProps(context) {
+//   const { slug } = context.params;
+//   await db.connect();
+//   const product = await Product.findOne({ slug }).lean();
+//   await db.disconnect();
+//   return {
+//     props: {
+//       product: product ? db.convertDocToObj(product) : null,
+//     },
+//   };
+// }
+
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   (store) => async (context) => {
+//     const id = context.params?.id;
+//     store.dispatch(fetchProduct(id));
+
+//     return {
+//       props: {},
+//     };
+//   }
+// );
