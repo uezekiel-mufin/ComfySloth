@@ -11,7 +11,6 @@ const initialState = {
   product_loading: false,
   product_error: "",
   product: {},
-
   featured_products: [],
 };
 

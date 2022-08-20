@@ -1,8 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../Slices/productSlice";
-import { Slide } from "react-slideshow-image";
-import "react-slideshow-image/dist/styles.css";
+
 import Image from "next/image";
 import { FcSearch } from "react-icons/fc";
 import Link from "next/link";
