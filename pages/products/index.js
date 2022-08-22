@@ -9,7 +9,9 @@ const Products = ({ products }) => {
   console.log(products);
   return (
     <div>
-      <Layout title='products'>Products</Layout>
+      <Layout title='products'>
+        
+      </Layout>
     </div>
   );
 };

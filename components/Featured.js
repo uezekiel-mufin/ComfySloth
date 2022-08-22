@@ -7,23 +7,6 @@ import { FcSearch } from "react-icons/fc";
 import Link from "next/link";
 import { formatPrice } from "../utils/helpers";
 
-const responsiveSettings = [
-  {
-    breakpoint: 800,
-    settings: {
-      slidesToShow: 3,
-      slidesToScroll: 1,
-    },
-  },
-  {
-    breakpoint: 500,
-    settings: {
-      slidesToShow: 2,
-      slidesToScroll: 1,
-    },
-  },
-];
-
 const Featured = () => {
   const [search, setSearch] = useState(false);
   const dispatch = useDispatch();

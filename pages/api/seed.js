@@ -3,7 +3,8 @@ import User from "../../components/Models/User";
 import data from "../../utils/data";
 import db from "../../utils/db";
 import axios from "axios";
-import { products_url as url } from "../../utils/constants";
+import { products_url as url, single_product_url } from "../../utils/constants";
+import SingleProduct from "../../components/Models/SingleProduct";
 
 const handler = async (req, res) => {
   const response = await axios.get(url);
@@ -13,7 +14,11 @@ const handler = async (req, res) => {
   };
   generateShipping(products);
 
+  // const resp = await axios.get(`${single_product_url}recm7wC8TBVdU9oEL`);
+  // const product = resp.data;
+
   await db.connect();
+
   await User.deleteMany();
   await User.insertMany(data.users);
   if (products) {
@@ -21,6 +26,6 @@ const handler = async (req, res) => {
     await Product.insertMany(products);
   }
   db.disconnect();
-  res.send({ message: "seeded successfully", products, data });
+  res.status(201).send({ message: "seeded successfully" });
 };
 export default handler;

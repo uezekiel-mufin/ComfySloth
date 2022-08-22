@@ -1,4 +1,9 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,21 +14,15 @@ import { BiCheck } from "react-icons/bi";
 import { formatPrice } from "../../utils/helpers";
 import Stars from "../../components/Stars";
 import { addToCart, removeFromCart } from "../../Slices/cartSlice";
+import axios from "axios";
+import db from "../../utils/db";
+import SingleProduct from "../../components/Models/SingleProduct";
 
-const SingleProduct = () => {
-  const [quantityOrdered, setQuantityOrdered] = useState(1);
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const { id } = router.query;
-
-  useEffect(() => {
-    dispatch(fetchProduct(id));
-  }, []);
-
-  const product = useSelector((state) => state.productSlice.product);
-  const cart = useSelector((state) => state.cartSlice.cart.cartItems);
-  console.log(cart);
-  console.log(product);
+const SingleProductPage = ({ product }) => {
+  // const product = useSelector((state) => state.productSlice.product);
+  // const cart = useSelector((state) => state.cartSlice.cart.cartItems);
+  // console.log(cart);
+  // console.log(product);
   const {
     images,
     name,
@@ -39,6 +38,21 @@ const SingleProduct = () => {
     stock,
     reviews,
   } = product;
+  const [quantityOrdered, setQuantityOrdered] = useState(1);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { id } = router.query;
+
+  const sendId = useCallback(async () => {
+    const response = await axios.post(`/api/seed`, { id });
+    const { data } = await response;
+    console.log(data.product);
+  }, [product]);
+
+  useEffect(() => {
+    dispatch(fetchProduct(id));
+    sendId();
+  }, []);
 
   const [viewImage, setViewImage] = useState("/hero-bcg.jpeg");
   useLayoutEffect(() => {
@@ -151,19 +165,19 @@ const SingleProduct = () => {
   );
 };
 
-export default SingleProduct;
+export default SingleProductPage;
 
-// export async function getServerSideProps(context) {
-//   const { slug } = context.params;
-//   await db.connect();
-//   const product = await Product.findOne({ slug }).lean();
-//   await db.disconnect();
-//   return {
-//     props: {
-//       product: product ? db.convertDocToObj(product) : null,
-//     },
-//   };
-// }
+export async function getServerSideProps(context) {
+  const { id } = context.params;
+  await db.connect();
+  const product = await SingleProduct.findOne({ id }).lean();
+  await db.disconnect();
+  return {
+    props: {
+      product: product ? db.convertDocToObj(product) : null,
+    },
+  };
+}
 
 // export const getServerSideProps = wrapper.getServerSideProps(
 //   (store) => async (context) => {
