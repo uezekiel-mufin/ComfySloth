@@ -17,10 +17,8 @@ const singleProductSchema = new mongoose.Schema(
     stars: { type: Number, required: true },
   },
   {
-    timestamps: true,
+    timestamps: false,
   }
 );
-const SingleProduct =
-  mongoose.models.SingleProduct ||
-  mongoose.model("SingleProduct", singleProductSchema);
+const SingleProduct = mongoose.model.SingleProduct;
 export default SingleProduct;

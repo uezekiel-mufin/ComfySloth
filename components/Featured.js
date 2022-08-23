@@ -46,7 +46,7 @@ const Featured = () => {
                 className='rounded-lg hover:brightness-50  transition-all duration-300 ease-linear'
               />
 
-              <Link href={`products/${item.id}`}>
+              <Link href={`/products/${item.id}`}>
                 <a className='absolute top-0  right-0 flex justify-center transition-all duration-300 ease-linear items-center w-full h-full text-4xl opacity-5 hover:opacity-100 hover:bg-none '>
                   <FcSearch />
                 </a>

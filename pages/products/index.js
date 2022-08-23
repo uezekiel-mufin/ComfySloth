@@ -1,30 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
-import db from "../../utils/db";
-import Product from "../../components/Models/Products";
+import { wrapper } from "../../app/Store";
+import { fetchProducts } from "../../Slices/productSlice";
 
-const Products = ({ products }) => {
-  // const products = useSelector((state) => state.productSlice.products);
+const Products = () => {
+  const products = useSelector((state) => state.productSlice.products);
+  const state = useSelector((state) => state.productSlice);
   console.log(products);
+  console.log(state);
+  const dispatch = useDispatch();
+
+  // const fetchProducts = async () => {
+  //   await db.connect();
+  //   const products = await Product.find().lean();
+  //   await db.disconnect();
+  //   console.log(products);
+  // };
+
+  // fetchProducts();
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
   return (
     <div>
-      <Layout title='products'>
-        
-      </Layout>
+      <Layout title='products'></Layout>
     </div>
   );
 };
 
 export default Products;
 
-export async function getServerSideProps() {
-  db.connect();
-  const products = await Product.find().lean();
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    console.log(context);
+    store.dispatch(fetchProducts());
 
-  return {
-    props: {
-      products: products.map(db.convertDocToObj),
-    },
-  };
-}
+    return {
+      props: {},
+    };
+  }
+);

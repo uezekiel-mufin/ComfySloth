@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { products_url as url, single_product_url } from "../utils/constants";
 import axios from "axios";
+import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   isMenu: false,
@@ -14,19 +15,18 @@ const initialState = {
   featured_products: [],
 };
 
-export const fetchProducts = createAsyncThunk(
-  "products/fetchProducts",
-  async () => {
-    const resp = await axios.get(url);
-    return resp.data;
-  }
-);
-
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
   async (id) => {
-    const resp = await axios.get(`${single_product_url}${id}`);
-    return resp.data;
+    const response = await axios.get(`${single_product_url}${id}`);
+    return response.data;
+  }
+);
+export const fetchProducts = createAsyncThunk(
+  "product/fetchProducts",
+  async () => {
+    const response = await axios.get(`${url}`);
+    return response.data;
   }
 );
 
@@ -66,6 +66,16 @@ const productSlice = createSlice({
       (state.product_loading = false),
         (state.product = {}),
         (state.product_error = "There was an error fetching this Product");
+    });
+    builder.addCase([HYDRATE], (state, action) => {
+      state.product = action.payload.products.product;
+      state.featured_products = action.payload.products.featured_products;
+      state.products = action.payload.products.products;
+      state.isMenu = action.payload.products.isMenu;
+      state.product_loading = action.payload.products.product_loading;
+      state.products_loading = action.payload.products.products_loading;
+      state.products_error = action.payload.products.products_error;
+      state.product_error = action.payload.products.product_error;
     });
   },
 });

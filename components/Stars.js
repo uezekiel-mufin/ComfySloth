@@ -5,9 +5,7 @@ import { BsStarFill } from "react-icons/bs";
 
 const Stars = ({ stars }) => {
   const tempNumber = [...new Array(5).keys()];
-  console.log(tempNumber);
-  //   const tempNumber = [...new Array(5)];
-  console.log(stars);
+
   return (
     <div className='flex '>
       {tempNumber.map((numb) => (

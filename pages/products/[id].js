@@ -17,12 +17,12 @@ import { addToCart, removeFromCart } from "../../Slices/cartSlice";
 import axios from "axios";
 import db from "../../utils/db";
 import SingleProduct from "../../components/Models/SingleProduct";
+import { wrapper } from "../../app/Store";
 
-const SingleProductPage = ({ product }) => {
-  // const product = useSelector((state) => state.productSlice.product);
-  // const cart = useSelector((state) => state.cartSlice.cart.cartItems);
-  // console.log(cart);
-  // console.log(product);
+const SingleProductPage = () => {
+  const product = useSelector((state) => state.productSlice.product);
+  const cart = useSelector((state) => state.cartSlice.cart.cartItems);
+
   const {
     images,
     name,
@@ -43,19 +43,12 @@ const SingleProductPage = ({ product }) => {
   const router = useRouter();
   const { id } = router.query;
 
-  const sendId = useCallback(async () => {
-    const response = await axios.post(`/api/seed`, { id });
-    const { data } = await response;
-    console.log(data.product);
-  }, [product]);
-
   useEffect(() => {
     dispatch(fetchProduct(id));
-    sendId();
   }, []);
 
   const [viewImage, setViewImage] = useState("/hero-bcg.jpeg");
-  useLayoutEffect(() => {
+  useEffect(() => {
     images && setViewImage(images[0].url);
   }, [images]);
 
@@ -167,25 +160,28 @@ const SingleProductPage = ({ product }) => {
 
 export default SingleProductPage;
 
-export async function getServerSideProps(context) {
-  const { id } = context.params;
-  await db.connect();
-  const product = await SingleProduct.findOne({ id }).lean();
-  await db.disconnect();
-  return {
-    props: {
-      product: product ? db.convertDocToObj(product) : null,
-    },
-  };
-}
+// export async function getServerSideProps(context) {
+//   const { id } = context.params;
+//   await db.connect();
+//   const product = await SingleProduct.findOne({ id }).lean();
+//   await db.disconnect();
+//   return {
+//     props: {
+//       product: product ? db.convertDocToObj(product) : null,
+//     },
+//   };
+// }
 
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   (store) => async (context) => {
-//     const id = context.params?.id;
-//     store.dispatch(fetchProduct(id));
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    ({ query }) => {
+      const id = query.id;
+      console.log(query);
+      console.log(id);
+      id && store.dispatch(fetchProduct(`${id}`));
 
-//     return {
-//       props: {},
-//     };
-//   }
-// );
+      return {
+        props: {},
+      };
+    }
+);
