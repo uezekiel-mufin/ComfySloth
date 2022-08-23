@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
+import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   cart: Cookies.get("cart")
@@ -27,6 +28,22 @@ const cartSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+    quantityUpdate: (state, action) => {
+      const item = state.cart.cartItems.find(
+        (product) => product.id === action.payload.id
+      );
+      item.quantity = action.payload.quantity;
+    },
+    deleteItem: (state, action) => {
+      state.cart.cartItems = state.cart.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
+    },
+    extraReducers: {
+      [HYDRATE]: (state, action) => {
+        state.cart.cartItems = action.payload.cart.cart.cartItems;
+      },
+    },
   },
   //   increaseQty: (state, action) => {
   //     const item = action.payload.product;
@@ -39,4 +56,5 @@ const cartSlice = createSlice({
 });
 
 export default cartSlice.reducer;
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, quantityUpdate, deleteItem } =
+  cartSlice.actions;
