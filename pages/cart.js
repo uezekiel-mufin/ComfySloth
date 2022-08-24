@@ -5,10 +5,19 @@ import HeroSection from "../components/HeroSection";
 import CartTable from "../components/cart/cartTable";
 import CartSummary from "../components/cart/cartSummary";
 import Link from "next/link";
+import { clearShoppingCart } from "../Slices/cartSlice";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
-  console.log(cart);
+  const state = useSelector((state) => state.cartSlice.cart);
+  const dispatch = useDispatch();
+
+  const handleClearShoppingCart = () => {
+    console.log(cart);
+    dispatch(clearShoppingCart());
+    console.log(cart);
+    console.log(state);
+  };
 
   return (
     <Layout title='cart'>
@@ -35,7 +44,10 @@ const Cart = () => {
                 </button>
               </a>
             </Link>
-            <button className='bg-[#222] tracking-widest px-2 md:px-4  py-2 text-white  md:text-xl text-base rounded-md'>
+            <button
+              className='bg-[#222] tracking-widest px-2 md:px-4  py-2 text-white  md:text-xl text-base rounded-md'
+              onClick={() => handleClearShoppingCart()}
+            >
               Clear Shopping cart
             </button>
           </div>

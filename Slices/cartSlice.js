@@ -4,9 +4,7 @@ import Cookies from "js-cookie";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
-  cart: Cookies.get("cart")
-    ? JSON.parse(Cookies.get("cart"))
-    : { cartItems: [], shippingAddress: {} },
+  cart: { cartItems: [], shippingAddress: {} },
 };
 
 const cartSlice = createSlice({
@@ -34,23 +32,24 @@ const cartSlice = createSlice({
       );
       item.quantity = action.payload.quantity;
     },
-
-    extraReducers: {
-      [HYDRATE]: (state, action) => {
-        state.cart.cartItems = action.payload.cart.cart.cartItems;
-      },
+    clearShoppingCart: (state, action) => {
+      state.cart.cartItems = [];
+      state.cart.shippingAddress = {};
     },
+
+    // extraReducers: (builder) => {
+    //   builder.addCase(clearShoppingCart, (state, action) => {
+    //     state.cart.cartItems = [];
+    //   });
+    // },
   },
-  //   increaseQty: (state, action) => {
-  //     const item = action.payload.product;
-  //     const quantity = action.payload.quantity;
-  //     const currentItem = state.cart.cartItems.find(
-  //       (cartItem) => cartItem.id === item.id
-  //     );
-  //     currentItem.quantity = quantity;
-  //   },
 });
 
 export default cartSlice.reducer;
-export const { addToCart, removeFromCart, quantityUpdate, deleteItem } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  quantityUpdate,
+  deleteItem,
+  clearShoppingCart,
+} = cartSlice.actions;

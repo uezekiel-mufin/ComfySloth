@@ -19,7 +19,6 @@ const CartTable = () => {
 
   const selectItems = (num) => {
     const arrItems = [...new Array(num).keys()];
-
     return arrItems;
   };
 
@@ -27,16 +26,12 @@ const CartTable = () => {
     e.preventDefault();
     const newQty = Number(e.target.value);
     const quantity = newQty > item.stock ? item.quantity : newQty;
-    console.log(+e.target.value, item);
     dispatch(quantityUpdate({ ...item, quantity }));
-    console.log(+e.target.value, item);
   };
 
   const handleDelete = (e, item) => {
     const id = item.id;
     dispatch(removeFromCart(id));
-    console.log({ ...item });
-    console.log("deleted");
   };
   return (
     <div className='px-4 py-10 md:px-28'>
@@ -88,8 +83,8 @@ const CartTable = () => {
                   {selectItems(item.stock + 1)
                     .slice(1)
                     .map((item) => (
-                      <option key={item} value={item}>
-                        <span className='font-bold'> {item}</span>
+                      <option key={item} value={item} className='font-bold'>
+                        {item}
                       </option>
                     ))}
                 </select>
