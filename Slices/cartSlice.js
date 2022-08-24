@@ -34,11 +34,7 @@ const cartSlice = createSlice({
       );
       item.quantity = action.payload.quantity;
     },
-    deleteItem: (state, action) => {
-      state.cart.cartItems = state.cart.cartItems.filter(
-        (item) => item.id !== action.payload.id
-      );
-    },
+
     extraReducers: {
       [HYDRATE]: (state, action) => {
         state.cart.cartItems = action.payload.cart.cart.cartItems;

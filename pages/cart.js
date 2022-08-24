@@ -14,23 +14,32 @@ const Cart = () => {
     <Layout title='cart'>
       <HeroSection title='cart' />
       {cart.length < 1 ? (
-        <h1>
+        <h3 className='p-10'>
           Shopping cart is empty,{" "}
           <Link href='/products'>
-            <a>Go Shopping</a>
+            <a className='text-blue-500 hover:text-red-500 font-semibold'>
+              Go Shopping
+            </a>
           </Link>
-        </h1>
+        </h3>
       ) : (
         <div>
-          <CartTable cartItems={cart} />
-          <div>
-            <button>Continue Shopping</button>
-            <button>Clear Shopping cart</button>
+          <div className='overflow-scroll lg:overflow-hidden'>
+            <CartTable cartItems={cart} />
+          </div>
+          <div className='flex justify-between px-5 lg:px-28 font-normal mt-4 '>
+            <Link href='/products'>
+              <a>
+                <button className='bg-[#ab7a5f] tracking-widest px-2 md:px-4  py-2 text-white  md:text-xl text-base rounded-md'>
+                  Continue Shopping
+                </button>
+              </a>
+            </Link>
+            <button className='bg-[#222] tracking-widest px-2 md:px-4  py-2 text-white  md:text-xl text-base rounded-md'>
+              Clear Shopping cart
+            </button>
           </div>
           <CartSummary cartItems={cart} />
-          <div>
-            <button>login</button>
-          </div>
         </div>
       )}
     </Layout>

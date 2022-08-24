@@ -18,6 +18,8 @@ import axios from "axios";
 import db from "../../utils/db";
 import SingleProduct from "../../components/Models/SingleProduct";
 import { wrapper } from "../../app/Store";
+import { FiMinus } from "react-icons/fi";
+import { HiPlusSm } from "react-icons/hi";
 
 const SingleProductPage = () => {
   const product = useSelector((state) => state.productSlice.product);
@@ -128,12 +130,35 @@ const SingleProductPage = () => {
               </div>
 
               <div className='flex gap-8 items-center flex-1'>
-                <button onClick={() => setQuantityOrdered(quantityOrdered - 1)}>
-                  -
+                <button
+                  onClick={() =>
+                    setQuantityOrdered(() => {
+                      if (quantityOrdered === 1) {
+                        return quantityOrdered;
+                      }
+                      if (quantityOrdered > 1) {
+                        return quantityOrdered - 1;
+                      }
+                    })
+                  }
+                >
+                  <FiMinus />
                 </button>
                 <h3>{quantityOrdered}</h3>
-                <button onClick={() => setQuantityOrdered(quantityOrdered + 1)}>
-                  +
+                <button
+                  onClick={() =>
+                    setQuantityOrdered(() => {
+                      if (quantityOrdered >= stock) {
+                        alert("You have exceeded the number of items in stock");
+                        return quantityOrdered;
+                      }
+                      if (quantityOrdered < stock) {
+                        return quantityOrdered + 1;
+                      }
+                    })
+                  }
+                >
+                  <HiPlusSm />
                 </button>
               </div>
               <div>
