@@ -27,11 +27,11 @@ const Products = () => {
     <div>
       <Layout title='products'>
         <HeroSection title='products' />
-        <div className=' productPageView md:p-2 mt-20'>
+        <div className=' productPageView md:p-16 mt-20'>
           <div>
             <ProductFilters />
           </div>
-          <div className='px-16 '>
+          <div className=' '>
             <div>
               <ProductsSorts />
             </div>

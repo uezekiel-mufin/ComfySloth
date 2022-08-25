@@ -39,6 +39,20 @@ export const services = [
   },
 ];
 
+export const categories = [
+  "All",
+  "Office",
+  "Living room",
+  "Kitchen",
+  "Bedroom",
+  "Dinning",
+  "Kids",
+];
+
+export const companies = ["All", "Marcos", "Liddy", "Ikea", "Caressa"];
+
+export const colors = ["#ffb900", "#000", "#0000ff", "#ff0000", "#00ff00"];
+
 export const products_url = "https://course-api.com/react-store-products";
 
 export const single_product_url = `https://course-api.com/react-store-single-product?id=`;
