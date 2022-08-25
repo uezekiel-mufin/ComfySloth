@@ -7,32 +7,40 @@ import ProductFilters from "../../components/ProductFilters";
 import ProductsSorts from "../../components/ProductsSorts";
 import ProductsGridView from "../../components/ProductsGridView";
 import ProductsListView from "../../components/ProductsListView";
+import HeroSection from "../../components/HeroSection";
 
 const Products = () => {
   const products = useSelector((state) => state.productSlice.products);
   const state = useSelector((state) => state.productSlice);
+  const grid_view = useSelector((state) => state.productSlice.grid_view);
+  const list_view = useSelector((state) => state.productSlice.list_view);
+
   console.log(products);
   console.log(state);
+  console.log(grid_view, list_view);
   const dispatch = useDispatch();
 
-  // const fetchProducts = async () => {
-  //   await db.connect();
-  //   const products = await Product.find().lean();
-  //   await db.disconnect();
-  //   console.log(products);
-  // };
-
-  // fetchProducts();
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
   return (
     <div>
       <Layout title='products'>
-        <ProductFilters />
-        <ProductsSorts />
-        <ProductsGridView />
-        <ProductsListView />
+        <HeroSection title='products' />
+        <div className=' productPageView md:p-2 mt-20'>
+          <div>
+            <ProductFilters />
+          </div>
+          <div className='px-16 '>
+            <div>
+              <ProductsSorts />
+            </div>
+            <div>
+              {grid_view && <ProductsGridView />}
+              {list_view && <ProductsListView />}
+            </div>
+          </div>
+        </div>
       </Layout>
     </div>
   );

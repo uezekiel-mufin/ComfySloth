@@ -140,3 +140,12 @@ p {
 .after {
   @apply before:absolute before:-left-[8%] before:h-4/5 before:mb-4 before:w-1/12 before:bottom-0 before:rounded-md;
 }
+
+.productPageView {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+.viewActive {
+  @apply bg-black text-white;
+}

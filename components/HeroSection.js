@@ -13,7 +13,7 @@ const HeroSection = ({ title, singleProduct }) => {
           <h4>products</h4>
         </a>
       </Link>
-      &nbsp;/&nbsp; {singleProduct && <h4>{singleProduct.name}</h4>}
+      {singleProduct && <h4> &nbsp;/&nbsp;{singleProduct.name}</h4>}
     </div>
   );
 };

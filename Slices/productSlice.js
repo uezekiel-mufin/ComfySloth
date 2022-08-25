@@ -13,6 +13,8 @@ const initialState = {
   product_error: "",
   product: {},
   featured_products: [],
+  grid_view: true,
+  list_view: false,
 };
 
 export const fetchProduct = createAsyncThunk(
@@ -36,6 +38,14 @@ const productSlice = createSlice({
   reducers: {
     menuState: (state) => {
       state.isMenu = !state.isMenu;
+    },
+    gridView: (state) => {
+      state.grid_view = true;
+      state.list_view = false;
+    },
+    listView: (state) => {
+      state.grid_view = false;
+      state.list_view = true;
     },
   },
   extraReducers: (builder) => {
@@ -81,4 +91,4 @@ const productSlice = createSlice({
 });
 
 export default productSlice.reducer;
-export const { menuState } = productSlice.actions;
+export const { menuState, gridView, listView } = productSlice.actions;
