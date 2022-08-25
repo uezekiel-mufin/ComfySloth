@@ -2,7 +2,14 @@ import React from "react";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListUl } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { listView, gridView } from "../Slices/productSlice";
+import {
+  listView,
+  gridView,
+  sortByHighest,
+  sortByLowest,
+  sortByName,
+  sortByReverseName,
+} from "../Slices/productSlice";
 
 const ProductsSorts = () => {
   const dispatch = useDispatch();
@@ -11,6 +18,22 @@ const ProductsSorts = () => {
   const list_view = useSelector((state) => state.productSlice.list_view);
 
   console.log(products.length);
+  const handleSort = (e) => {
+    console.log(e.target.value);
+    const target_value = e.target.value;
+    if (target_value === "price-lowest") {
+      dispatch(sortByLowest(products));
+    }
+    if (target_value === "price-highest") {
+      dispatch(sortByHighest(products));
+    }
+    if (target_value === "name-a") {
+      dispatch(sortByName());
+    }
+    if (target_value === "name-z") {
+      dispatch(sortByReverseName());
+    }
+  };
   return (
     <div className='flex flex-col gap-2 md:flex-row px-4 md:p-2 '>
       <div className='flex items-center gap-2'>
@@ -49,7 +72,8 @@ const ProductsSorts = () => {
         <select
           name='sort'
           id='sort '
-          className='capitalize text-base md:text-2xl font-semibold'
+          className='capitalize text-base md:text-2xl font-semibold focus:border-none'
+          onChange={(e) => handleSort(e)}
         >
           <option value='price-lowest'>price&nbsp;(Lowest)</option>
           <option value='price-highest'>price&nbsp;(Highest)</option>

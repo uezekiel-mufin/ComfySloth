@@ -47,6 +47,34 @@ const productSlice = createSlice({
       state.grid_view = false;
       state.list_view = true;
     },
+    sortByLowest: (state, action) => {
+      state.products = state.products.sort((a, b) => {
+        if (a.price > b.price) return 1;
+        if (a.price < b.price) return -1;
+      });
+    },
+    sortByHighest: (state, action) => {
+      state.products = state.products.sort((a, b) => {
+        if (a.price > b.price) return -1;
+        if (a.price < b.price) return 1;
+      });
+    },
+    sortByName: (state, action) => {
+      state.products = state.products.sort((a, b) => {
+        const nameA = a.name;
+        const nameB = b.name;
+        if (nameA > nameB) return 1;
+        if (nameA < nameB) return -1;
+      });
+    },
+    sortByReverseName: (state, action) => {
+      state.products = state.products.sort((a, b) => {
+        const nameA = a.name;
+        const nameB = b.name;
+        if (nameA > nameB) return -1;
+        if (nameA < nameB) return 1;
+      });
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
@@ -91,4 +119,12 @@ const productSlice = createSlice({
 });
 
 export default productSlice.reducer;
-export const { menuState, gridView, listView } = productSlice.actions;
+export const {
+  menuState,
+  gridView,
+  listView,
+  sortByHighest,
+  sortByLowest,
+  sortByName,
+  sortByReverseName,
+} = productSlice.actions;
