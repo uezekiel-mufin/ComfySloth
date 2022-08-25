@@ -26,6 +26,7 @@ const cartSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+
     quantityUpdate: (state, action) => {
       const item = state.cart.cartItems.find(
         (product) => product.id === action.payload.id
@@ -33,15 +34,8 @@ const cartSlice = createSlice({
       item.quantity = action.payload.quantity;
     },
     clearShoppingCart: (state, action) => {
-      state.cart.cartItems = [];
-      state.cart.shippingAddress = {};
+      return initialState;
     },
-
-    // extraReducers: (builder) => {
-    //   builder.addCase(clearShoppingCart, (state, action) => {
-    //     state.cart.cartItems = [];
-    //   });
-    // },
   },
 });
 

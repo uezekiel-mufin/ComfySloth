@@ -3,6 +3,10 @@ import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { wrapper } from "../../app/Store";
 import { fetchProducts } from "../../Slices/productSlice";
+import ProductFilters from "../../components/ProductFilters";
+import ProductsSorts from "../../components/ProductsSorts";
+import ProductsGridView from "../../components/ProductsGridView";
+import ProductsListView from "../../components/ProductsListView";
 
 const Products = () => {
   const products = useSelector((state) => state.productSlice.products);
@@ -24,7 +28,12 @@ const Products = () => {
   }, []);
   return (
     <div>
-      <Layout title='products'></Layout>
+      <Layout title='products'>
+        <ProductFilters />
+        <ProductsSorts />
+        <ProductsGridView />
+        <ProductsListView />
+      </Layout>
     </div>
   );
 };

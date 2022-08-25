@@ -33,7 +33,7 @@ const Cart = () => {
         </h3>
       ) : (
         <div>
-          <div className='overflow-scroll lg:overflow-hidden'>
+          <div className='overflow-auto'>
             <CartTable cartItems={cart} />
           </div>
           <div className='flex justify-between px-5 lg:px-28 font-normal mt-4 '>

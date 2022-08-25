@@ -20,6 +20,7 @@ import SingleProduct from "../../components/Models/SingleProduct";
 import { wrapper } from "../../app/Store";
 import { FiMinus } from "react-icons/fi";
 import { HiPlusSm } from "react-icons/hi";
+import { BiCircle } from "react-icons/bi";
 
 const SingleProductPage = () => {
   const product = useSelector((state) => state.productSlice.product);
@@ -53,6 +54,14 @@ const SingleProductPage = () => {
   useEffect(() => {
     images && setViewImage(images[0].url);
   }, [images]);
+
+  const [selectedColor, setSelectedColor] = useState("");
+  const handleColorSet = (color) => {
+    setSelectedColor(color);
+    console.log(selectedColor);
+    console.log(product);
+  };
+  console.log(product);
 
   return (
     <div>
@@ -115,15 +124,29 @@ const SingleProductPage = () => {
                     <span
                       key={color}
                       className={` flex justify-center rounded-full text-white  items-center `}
+                      onClick={() => handleColorSet(color)}
                     >
-                      <BiCheck
-                        style={{
-                          background: color,
-                          height: "1.5rem",
-                          width: "1.5rem",
-                          borderRadius: "50%",
-                        }}
-                      />
+                      {selectedColor === color ? (
+                        <BiCheck
+                          style={{
+                            background: color,
+                            height: "1.5rem",
+                            width: "1.5rem",
+                            borderRadius: "50%",
+                            opacity: 1,
+                          }}
+                        />
+                      ) : (
+                        <BiCircle
+                          style={{
+                            background: color,
+                            height: "1.5rem",
+                            width: "1.5rem",
+                            borderRadius: "50%",
+                            opacity: 0.5,
+                          }}
+                        />
+                      )}
                     </span>
                   ))}
                 </div>
@@ -167,7 +190,11 @@ const SingleProductPage = () => {
                     className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-6 md:px-12 tracking-widest rounded-md py-2 mt-4 md:py-4'
                     onClick={() =>
                       dispatch(
-                        addToCart({ ...product, quantity: quantityOrdered })
+                        addToCart({
+                          ...product,
+                          quantity: quantityOrdered,
+                          selectedColor,
+                        })
                       )
                     }
                   >

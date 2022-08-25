@@ -7,8 +7,13 @@ const HeroSection = ({ title, singleProduct }) => {
       <Link href='/'>
         <a className='text-[#795744]'>Home </a>
       </Link>
+      &nbsp;/&nbsp;
+      <Link href={`/products`}>
+        <a>
+          <h4>products</h4>
+        </a>
+      </Link>
       &nbsp;/&nbsp; {singleProduct && <h4>{singleProduct.name}</h4>}
-      {title}
     </div>
   );
 };

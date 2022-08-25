@@ -1,16 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  quantityUpdate,
-  deleteItem,
-  removeFromCart,
-} from "../../Slices/cartSlice";
+import { quantityUpdate, removeFromCart } from "../../Slices/cartSlice";
 import { formatPrice } from "../../utils/helpers";
 import { AiOutlineDelete } from "react-icons/ai";
 
 import Image from "next/image";
 import Link from "next/link";
 import { FcSearch } from "react-icons/fc";
+import { BiCheck } from "react-icons/bi";
 
 const CartTable = () => {
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
@@ -64,10 +61,22 @@ const CartTable = () => {
                     </a>
                   </Link>
                 </div>
-                <div className='flex items-center flex-col justify-center '>
+                <div className='flex flex-col justify-center '>
                   <h4 className='font-bold'>{item.name}</h4>
-                  <span>
-                    Color: <div className={`h-5 w-5 bg-[${item.colors[0]}]`} />{" "}
+                  <span className='flex gap-4 text-xl font-semibold'>
+                    Color:
+                    <span
+                      className={` flex justify-center rounded-full text-white  items-center `}
+                    >
+                      <BiCheck
+                        style={{
+                          background: item.selectedColor,
+                          height: "1.5rem",
+                          width: "1.5rem",
+                          borderRadius: "50%",
+                        }}
+                      />
+                    </span>
                   </span>
                 </div>
               </td>
