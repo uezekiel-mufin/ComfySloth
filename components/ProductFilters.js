@@ -6,7 +6,11 @@ import { colors } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { RangeStepInput } from "react-range-step-input";
 import { formatPrice } from "../utils/helpers";
-import { fetchProducts, searchProducts } from "../Slices/productSlice";
+import {
+  fetchProducts,
+  searchProducts,
+  searchProductsByCategory,
+} from "../Slices/productSlice";
 
 const ProductFilters = () => {
   const products = useSelector((state) => state.productSlice.filtered_products);
@@ -34,6 +38,12 @@ const ProductFilters = () => {
     dispatch(searchProducts(e.target.value));
   };
 
+  const handleCategory = (e, category) => {
+    e.preventDefault();
+    console.log(category);
+    dispatch(searchProductsByCategory(category));
+  };
+
   // useEffect(() => {
   //   dispatch(fetchProducts());
   // }, [searchTerm]);
@@ -54,8 +64,9 @@ const ProductFilters = () => {
             <li
               key={index}
               className='mb-2 text-xl tracking-widest font-normal'
+              onClick={(e) => handleCategory(e, category)}
             >
-              {category}
+              <button className='capitalize'>{category}</button>
             </li>
           ))}
         </ul>

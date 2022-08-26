@@ -40,13 +40,13 @@ export const services = [
 ];
 
 export const categories = [
-  "All",
-  "Office",
-  "Living room",
-  "Kitchen",
-  "Bedroom",
-  "Dinning",
-  "Kids",
+  "all",
+  "office",
+  "living room",
+  "kitchen",
+  "bedroom",
+  "dinning",
+  "kids",
 ];
 
 export const companies = ["All", "Marcos", "Liddy", "Ikea", "Caressa"];

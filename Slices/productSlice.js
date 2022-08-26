@@ -81,6 +81,18 @@ const productSlice = createSlice({
         product.name.includes(action.payload)
       );
     },
+    searchProductsByCategory: (state, action) => {
+      if (action.payload === "all") {
+        state.filtered_products = state.products.filter(
+          (product) => product.category !== "all"
+        );
+      } else {
+        state.filtered_products = state.products.filter(
+          (product) =>
+            product.category === action.payload && action.payload !== "all"
+        );
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
@@ -135,4 +147,5 @@ export const {
   sortByName,
   sortByReverseName,
   searchProducts,
+  searchProductsByCategory,
 } = productSlice.actions;
