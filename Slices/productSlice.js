@@ -119,6 +119,15 @@ const productSlice = createSlice({
         (product) => product.price >= 0 && product.price <= action.payload
       );
     },
+    searchByFreeShipping: (state, action) => {
+      if (action.payload === "not_checked") {
+        state.filtered_products = [...state.products];
+      } else {
+        state.filtered_products = state.products.filter(
+          (product) => product.shipping === true
+        );
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
@@ -177,4 +186,5 @@ export const {
   searchProductsByCompany,
   searchProductsByColor,
   searchProductsByPrice,
+  searchByFreeShipping,
 } = productSlice.actions;

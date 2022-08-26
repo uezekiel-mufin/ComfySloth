@@ -8,6 +8,7 @@ import { RangeStepInput } from "react-range-step-input";
 import { formatPrice } from "../utils/helpers";
 import {
   fetchProducts,
+  searchByFreeShipping,
   searchProducts,
   searchProductsByCategory,
   searchProductsByColor,
@@ -160,7 +161,16 @@ const ProductFilters = () => {
       </div>
       <div className='flex gap-4 items-end p-2'>
         <h4 className='font-bold mb-0 text-2xl'>Free Shipping</h4>
-        <input type='checkbox' className='h-5 w-5 flex items-end' />
+        <input
+          type='checkbox'
+          className='h-5 w-5 flex items-end'
+          value='free-shipping'
+          onChange={(e) => {
+            console.log(e.target.value);
+            e.target.checked && dispatch(searchByFreeShipping(e.target.value));
+            !e.target.checked && dispatch(searchByFreeShipping("not_checked"));
+          }}
+        />
       </div>
       <div>
         <button className='bg-[#ab7a5f] w-3/5 transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-2  tracking-widest rounded-md py-2 '>
