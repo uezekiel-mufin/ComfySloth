@@ -5,7 +5,8 @@ import { FcSearch } from "react-icons/fc";
 import { useSelector, useDispatch } from "react-redux";
 import { formatPrice } from "../utils/helpers";
 const ProductsGridView = () => {
-  const products = useSelector((state) => state.productSlice.products);
+  const products = useSelector((state) => state.productSlice.filtered_products);
+
   const loading = useSelector((state) => state.productSlice.products_loading);
   const error = useSelector((state) => state.productSlice.products_error);
   return (

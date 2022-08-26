@@ -13,13 +13,12 @@ import {
 
 const ProductsSorts = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.productSlice.products);
+  const products = useSelector((state) => state.productSlice.filtered_products);
   const grid_view = useSelector((state) => state.productSlice.grid_view);
   const list_view = useSelector((state) => state.productSlice.list_view);
 
-  console.log(products.length);
+  console.log(products);
   const handleSort = (e) => {
-    console.log(e.target.value);
     const target_value = e.target.value;
     if (target_value === "price-lowest") {
       dispatch(sortByLowest(products));

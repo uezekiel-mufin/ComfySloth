@@ -13,6 +13,7 @@ const initialState = {
   product_error: "",
   product: {},
   featured_products: [],
+  filtered_products: [],
   grid_view: true,
   list_view: false,
 };
@@ -48,19 +49,19 @@ const productSlice = createSlice({
       state.list_view = true;
     },
     sortByLowest: (state, action) => {
-      state.products = state.products.sort((a, b) => {
+      state.filtered_products = state.filtered_products.sort((a, b) => {
         if (a.price > b.price) return 1;
         if (a.price < b.price) return -1;
       });
     },
     sortByHighest: (state, action) => {
-      state.products = state.products.sort((a, b) => {
+      state.filtered_products = state.filtered_products.sort((a, b) => {
         if (a.price > b.price) return -1;
         if (a.price < b.price) return 1;
       });
     },
     sortByName: (state, action) => {
-      state.products = state.products.sort((a, b) => {
+      state.filtered_products = state.filtered_products.sort((a, b) => {
         const nameA = a.name;
         const nameB = b.name;
         if (nameA > nameB) return 1;
@@ -68,12 +69,17 @@ const productSlice = createSlice({
       });
     },
     sortByReverseName: (state, action) => {
-      state.products = state.products.sort((a, b) => {
+      state.filtered_products = state.filtered_products.sort((a, b) => {
         const nameA = a.name;
         const nameB = b.name;
         if (nameA > nameB) return -1;
         if (nameA < nameB) return 1;
       });
+    },
+    searchProducts: (state, action) => {
+      state.filtered_products = state.products.filter((product) =>
+        product.name.includes(action.payload)
+      );
     },
   },
   extraReducers: (builder) => {
@@ -83,6 +89,7 @@ const productSlice = createSlice({
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       (state.products_loading = false),
         (state.products = action.payload),
+        (state.filtered_products = action.payload),
         (state.featured_products = action.payload.filter(
           (product) => product.featured === true
         ));
@@ -127,4 +134,5 @@ export const {
   sortByLowest,
   sortByName,
   sortByReverseName,
+  searchProducts,
 } = productSlice.actions;
