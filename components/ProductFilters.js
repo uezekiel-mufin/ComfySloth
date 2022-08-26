@@ -10,14 +10,19 @@ import {
   fetchProducts,
   searchProducts,
   searchProductsByCategory,
+  searchProductsByColor,
+  searchProductsByCompany,
+  searchProductsByPrice,
 } from "../Slices/productSlice";
 
 const ProductFilters = () => {
   const products = useSelector((state) => state.productSlice.filtered_products);
   const dispatch = useDispatch();
   const [filterColor, setFilterColor] = useState("");
+  const [filterPrice, setFilterPrice] = useState(1);
 
   //calculating the highest price in an array. extract the prices first and then reduce them using the resuce method
+
   const highestPrice =
     products.length > 1 &&
     products
@@ -26,27 +31,37 @@ const ProductFilters = () => {
         if (cur > acc) return cur;
         if (acc > cur) return acc;
       }, 0);
-  const [filterPrice, setFilterPrice] = useState(+highestPrice);
 
-  const handleFilterColor = (color) => {
+  const handleFilterColor = (e, color) => {
+    e.preventDefault();
     setFilterColor(color);
-    console.log(filterColor);
+    const caller = color ? color : e.target.value;
+    dispatch(searchProductsByColor(caller));
   };
 
   const handleSearchTerm = (e) => {
-    console.log(e.target.value);
     dispatch(searchProducts(e.target.value));
   };
 
   const handleCategory = (e, category) => {
     e.preventDefault();
-    console.log(category);
     dispatch(searchProductsByCategory(category));
   };
 
-  // useEffect(() => {
-  //   dispatch(fetchProducts());
-  // }, [searchTerm]);
+  const handleFilterByCompany = (e) => {
+    e.preventDefault();
+    const company = e.target.value;
+    dispatch(searchProductsByCompany(company));
+  };
+
+  const handlePriceChange = (e) => {
+    e.preventDefault();
+    console.log(highestPrice);
+    console.log(e.target.value);
+    setFilterPrice(Number(e.target.value));
+    console.log(filterPrice);
+    // dispatch(searchProductsByPrice(filterPrice));
+  };
   return (
     <form className='flex flex-col gap-8 '>
       <div>
@@ -77,6 +92,7 @@ const ProductFilters = () => {
           name='company'
           id='company'
           className='bg-[#f1f5f8] px-6 py-2 rounded-md lowercase text-xl'
+          onChange={(e) => handleFilterByCompany(e)}
         >
           {companies.map((company, index) => (
             <option value={company} key={index} className=''>
@@ -88,12 +104,18 @@ const ProductFilters = () => {
       <div>
         <h4 className='font-bold mb-4'>Colors</h4>
         <div className='flex gap-2 items-center'>
-          <p className='flex items-center mb-0 text-2xl'>All</p>
+          <button
+            className='flex items-center mb-0 text-2xl'
+            onClick={(e) => handleFilterColor(e, "all")}
+          >
+            all
+          </button>
+
           {colors.map((color) => (
-            <span
+            <button
               key={color}
               className={` flex justify-center rounded-full text-white  items-center `}
-              onClick={() => handleFilterColor(color)}
+              onClick={(e) => handleFilterColor(e, color)}
             >
               {filterColor === color ? (
                 <BiCheck
@@ -116,7 +138,7 @@ const ProductFilters = () => {
                   }}
                 />
               )}
-            </span>
+            </button>
           ))}
         </div>
       </div>
@@ -125,10 +147,14 @@ const ProductFilters = () => {
         <p className='text-xl tracking-widest'>{formatPrice(filterPrice)}</p>
         <RangeStepInput
           min={0}
-          max={highestPrice}
+          max={309999}
           value={filterPrice}
           step={1}
-          onChange={(e) => setFilterPrice(e.target.value)}
+          onChange={(e) => {
+            setFilterPrice(e.target.value);
+            dispatch(searchProductsByPrice(filterPrice));
+          }}
+          // onChange={(e) => handlePriceChange(e)}
           className='text-3xl'
         />
       </div>

@@ -17,7 +17,6 @@ const ProductsSorts = () => {
   const grid_view = useSelector((state) => state.productSlice.grid_view);
   const list_view = useSelector((state) => state.productSlice.list_view);
 
-  console.log(products);
   const handleSort = (e) => {
     const target_value = e.target.value;
     if (target_value === "price-lowest") {

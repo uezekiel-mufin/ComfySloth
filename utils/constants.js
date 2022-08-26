@@ -49,7 +49,7 @@ export const categories = [
   "kids",
 ];
 
-export const companies = ["All", "Marcos", "Liddy", "Ikea", "Caressa"];
+export const companies = ["all", "marcos", "liddy", "ikea", "caressa"];
 
 export const colors = ["#ffb900", "#000", "#0000ff", "#ff0000", "#00ff00"];
 

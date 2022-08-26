@@ -93,6 +93,32 @@ const productSlice = createSlice({
         );
       }
     },
+    searchProductsByCompany: (state, action) => {
+      if (action.payload === "all") {
+        state.filtered_products = state.products.filter(
+          (product) => product.company !== "all"
+        );
+      } else {
+        state.filtered_products = state.products.filter(
+          (product) =>
+            product.company === action.payload && action.payload !== "all"
+        );
+      }
+    },
+    searchProductsByColor: (state, action) => {
+      if (action.payload == "all") {
+        state.filtered_products = state.products.slice();
+      } else {
+        state.filtered_products = state.products.filter((product) =>
+          product.colors.includes(action.payload)
+        );
+      }
+    },
+    searchProductsByPrice: (state, action) => {
+      state.filtered_products = state.products.filter(
+        (product) => product.price >= 0 && product.price <= action.payload
+      );
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
@@ -148,4 +174,7 @@ export const {
   sortByReverseName,
   searchProducts,
   searchProductsByCategory,
+  searchProductsByCompany,
+  searchProductsByColor,
+  searchProductsByPrice,
 } = productSlice.actions;

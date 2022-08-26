@@ -10,14 +10,10 @@ import ProductsListView from "../../components/ProductsListView";
 import HeroSection from "../../components/HeroSection";
 
 const Products = () => {
-  const products = useSelector((state) => state.productSlice.products);
+  const products = useSelector((state) => state.productSlice.filtered_products);
   const state = useSelector((state) => state.productSlice);
   const grid_view = useSelector((state) => state.productSlice.grid_view);
   const list_view = useSelector((state) => state.productSlice.list_view);
-
-  console.log(products);
-  console.log(state);
-  console.log(grid_view, list_view);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,10 +33,17 @@ const Products = () => {
             <div>
               <ProductsSorts />
             </div>
-            <div className='h-screen overflow-auto  '>
-              {grid_view && <ProductsGridView />}
-              {list_view && <ProductsListView />}
-            </div>
+            {products.length < 1 ? (
+              <h4 className='italic bold mt-32'>
+                No products for match the search result, try another search
+                query....
+              </h4>
+            ) : (
+              <div className='h-screen overflow-auto  '>
+                {grid_view && <ProductsGridView />}
+                {list_view && <ProductsListView />}
+              </div>
+            )}
           </div>
         </div>
       </Layout>
