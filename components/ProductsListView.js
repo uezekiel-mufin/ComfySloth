@@ -8,7 +8,7 @@ import { formatPrice } from "../utils/helpers";
 const ProductsListView = () => {
   const products = useSelector((state) => state.productSlice.products);
   return (
-    <div className='flex flex-col md:gap-16 md:px-8'>
+    <div className='flex flex-col md:gap-16 px-2'>
       {products.map((product) => (
         <div
           key={product.id}

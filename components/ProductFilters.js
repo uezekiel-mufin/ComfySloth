@@ -10,7 +10,6 @@ import { formatPrice } from "../utils/helpers";
 const ProductFilters = () => {
   const products = useSelector((state) => state.productSlice.products);
   const [filterColor, setFilterColor] = useState("");
-  const [filterPrice, setFilterPrice] = useState(0);
 
   //calculating the highest price in an array. extract the prices first and then reduce them using the resuce method
   const highestPrice =
@@ -21,6 +20,7 @@ const ProductFilters = () => {
         if (cur > acc) return cur;
         if (acc > cur) return acc;
       }, 0);
+  const [filterPrice, setFilterPrice] = useState(+highestPrice);
 
   const handleFilterColor = (color) => {
     setFilterColor(color);
@@ -29,32 +29,45 @@ const ProductFilters = () => {
 
   console.log(products);
   return (
-    <div className='flex flex-col gap-8'>
+    <form className='flex flex-col gap-8 '>
       <div>
-        <input type='text' placeholder='search' />
+        <input
+          type='text'
+          placeholder='search'
+          className='bg-[#f1f5f8] p-4 rounded-lg tracking-widest w-full text-xl'
+        />
       </div>
       <div>
-        <h3>Category</h3>
-        <ul>
+        <h4 className='font-bold mb-4'>Category</h4>
+        <ul className='text-base '>
           {categories.map((category, index) => (
-            <li key={index}>{category}</li>
+            <li
+              key={index}
+              className='mb-2 text-xl tracking-widest font-normal'
+            >
+              {category}
+            </li>
           ))}
         </ul>
       </div>
       <div>
-        <h3>Company</h3>
-        <select name='company' id='company'>
+        <h4 className='font-bold mb-4'>Company</h4>
+        <select
+          name='company'
+          id='company'
+          className='bg-[#f1f5f8] px-6 py-2 rounded-md lowercase text-xl'
+        >
           {companies.map((company, index) => (
-            <option value={company} key={index}>
+            <option value={company} key={index} className=''>
               {company}
             </option>
           ))}
         </select>
       </div>
       <div>
-        <h4>Colors</h4>
+        <h4 className='font-bold mb-4'>Colors</h4>
         <div className='flex gap-2 items-center'>
-          <p className='flex items-center mb-0'>All</p>
+          <p className='flex items-center mb-0 text-2xl'>All</p>
           {colors.map((color) => (
             <span
               key={color}
@@ -68,6 +81,7 @@ const ProductFilters = () => {
                     height: "1.5rem",
                     width: "1.5rem",
                     borderRadius: "50%",
+                    opacity: 1,
                   }}
                 />
               ) : (
@@ -77,6 +91,7 @@ const ProductFilters = () => {
                     height: "1.5rem",
                     width: "1.5rem",
                     borderRadius: "50%",
+                    opacity: 0.6,
                   }}
                 />
               )}
@@ -85,26 +100,27 @@ const ProductFilters = () => {
         </div>
       </div>
       <div>
-        <h4>Price</h4>
-        <p>{formatPrice(filterPrice)}</p>
+        <h4 className='font-bold mb-4'>Price</h4>
+        <p className='text-xl tracking-widest'>{formatPrice(filterPrice)}</p>
         <RangeStepInput
           min={0}
           max={highestPrice}
           value={filterPrice}
           step={1}
           onChange={(e) => setFilterPrice(e.target.value)}
+          className='text-3xl'
         />
       </div>
-      <div className='flex gap-4 items-center'>
-        <h4>Free Shipping</h4>
-        <input type='checkbox' />
+      <div className='flex gap-4 items-end p-2'>
+        <h4 className='font-bold mb-0 text-2xl'>Free Shipping</h4>
+        <input type='checkbox' className='h-5 w-5 flex items-end' />
       </div>
       <div>
         <button className='bg-[#ab7a5f] w-3/5 transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-2  tracking-widest rounded-md py-2 '>
           clear filters
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
