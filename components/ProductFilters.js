@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RangeStepInput } from "react-range-step-input";
 import { formatPrice } from "../utils/helpers";
 import {
+  clearFilters,
   fetchProducts,
   searchByFreeShipping,
   searchProducts,
@@ -20,7 +21,6 @@ const ProductFilters = () => {
   const products = useSelector((state) => state.productSlice.filtered_products);
   const dispatch = useDispatch();
   const [filterColor, setFilterColor] = useState("");
-  const [filterPrice, setFilterPrice] = useState(1);
 
   //calculating the highest price in an array. extract the prices first and then reduce them using the resuce method
 
@@ -32,6 +32,7 @@ const ProductFilters = () => {
         if (cur > acc) return cur;
         if (acc > cur) return acc;
       }, 0);
+  const [filterPrice, setFilterPrice] = useState(highestPrice);
 
   const handleFilterColor = (e, color) => {
     e.preventDefault();
@@ -55,14 +56,12 @@ const ProductFilters = () => {
     dispatch(searchProductsByCompany(company));
   };
 
-  const handlePriceChange = (e) => {
+  const handleClearFilters = (e) => {
     e.preventDefault();
-    console.log(highestPrice);
-    console.log(e.target.value);
-    setFilterPrice(Number(e.target.value));
-    console.log(filterPrice);
-    // dispatch(searchProductsByPrice(filterPrice));
+    console.log("now");
+    dispatch(clearFilters());
   };
+
   return (
     <form className='flex flex-col gap-8 '>
       <div>
@@ -173,7 +172,10 @@ const ProductFilters = () => {
         />
       </div>
       <div>
-        <button className='bg-[#ab7a5f] w-3/5 transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-2  tracking-widest rounded-md py-2 '>
+        <button
+          className='bg-[#ab7a5f] w-3/5 transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-2  tracking-widest rounded-md py-2 '
+          onClick={(e) => handleClearFilters(e)}
+        >
           clear filters
         </button>
       </div>

@@ -16,6 +16,7 @@ const initialState = {
   filtered_products: [],
   grid_view: true,
   list_view: false,
+  filters: false,
 };
 
 export const fetchProduct = createAsyncThunk(
@@ -48,19 +49,19 @@ const productSlice = createSlice({
       state.grid_view = false;
       state.list_view = true;
     },
-    sortByLowest: (state, action) => {
+    sortByLowest: (state) => {
       state.filtered_products = state.filtered_products.sort((a, b) => {
         if (a.price > b.price) return 1;
         if (a.price < b.price) return -1;
       });
     },
-    sortByHighest: (state, action) => {
+    sortByHighest: (state) => {
       state.filtered_products = state.filtered_products.sort((a, b) => {
         if (a.price > b.price) return -1;
         if (a.price < b.price) return 1;
       });
     },
-    sortByName: (state, action) => {
+    sortByName: (state) => {
       state.filtered_products = state.filtered_products.sort((a, b) => {
         const nameA = a.name;
         const nameB = b.name;
@@ -68,7 +69,7 @@ const productSlice = createSlice({
         if (nameA < nameB) return -1;
       });
     },
-    sortByReverseName: (state, action) => {
+    sortByReverseName: (state) => {
       state.filtered_products = state.filtered_products.sort((a, b) => {
         const nameA = a.name;
         const nameB = b.name;
@@ -77,9 +78,14 @@ const productSlice = createSlice({
       });
     },
     searchProducts: (state, action) => {
-      state.filtered_products = state.products.filter((product) =>
-        product.name.includes(action.payload)
-      );
+      state.filtered_products = state.filters
+        ? state.filtered_products.filter((product) =>
+            product.name.includes(action.payload)
+          )
+        : state.products.filter((product) =>
+            product.name.includes(action.payload)
+          );
+      state.filters = true;
     },
     searchProductsByCategory: (state, action) => {
       if (action.payload === "all") {
@@ -92,41 +98,62 @@ const productSlice = createSlice({
             product.category === action.payload && action.payload !== "all"
         );
       }
+      state.filters = true;
     },
     searchProductsByCompany: (state, action) => {
       if (action.payload === "all") {
-        state.filtered_products = state.products.filter(
-          (product) => product.company !== "all"
-        );
+        state.filtered_products = state.filters
+          ? state.filtered_products.filter(
+              (product) => product.company !== "all"
+            )
+          : state.products.filter((product) => product.company !== "all");
       } else {
-        state.filtered_products = state.products.filter(
-          (product) =>
-            product.company === action.payload && action.payload !== "all"
-        );
+        state.filtered_products = state.filters
+          ? state.filtered_products.filter(
+              (product) =>
+                product.company === action.payload && action.payload !== "all"
+            )
+          : state.products.filter(
+              (product) =>
+                product.company === action.payload && action.payload !== "all"
+            );
       }
+      state.filters = true;
     },
     searchProductsByColor: (state, action) => {
       if (action.payload == "all") {
-        state.filtered_products = state.products.slice();
+        state.filtered_products = [...state.products];
       } else {
-        state.filtered_products = state.products.filter((product) =>
-          product.colors.includes(action.payload)
-        );
+        state.filtered_products = state.filters
+          ? state.filtered_products.filter((product) =>
+              product.colors.includes(action.payload)
+            )
+          : state.products.filter((product) =>
+              product.colors.includes(action.payload)
+            );
       }
+      state.filters = true;
     },
     searchProductsByPrice: (state, action) => {
       state.filtered_products = state.products.filter(
         (product) => product.price >= 0 && product.price <= action.payload
       );
+      state.filters = true;
     },
     searchByFreeShipping: (state, action) => {
       if (action.payload === "not_checked") {
         state.filtered_products = [...state.products];
       } else {
-        state.filtered_products = state.products.filter(
-          (product) => product.shipping === true
-        );
+        state.filtered_products = state.filters
+          ? state.filtered_products.filter(
+              (product) => product.shipping === true
+            )
+          : state.products.filter((product) => product.shipping === true);
       }
+      state.filters = true;
+    },
+    clearFilters: (state) => {
+      state.filtered_products = [...state.products];
     },
   },
   extraReducers: (builder) => {
@@ -141,7 +168,7 @@ const productSlice = createSlice({
           (product) => product.featured === true
         ));
     });
-    builder.addCase(fetchProducts.rejected, (state, action) => {
+    builder.addCase(fetchProducts.rejected, (state) => {
       state.products_loading = false;
       state.products = [];
       state.products_error = "There was an error";
@@ -187,4 +214,5 @@ export const {
   searchProductsByColor,
   searchProductsByPrice,
   searchByFreeShipping,
+  clearFilters,
 } = productSlice.actions;
