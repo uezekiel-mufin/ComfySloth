@@ -1,5 +1,6 @@
 import React from "react";
 import { GiCompass, GiDiamondHard, GiStabbedNote } from "react-icons/gi";
+import { BsGithub, BsTwitter, BsGoogle } from "react-icons/bs";
 export const links = [
   {
     id: 1,
@@ -47,6 +48,20 @@ export const categories = [
   "bedroom",
   "dinning",
   "kids",
+];
+export const providers = [
+  {
+    name: "github",
+    icon: <BsGithub />,
+  },
+  {
+    name: "twitter",
+    icon: <BsTwitter />,
+  },
+  {
+    name: "google",
+    icon: <BsGoogle />,
+  },
 ];
 
 export const companies = ["all", "marcos", "liddy", "ikea", "caressa"];

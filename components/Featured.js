@@ -61,9 +61,11 @@ const Featured = () => {
         </div>
 
         <div className='flex justify-center'>
-          <button className='bg-[#ab7a5f] capitalize text-white px-6 md:px-12 transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] tracking-widest rounded-md py-2 mt-4 md:py-4'>
-            all products
-          </button>
+          <Link href='/products'>
+            <button className='bg-[#ab7a5f] capitalize text-white px-6 md:px-12 transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] tracking-widest rounded-md py-2 mt-4 md:py-4'>
+              all products
+            </button>
+          </Link>
         </div>
       </div>
     </div>
