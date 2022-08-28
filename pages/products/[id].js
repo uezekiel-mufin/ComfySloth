@@ -21,10 +21,12 @@ import { wrapper } from "../../app/Store";
 import { FiMinus } from "react-icons/fi";
 import { HiPlusSm } from "react-icons/hi";
 import { BiCircle } from "react-icons/bi";
+import Cookies from "js-cookie";
 
 const SingleProductPage = () => {
   const product = useSelector((state) => state.productSlice.product);
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
+  console.log(cart);
 
   const {
     images,
@@ -62,6 +64,18 @@ const SingleProductPage = () => {
     console.log(product);
   };
   console.log(product);
+
+  const handleAddToCart = (product) => {
+    dispatch(
+      addToCart({
+        ...product,
+      })
+    );
+  };
+
+  useEffect(() => {
+    console.log(Cookies.get("cart"));
+  }, [cart]);
 
   return (
     <div>
@@ -189,13 +203,11 @@ const SingleProductPage = () => {
                   <button
                     className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-6 md:px-12 tracking-widest rounded-md py-2 mt-4 md:py-4'
                     onClick={() =>
-                      dispatch(
-                        addToCart({
-                          ...product,
-                          quantity: quantityOrdered,
-                          selectedColor,
-                        })
-                      )
+                      handleAddToCart({
+                        ...product,
+                        quantity: quantityOrdered,
+                        selectedColor,
+                      })
                     }
                   >
                     add to cart

@@ -11,7 +11,7 @@ const CartButtons = () => {
   const router = useRouter();
 
   const { data: session } = useSession();
-  console.log(session);
+
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
 

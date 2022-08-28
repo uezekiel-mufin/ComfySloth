@@ -33,7 +33,7 @@ const ProductsSorts = () => {
     }
   };
   return (
-    <div className='grid grid-cols-4 md:flex mb-8  gap-2 md:flex-row px-4 md:p-2 '>
+    <div className='grid grid-cols-4 md:flex mb-8 md:mb-0  gap-2 md:flex-row px-4 md:p-2 '>
       <div className='flex justify-start items-center gap-2'>
         <button
           className={` ${
@@ -52,11 +52,11 @@ const ProductsSorts = () => {
           <FaListUl />
         </button>
       </div>
-      <div className='col-span-3 md:flex items-center w-full  '>
+      <div className='col-span-3 md:col-span-1 md:flex items-center   '>
         <h4> {products.length} items found</h4>
       </div>
 
-      <div className='col-span-4 md:flex flex-1 items-center md:mx-8'>
+      <div className='col-span-4 md:col-span-1 md:flex flex-1 items-center md:mx-8'>
         <hr
           style={{
             borderTop: "0.2px solid #bcccdc",
@@ -65,7 +65,7 @@ const ProductsSorts = () => {
           }}
         />
       </div>
-      <div className='col-span-4  flex gap-10 items-center  md:gap-4'>
+      <div className='col-span-4 md:col-span-1  flex gap-10 items-center  md:gap-4'>
         <h4>Sort By</h4>
         <select
           name='sort'

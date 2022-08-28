@@ -10,7 +10,7 @@ const ProductsGridView = () => {
   const loading = useSelector((state) => state.productSlice.products_loading);
   const error = useSelector((state) => state.productSlice.products_error);
   return (
-    <div className='  py-2 flex flex-col '>
+    <div className='  py-2 md:py-0 flex flex-col '>
       <div>
         {loading && <h4>Loading......</h4>}
         {error && <h4>There was an error......</h4>}

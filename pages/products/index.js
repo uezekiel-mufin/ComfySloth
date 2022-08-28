@@ -23,7 +23,7 @@ const Products = () => {
     <div>
       <Layout title='products'>
         <HeroSection title='products' />
-        <div className=' md:productPageView md:px-32 relative gap-16 mt-20 '>
+        <div className='productPageViewSmall productPageView md:pl-32 md:pr-8 relative gap-16 mt-20 '>
           <div className='md:h-screen mb-8'>
             <ProductFilters />
           </div>

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
-  cart: { cartItems: [], shippingAddress: {} },
+  cart: {
+    cartItems: Cookies.get("cart") ? JSON.parse(Cookies.get("cart")) : [],
+  },
 };
 
 const cartSlice = createSlice({
@@ -18,8 +19,12 @@ const cartSlice = createSlice({
       state.cart.cartItems = existItem
         ? state.cart.cartItems.map((item) =>
             item.name === action.payload.name ? action.payload : item
-          )
-        : [...state.cart.cartItems, action.payload];
+            )
+            : [...state.cart.cartItems, action.payload];
+            Cookies.set(
+              "cart",
+              JSON.stringify([...state.cart.cartItems, action.payload])
+            );
     },
     removeFromCart: (state, action) => {
       state.cart.cartItems = state.cart.cartItems.filter(

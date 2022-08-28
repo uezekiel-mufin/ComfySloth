@@ -146,6 +146,12 @@ p {
   grid-template-columns: 300px 1fr;
 }
 
+@media screen and (max-width: 750px) {
+  .productPageViewSmall {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .viewActive {
   @apply bg-black text-white;
 }
