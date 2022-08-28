@@ -62,7 +62,7 @@ const Layout = ({ children, title }) => {
           <Sidebar />
         </div>
 
-        <footer className='footer bg-[#222]'>
+        <footer className='footer bg-[#222] text-lg mt-8'>
           <div>
             <p className='text-white'>
               &copy; {new Date().getFullYear()} Zicomm2.0 All rights reserved

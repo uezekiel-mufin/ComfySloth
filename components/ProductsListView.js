@@ -12,7 +12,7 @@ const ProductsListView = () => {
       {products.map((product) => (
         <div
           key={product.id}
-          className='flex flex-col md:grid grid-cols-2 gap-4 '
+          className='flex flex-col md:grid mb-8 grid-cols-2 gap-2 md:gap-4 '
         >
           <div className='mx-2 my-4  relative flex flex-col '>
             <Image
@@ -30,7 +30,7 @@ const ProductsListView = () => {
             </Link>
           </div>
           <div className='flex flex-col mx-2 gap-1 items-start justify-center'>
-            <h3 className='text-[#102a42] font-bold text-5xl tracking-widest'>
+            <h3 className='text-[#102a42] font-bold text-3xl md:text-5xl tracking-widest'>
               {product.name}
             </h3>
             <p className='tracking-widest flex items-center mb-0 text-[#b99179] text-2xl font-bold'>

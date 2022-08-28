@@ -23,11 +23,9 @@ const Products = () => {
     <div>
       <Layout title='products'>
         <HeroSection title='products' />
-        <div className=' productPageView md:px-32 relative gap-16 mt-20 '>
-          <div className='h-screen '>
-            <div>
-              <ProductFilters />
-            </div>
+        <div className=' md:productPageView md:px-32 relative gap-16 mt-20 '>
+          <div className='md:h-screen mb-8'>
+            <ProductFilters />
           </div>
           <div className=' '>
             <div>
@@ -39,7 +37,7 @@ const Products = () => {
                 query....
               </h4>
             ) : (
-              <div className='h-screen overflow-auto  '>
+              <div className='md:h-screen mx-4 md:overflow-auto  '>
                 {grid_view && <ProductsGridView />}
                 {list_view && <ProductsListView />}
               </div>

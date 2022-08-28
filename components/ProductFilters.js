@@ -63,7 +63,7 @@ const ProductFilters = () => {
   };
 
   return (
-    <form className='flex flex-col gap-8 '>
+    <form className='flex flex-col gap-8 mb-24 mx-4 md:mx-0'>
       <div>
         <input
           type='text'
