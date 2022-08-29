@@ -155,3 +155,13 @@ p {
 .viewActive {
   @apply bg-black text-white;
 }
+
+input,
+select,
+textarea {
+  @apply rounded border p-4 outline-none ring-indigo-300 focus:ring;
+}
+
+.primary-button {
+  @apply rounded bg-amber-300 py-2 px-4 outline-none hover:bg-amber-400 active:bg-amber-600;
+}

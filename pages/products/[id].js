@@ -22,12 +22,14 @@ import { FiMinus } from "react-icons/fi";
 import { HiPlusSm } from "react-icons/hi";
 import { BiCircle } from "react-icons/bi";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 const SingleProductPage = () => {
   const product = useSelector((state) => state.productSlice.product);
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
+  const newObj2 = useSelector((state) => state.cartSlice.newObj2);
   console.log(cart);
-
+  console.log(newObj2);
   const {
     images,
     name,
@@ -52,6 +54,10 @@ const SingleProductPage = () => {
     dispatch(fetchProduct(id));
   }, []);
 
+  if (Cookies.get("cartNew")) {
+    console.log(JSON.parse(Cookies.get("newCart")));
+  }
+
   const [viewImage, setViewImage] = useState("/hero-bcg.jpeg");
   useEffect(() => {
     images && setViewImage(images[0].url);
@@ -63,28 +69,23 @@ const SingleProductPage = () => {
     console.log(selectedColor);
     console.log(product);
   };
-  console.log(product);
 
   const handleAddToCart = (product) => {
-    dispatch(
-      addToCart({
-        ...product,
-      })
-    );
+    console.log(product);
+    console.log({ ...product });
+    dispatch(addToCart({ ...product }));
   };
-
-  useEffect(() => {
-    console.log(Cookies.get("cart"));
-  }, [cart]);
 
   return (
     <div>
       <Layout title={`Product ${id}`}>
         <HeroSection singleProduct={product} />
         <div className='p-24'>
-          <button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white px-6 md:px-8 tracking-widest mb-10 rounded-md py-1 mt-4 md:py-2'>
-            back to product
-          </button>
+          <Link href='/products'>
+            <button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white px-6 md:px-8 tracking-widest mb-10 rounded-md py-1 mt-4 md:py-2'>
+              back to product
+            </button>
+          </Link>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
             <div className='h-11/12 w-11/12'>
               <Image
@@ -224,24 +225,10 @@ const SingleProductPage = () => {
 
 export default SingleProductPage;
 
-// export async function getServerSideProps(context) {
-//   const { id } = context.params;
-//   await db.connect();
-//   const product = await SingleProduct.findOne({ id }).lean();
-//   await db.disconnect();
-//   return {
-//     props: {
-//       product: product ? db.convertDocToObj(product) : null,
-//     },
-//   };
-// }
-
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     ({ query }) => {
       const id = query.id;
-      console.log(query);
-      console.log(id);
       id && store.dispatch(fetchProduct(`${id}`));
 
       return {

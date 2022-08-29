@@ -4,8 +4,9 @@ import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   cart: {
-    cartItems: Cookies.get("cart") ? JSON.parse(Cookies.get("cart")) : [],
+    cartItems: [],
   },
+  newObj2: Cookies.get("newCart7") ? JSON.parse(Cookies.get("newCart7")) : [],
 };
 
 const cartSlice = createSlice({
@@ -16,15 +17,12 @@ const cartSlice = createSlice({
       const existItem = state.cart.cartItems.find(
         (item) => item.id === action.payload.id
       );
+      console.log(action.payload);
       state.cart.cartItems = existItem
         ? state.cart.cartItems.map((item) =>
             item.name === action.payload.name ? action.payload : item
-            )
-            : [...state.cart.cartItems, action.payload];
-            Cookies.set(
-              "cart",
-              JSON.stringify([...state.cart.cartItems, action.payload])
-            );
+          )
+        : [...state.cart.cartItems, action.payload];
     },
     removeFromCart: (state, action) => {
       state.cart.cartItems = state.cart.cartItems.filter(

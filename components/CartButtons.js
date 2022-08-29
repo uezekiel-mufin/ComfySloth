@@ -1,17 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BsPersonPlusFill } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { menuState } from "../Slices/productSlice";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+
 const CartButtons = () => {
   const router = useRouter();
 
   const { data: session } = useSession();
-
+  console.log(session);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
 
@@ -45,7 +46,7 @@ const CartButtons = () => {
               <div className='flex items-center gap-1'>
                 <img
                   src={session?.user.image}
-                  alt={session.user.name}
+                  alt={session?.user.name}
                   className='w-10 h-10 rounded-full'
                 />
                 <h5>{session?.user.name.split(" ")[0]}</h5>
