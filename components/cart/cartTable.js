@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { quantityUpdate, removeFromCart } from "../../Slices/cartSlice";
 import { formatPrice } from "../../utils/helpers";
 import { AiOutlineDelete } from "react-icons/ai";
-
-import Image from "next/image";
 import Link from "next/link";
 import { FcSearch } from "react-icons/fc";
 import { BiCheck } from "react-icons/bi";
+import Image from "next/image";
+
+import { ToastContainer, toast } from "react-toastify";
 
 const CartTable = () => {
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
@@ -29,6 +30,7 @@ const CartTable = () => {
   const handleDelete = (e, item) => {
     const id = item.id;
     dispatch(removeFromCart(id));
+    toast.success("you just removed an item from your cart");
   };
   return (
     <div className='px-4 py-10 md:px-28'>

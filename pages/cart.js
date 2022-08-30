@@ -7,6 +7,9 @@ import CartSummary from "../components/cart/cartSummary";
 import Link from "next/link";
 import { clearShoppingCart } from "../Slices/cartSlice";
 import dynamic from "next/dynamic";
+import Cookies from "js-cookie";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const CartScreen = () => {
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
@@ -14,18 +17,20 @@ const CartScreen = () => {
   const dispatch = useDispatch();
 
   const handleClearShoppingCart = () => {
-    console.log(cart);
     dispatch(clearShoppingCart());
-    console.log(cart);
-    console.log(state);
   };
+
+  if (Cookies.get("cartItem3444")) {
+    console.log(JSON.parse(Cookies.get("cartItem3444")));
+  }
 
   return (
     <Layout title='cart'>
       <HeroSection title='cart' />
+      <ToastContainer />
       {cart.length < 1 ? (
         <h3 className='p-10'>
-          Shopping cart is empty,{" "}
+          Shopping cart is empty,
           <Link href='/products'>
             <a className='text-blue-500 hover:text-red-500 font-semibold'>
               Go Shopping

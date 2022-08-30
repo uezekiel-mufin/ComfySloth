@@ -1,29 +1,38 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import CheckoutWizard from "../components/CheckoutWizard";
 import Layout from "../components/Layout";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { addShippingAddress } from "../Slices/cartSlice";
-import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const Shipping = () => {
-  const shippingAdd = useSelector(
+  const dispatch = useDispatch();
+  const shippingAddress = useSelector(
     (state) => state.cartSlice.cart.shippingAddress
   );
-  const dispatch = useDispatch();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    setValue("fullName", shippingAddress.fullName);
+    setValue("address", shippingAddress.address);
+    setValue("city", shippingAddress.city);
+    setValue("postalCode", shippingAddress.postalCode);
+    setValue("country", shippingAddress.country);
+  }, [setValue, shippingAddress]);
+
   const formHandler = (data) => {
-    console.log(data);
     dispatch(addShippingAddress({ ...data }));
+    router.push("/payment");
   };
 
-  console.log(shippingAdd);
   return (
     <Layout title='shipping'>
       <CheckoutWizard activeStep={1} />
@@ -111,3 +120,5 @@ const Shipping = () => {
 };
 
 export default Shipping;
+
+Shipping.auth = true;

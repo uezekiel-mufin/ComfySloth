@@ -24,7 +24,7 @@ const Payment = () => {
                   checked={selectedPayment === method}
                   id={method}
                   className='p-2 outline-none focus:ring-0 w-5 h-5 '
-                  onClick={() => setSelectedPayment(method)}
+                  onChange={() => setSelectedPayment(method)}
                 />
                 <label htmlFor={method}>{method}</label>
               </li>
@@ -47,3 +47,5 @@ const Payment = () => {
 };
 
 export default Payment;
+
+Payment.auth = true;

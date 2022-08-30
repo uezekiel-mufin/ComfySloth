@@ -36,7 +36,14 @@ const cartSlice = createSlice({
         company: item.company,
         description: item.description,
         id: item.id,
-        images: item.images.map((image) => image?.url),
+        images: item.images.map((image) => ({
+          id: image.id,
+          height: image.height,
+          filename: image.filename,
+          size: image.size,
+          url: image.url,
+          width: image.width,
+        })),
         name: item.name,
         price: item.price,
         quantity: item.quantity,
@@ -61,9 +68,11 @@ const cartSlice = createSlice({
       );
       item.quantity = action.payload.quantity;
     },
+
     clearShoppingCart: (state, action) => {
       return initialState;
     },
+
     addShippingAddress: (state, action) => {
       console.log(action.payload);
       const { fullName, address, city, postalCode, country } = action.payload;

@@ -23,7 +23,8 @@ import { HiPlusSm } from "react-icons/hi";
 import { BiCircle } from "react-icons/bi";
 import Cookies from "js-cookie";
 import Link from "next/link";
-
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 const SingleProductPage = () => {
   const product = useSelector((state) => state.productSlice.product);
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
@@ -54,8 +55,8 @@ const SingleProductPage = () => {
     dispatch(fetchProduct(id));
   }, []);
 
-  if (Cookies.get("cartNew")) {
-    console.log(JSON.parse(Cookies.get("newCart")));
+  if (Cookies.get("cartItem3444")) {
+    console.log(JSON.parse(Cookies.get("cartItem3444")));
   }
 
   const [viewImage, setViewImage] = useState("/hero-bcg.jpeg");
@@ -70,18 +71,19 @@ const SingleProductPage = () => {
     console.log(product);
   };
 
+  // Cookies.remove("cartItem3444");
+
   const handleAddToCart = (product) => {
     console.log(product);
     console.log({ ...product });
     dispatch(addToCart({ ...product }));
+    toast.success("you just updated your cart item");
   };
-  useEffect(() => {
-    console.log(JSON.parse(Cookies.get("cartItem3444")));
-  }, [cart]);
 
   return (
     <div>
       <Layout title={`Product ${id}`}>
+        <ToastContainer />
         <HeroSection singleProduct={product} />
         <div className='p-24'>
           <Link href='/products'>
