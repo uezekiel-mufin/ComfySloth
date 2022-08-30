@@ -36,7 +36,7 @@ const cartSlice = createSlice({
         company: item.company,
         description: item.description,
         id: item.id,
-        images: item.images.map((image) => image.url),
+        images: item.images.map((image) => image?.url),
         name: item.name,
         price: item.price,
         quantity: item.quantity,

@@ -19,7 +19,7 @@ const CartButtons = () => {
 
   useEffect(() => {
     setCartQuantity(cart.reduce((acc, cur) => acc + +cur.quantity, 0));
-  }, []);
+  }, [cart]);
 
   // const cartQuantity = cart.reduce((acc, cur) => acc + +cur.quantity, 0);
   const handleSignOut = async () => {
