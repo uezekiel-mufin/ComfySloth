@@ -10,13 +10,18 @@ import { useRouter } from "next/router";
 
 const CartButtons = () => {
   const router = useRouter();
+  const [cartQuantity, setCartQuantity] = useState();
 
   const { data: session } = useSession();
   console.log(session);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
 
-  const cartQuantity = cart.reduce((acc, cur) => acc + +cur.quantity, 0);
+  useEffect(() => {
+    setCartQuantity(cart.reduce((acc, cur) => acc + +cur.quantity, 0));
+  }, []);
+
+  // const cartQuantity = cart.reduce((acc, cur) => acc + +cur.quantity, 0);
   const handleSignOut = async () => {
     const data = await signOut({ redirect: false, callbackUrl: "/" });
     router.push(data.url);
@@ -31,7 +36,7 @@ const CartButtons = () => {
               <h4>Cart</h4>
               <span className='text-2xl relative'>
                 <FaShoppingCart />
-                {cart.length >= 1 && (
+                {cartQuantity >= 1 && (
                   <span className='absolute -top-3 -right-3 flex text-white text-xs bg-[#ab7a5f] rounded-full h-6 w-6 justify-center items-center'>
                     {cartQuantity}
                   </span>

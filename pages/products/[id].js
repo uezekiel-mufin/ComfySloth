@@ -27,9 +27,9 @@ import Link from "next/link";
 const SingleProductPage = () => {
   const product = useSelector((state) => state.productSlice.product);
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
-  const newObj2 = useSelector((state) => state.cartSlice.newObj2);
+
   console.log(cart);
-  console.log(newObj2);
+
   const {
     images,
     name,
@@ -75,6 +75,9 @@ const SingleProductPage = () => {
     console.log({ ...product });
     dispatch(addToCart({ ...product }));
   };
+  useEffect(() => {
+    console.log(JSON.parse(Cookies.get("cartItem3444")));
+  }, [cart]);
 
   return (
     <div>

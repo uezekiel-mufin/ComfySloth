@@ -6,8 +6,9 @@ import CartTable from "../components/cart/cartTable";
 import CartSummary from "../components/cart/cartSummary";
 import Link from "next/link";
 import { clearShoppingCart } from "../Slices/cartSlice";
+import dynamic from "next/dynamic";
 
-const Cart = () => {
+const CartScreen = () => {
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
   const state = useSelector((state) => state.cartSlice.cart);
   const dispatch = useDispatch();
@@ -58,4 +59,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
