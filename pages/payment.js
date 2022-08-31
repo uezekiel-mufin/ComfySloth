@@ -26,6 +26,7 @@ const Payment = () => {
 
   const handleSubmit = () => {
     dispatch(setPaymentMethod(selectedPayment));
+    router.push("/placeOrder");
   };
 
   console.log(Cookies.get("paymentMethod"));

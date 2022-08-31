@@ -76,17 +76,17 @@ const cartSlice = createSlice({
 
     addShippingAddress: (state, action) => {
       console.log(action.payload);
-      const { fullName, address, city, postalCode, country } = action.payload;
+      const { name, address, city, postalcode, country } = action.payload;
       state.cart.shippingAddress = {
-        fullName,
+        name,
         address,
         city,
-        postalCode,
+        postalcode,
         country,
       };
       Cookies.set(
         "shipping",
-        JSON.stringify({ fullName, address, city, postalCode, country })
+        JSON.stringify({ name, address, city, postalcode, country })
       );
     },
     setPaymentMethod: (state, action) => {

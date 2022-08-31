@@ -21,10 +21,10 @@ const Shipping = () => {
   } = useForm();
 
   useEffect(() => {
-    setValue("fullName", shippingAddress.fullName);
+    setValue("name", shippingAddress.name);
     setValue("address", shippingAddress.address);
     setValue("city", shippingAddress.city);
-    setValue("postalCode", shippingAddress.postalCode);
+    setValue("postalcode", shippingAddress.postalcode);
     setValue("country", shippingAddress.country);
   }, [setValue, shippingAddress]);
 
