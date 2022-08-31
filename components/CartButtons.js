@@ -11,9 +11,7 @@ import { useRouter } from "next/router";
 const CartButtons = () => {
   const router = useRouter();
   const [cartQuantity, setCartQuantity] = useState();
-
   const { data: session } = useSession();
-  console.log(session);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
 
@@ -50,8 +48,8 @@ const CartButtons = () => {
               <div className='flex items-center gap-1'>
                 <img
                   src={session?.user.image}
-                  alt={session?.user.name}
-                  className='w-10 h-10 rounded-full'
+                  alt={session?.user.name.split("")[1]}
+                  className='w-10 h-10 rounded-full flex items-center justify-center'
                 />
                 <h5>{session?.user.name.split(" ")[0]}</h5>
               </div>

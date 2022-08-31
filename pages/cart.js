@@ -27,7 +27,7 @@ const CartScreen = () => {
   return (
     <Layout title='cart'>
       <HeroSection title='cart' />
-      <ToastContainer />
+      <ToastContainer position='bottom-center' limit={1} />
       {cart.length < 1 ? (
         <h3 className='p-10'>
           Shopping cart is empty,

@@ -7,7 +7,7 @@ const About = () => {
   return (
     <Layout title='about'>
       <HeroSection title='About' />
-      <section className='grid grid-cols-2 p-20'>
+      <section className='grid grid-cols-1 md:grid-cols-2 p-2 md:p-20'>
         <article className='w-full h-full p-8 '>
           <Image
             src='/hero-bcg.jpeg'
@@ -15,6 +15,7 @@ const About = () => {
             height='100px'
             width='100px'
             layout='responsive'
+            className='rounded-lg'
           />
         </article>
 

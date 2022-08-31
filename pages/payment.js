@@ -1,12 +1,34 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CheckoutWizard from "../components/CheckoutWizard";
 import Layout from "../components/Layout";
+import { useSelector, useDispatch } from "react-redux";
+import { setPaymentMethod } from "../Slices/cartSlice";
+import Cookies from "js-cookie";
 
 const Payment = () => {
   const router = useRouter();
-  const [selectedPayment, setSelectedPayment] = useState("");
+  const shippingAddress = useSelector(
+    (state) => state.cartSlice.cart.shippingAddress
+  );
+  const payment = useSelector((state) => state.cartSlice.cart.paymentMethod);
+  const dispatch = useDispatch();
+  console.log(shippingAddress);
+  console.log(payment);
+  const [selectedPayment, setSelectedPayment] = useState(payment);
   const paymentMethod = ["Paypal", "Stripe", "Paystack", "CashOnDelivery"];
+
+  useEffect(() => {
+    if (!shippingAddress.address) {
+      router.push("/shipping");
+    }
+  }, [router, shippingAddress.address]);
+
+  const handleSubmit = () => {
+    dispatch(setPaymentMethod(selectedPayment));
+  };
+
+  console.log(Cookies.get("paymentMethod"));
   return (
     <div>
       <Layout title='payment method'>
@@ -38,7 +60,9 @@ const Payment = () => {
             >
               back
             </button>
-            <button className='primary-button'>Next</button>
+            <button onClick={() => handleSubmit()} className='primary-button'>
+              Next
+            </button>
           </div>
         </main>
       </Layout>

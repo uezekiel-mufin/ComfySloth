@@ -10,6 +10,7 @@ const initialState = {
     shippingAddress: Cookies.get("shipping")
       ? JSON.parse(Cookies.get("shipping"))
       : {},
+    paymentMethod: Cookies.get("paymentMethod") || "",
   },
 };
 
@@ -88,6 +89,11 @@ const cartSlice = createSlice({
         JSON.stringify({ fullName, address, city, postalCode, country })
       );
     },
+    setPaymentMethod: (state, action) => {
+      console.log(action.payload);
+      Cookies.set("paymentMethod", action.payload);
+      state.cart.PaymentMethod = action.payload;
+    },
   },
 });
 
@@ -99,4 +105,5 @@ export const {
   deleteItem,
   clearShoppingCart,
   addShippingAddress,
+  setPaymentMethod,
 } = cartSlice.actions;
