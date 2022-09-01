@@ -3,6 +3,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { products_url as url, single_product_url } from "../utils/constants";
 import axios from "axios";
 import { HYDRATE } from "next-redux-wrapper";
+import Product from "../components/Models/Products";
+import db from "../utils/db";
 
 const initialState = {
   isMenu: false,
@@ -22,17 +24,33 @@ const initialState = {
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
   async (id) => {
-    const response = await axios.get(`${single_product_url}${id}`);
-    return response.data;
+    db.connect();
+    const products = await products.find().lean();
+    return products;
   }
 );
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
   async () => {
-    const response = await axios.get(`${url}`);
-    return response.data;
+    db.connect();
+    const products = await products.find().lean();
+    return products;
   }
 );
+// export const fetchProduct = createAsyncThunk(
+//   "product/fetchProduct",
+//   async (id) => {
+//     const response = await axios.get(`${single_product_url}${id}`);
+//     return response.data;
+//   }
+// );
+// export const fetchProducts = createAsyncThunk(
+//   "product/fetchProducts",
+//   async () => {
+//     const response = await axios.get(`${url}`);
+//     return response.data;
+//   }
+// );
 
 const productSlice = createSlice({
   name: "products",
