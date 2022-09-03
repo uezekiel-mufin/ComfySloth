@@ -71,7 +71,8 @@ const cartSlice = createSlice({
     },
 
     clearShoppingCart: (state, action) => {
-      return initialState;
+      Cookies.remove("cartItem3444");
+      state.cart.cartItems = [];
     },
 
     addShippingAddress: (state, action) => {
@@ -92,7 +93,7 @@ const cartSlice = createSlice({
     setPaymentMethod: (state, action) => {
       console.log(action.payload);
       Cookies.set("paymentMethod", action.payload);
-      state.cart.PaymentMethod = action.payload;
+      state.cart.paymentMethod = action.payload;
     },
   },
 });

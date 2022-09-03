@@ -18,6 +18,7 @@ const CartScreen = () => {
 
   const handleClearShoppingCart = () => {
     dispatch(clearShoppingCart());
+    console.log("cleared");
   };
 
   if (Cookies.get("cartItem3444")) {

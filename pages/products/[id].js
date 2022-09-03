@@ -205,7 +205,7 @@ const SingleProductPage = () => {
                 </button>
               </div>
               <div>
-                {stock > 0 && (
+                {stock > 0 ? (
                   <button
                     className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-6 md:px-12 tracking-widest rounded-md py-2 mt-4 md:py-4'
                     onClick={() =>
@@ -218,6 +218,16 @@ const SingleProductPage = () => {
                   >
                     add to cart
                   </button>
+                ) : (
+                  <div className='flex flex-col justify-start mt-4'>
+                    <span className='font-semibold text-lg'>
+                      {" "}
+                      out of stock, back to
+                      <Link href='/products'>
+                        <a className='text-blue-500'> products</a>
+                      </Link>
+                    </span>
+                  </div>
                 )}
               </div>
             </div>

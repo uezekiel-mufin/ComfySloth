@@ -21,36 +21,37 @@ const initialState = {
   filters: false,
 };
 
-export const fetchProduct = createAsyncThunk(
-  "product/fetchProduct",
-  async (id) => {
-    db.connect();
-    const products = await products.find().lean();
-    return products;
-  }
-);
-export const fetchProducts = createAsyncThunk(
-  "product/fetchProducts",
-  async () => {
-    db.connect();
-    const products = await products.find().lean();
-    return products;
-  }
-);
 // export const fetchProduct = createAsyncThunk(
 //   "product/fetchProduct",
 //   async (id) => {
-//     const response = await axios.get(`${single_product_url}${id}`);
-//     return response.data;
+//     db.connect();
+//     const products = await products.find().lean();
+//     return products;
 //   }
 // );
 // export const fetchProducts = createAsyncThunk(
 //   "product/fetchProducts",
 //   async () => {
-//     const response = await axios.get(`${url}`);
-//     return response.data;
+//     db.connect();
+//     const products = await products.find().lean();
+//     return products;
 //   }
 // );
+
+export const fetchProduct = createAsyncThunk(
+  "product/fetchProduct",
+  async (id) => {
+    const response = await axios.get(`${single_product_url}${id}`);
+    return response.data;
+  }
+);
+export const fetchProducts = createAsyncThunk(
+  "product/fetchProducts",
+  async () => {
+    const response = await axios.get(`${url}`);
+    return response.data;
+  }
+);
 
 const productSlice = createSlice({
   name: "products",
@@ -199,7 +200,7 @@ const productSlice = createSlice({
         (state.product = action.payload),
         (state.product_error = "");
     });
-    builder.addCase(fetchProduct.rejected, (state, action) => {
+    builder.addCase(fetchProduct.rejected, (state) => {
       (state.product_loading = false),
         (state.product = {}),
         (state.product_error = "There was an error fetching this Product");

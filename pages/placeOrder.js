@@ -1,18 +1,26 @@
 import React from "react";
 import CheckoutWizard from "../components/CheckoutWizard";
 import Layout from "../components/Layout";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
 import { formatPrice } from "../utils/helpers";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { getError } from "../utils/error";
+import axios from "axios";
+import { useState } from "react";
+import { clearShoppingCart } from "../Slices/cartSlice";
+import Cookies from "js-cookie";
 
 const PlaceOrder = () => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const shippingAddress = useSelector(
     (state) => state.cartSlice.cart.shippingAddress
   );
-  console.log(shippingAddress);
   const paymentMethod = useSelector(
     (state) => state.cartSlice.cart.paymentMethod
   );
@@ -27,6 +35,29 @@ const PlaceOrder = () => {
   const shippingPrice = itemsPrice < 500 ? 0 : 15;
 
   const total = itemsPrice + taxPrize + shippingPrice;
+
+  const handlePlaceOrder = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.post("/api/order", {
+        orderItems: cartItems,
+        shippingAddress,
+        paymentMethod,
+        itemsPrice,
+        taxPrize,
+        shippingPrice,
+        total,
+      });
+      setLoading(false);
+      dispatch(clearShoppingCart());
+      router.push(`/order/${data._id}`);
+    } catch (error) {
+      toast.error(getError(error));
+      setLoading(false);
+    }
+  };
+  console.log(shippingAddress);
+
   return (
     <Layout title='place order'>
       <CheckoutWizard activeStep={3} />
@@ -134,8 +165,11 @@ const PlaceOrder = () => {
                 <span>Total</span>
                 <span>{formatPrice(total)}</span>
               </div>
-              <button className='primary-button w-full mb-4 text-xl'>
-                Place Order
+              <button
+                className='primary-button w-full mb-4 text-xl'
+                onClick={handlePlaceOrder}
+              >
+                {loading ? "Loading....." : "Place Order"}
               </button>
             </section>
           </section>
@@ -146,3 +180,5 @@ const PlaceOrder = () => {
 };
 
 export default PlaceOrder;
+
+PlaceOrder.auth = true;
