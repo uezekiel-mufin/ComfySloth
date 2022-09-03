@@ -5,7 +5,8 @@ import CredentialProvider from "next-auth/providers/credentials";
 import db from "../../../utils/db";
 import User from "../../../components/Models/User";
 import bcryptjs from "bcryptjs";
-
+import clientPromise from "../../../components/connectMongDb";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 export default NextAuth({
   // Configure one or more authentication providers
   session: {
@@ -63,4 +64,5 @@ export default NextAuth({
     //   from: process.env.EMAIL_FROM,
     // }),
   ],
+  adapter: MongoDBAdapter(clientPromise),
 });

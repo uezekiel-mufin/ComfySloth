@@ -8,6 +8,7 @@ import ProductsSorts from "../../components/ProductsSorts";
 import ProductsGridView from "../../components/ProductsGridView";
 import ProductsListView from "../../components/ProductsListView";
 import HeroSection from "../../components/HeroSection";
+import { useSession } from "next-auth/react";
 
 const Products = () => {
   const products = useSelector((state) => state.productSlice.filtered_products);
@@ -16,6 +17,8 @@ const Products = () => {
   const list_view = useSelector((state) => state.productSlice.list_view);
   const dispatch = useDispatch();
 
+  const { data: session } = useSession();
+  console.log(session);
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);

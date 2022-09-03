@@ -12,7 +12,7 @@ export default function Component() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const { redirect } = router.query;
-
+  console.log(session);
   const {
     register,
     handleSubmit,

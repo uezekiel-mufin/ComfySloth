@@ -14,6 +14,8 @@ const OrderId = () => {
   const router = useRouter();
   const { id } = router.query;
   const order = useSelector((state) => state.paymentSlice.order);
+  const loading = useSelector((state) => state.paymentSlice.loading);
+
   console.log(order);
   const {
     orderItems,
@@ -22,44 +24,56 @@ const OrderId = () => {
     itemsPrice,
     shippingPrice,
     taxPrize,
+    isPaid,
+    isDelivered,
   } = order;
-
-  const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
 
   const total = itemsPrice + taxPrize + shippingPrice;
 
   useEffect(() => {
     dispatch(fetchOrder(id));
-  }, []);
+  }, [dispatch, id]);
+
+  if (loading) {
+    return <h4>Loading.............</h4>;
+  }
 
   return (
     <Layout title={`order ${id}`}>
       <div className='mx-24 my-8'>
-        <h3>Place Order</h3>
+        <h4>Order {id}</h4>
         <main className='grid grid-cols-4 mt-4  gap-8'>
           <section className='col-span-3 '>
             <div className='card mb-4 p-6 '>
               <h4>Shipping Address</h4>
-              <div className='text-2xl my-2'>
-                {shippingAddress.name}, {shippingAddress.address},{" "}
-                {shippingAddress.city}, {shippingAddress.country},{" "}
-                {shippingAddress.postalcode}
+              <div className='text-xl my-2'>
+                {shippingAddress?.name}, {shippingAddress?.address},{" "}
+                {shippingAddress?.city}, {shippingAddress?.country},{" "}
+                {shippingAddress?.postalcode}
               </div>
               <h5
-                className='text-blue-500 w-full text-2xl font-semibold'
+                className='text-blue-500 w-full text-xl font-semibold'
                 onClick={() => router.push("/shipping")}
               >
-                not delivered
+                {isDelivered ? (
+                  <div className='alert-success'>delivered</div>
+                ) : (
+                  <div className='alert-error'>not delivered</div>
+                )}
               </h5>
             </div>
             <div className='card mb-4 p-5'>
               <h4>Payment Method</h4>
-              <div className='text-2xl my-2'>{paymentMethod}</div>
+              <div className='text-xl my-2'>{paymentMethod}</div>
               <h5
-                className='text-blue-500 text-2xl font-semibold'
+                className='text-blue-500 text-xl font-semibold'
                 onClick={() => router.push("/payment")}
               >
-                not paid
+                {isPaid ? (
+                  <div className='alert-success'>paid</div>
+                ) : (
+                  <div className='alert-error'>not paid</div>
+                )}
               </h5>
             </div>
             <div className='card mb-4 p-3'>
@@ -75,7 +89,7 @@ const OrderId = () => {
                 </thead>
 
                 <tbody>
-                  {orderItems.map((item) => (
+                  {orderItems?.map((item) => (
                     <tr key={item.id} className='border-b text-xl font-normal'>
                       <td className='p-5 text-left flex gap-4 '>
                         <div className='flex items-center gap-2'>
@@ -110,12 +124,6 @@ const OrderId = () => {
                   ))}
                 </tbody>
               </table>
-              <button
-                className='text-blue-500 text-2xl font-semibold p-3'
-                onClick={() => router.push("/cart")}
-              >
-                Edit
-              </button>
             </div>
           </section>
           <section className='col-span-1 '>
@@ -152,3 +160,5 @@ const OrderId = () => {
 };
 
 export default OrderId;
+
+OrderId.auth = true;

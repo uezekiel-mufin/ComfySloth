@@ -12,8 +12,11 @@ import axios from "axios";
 import { useState } from "react";
 import { clearShoppingCart } from "../Slices/cartSlice";
 import Cookies from "js-cookie";
+import { useSession } from "next-auth/react";
 
 const PlaceOrder = () => {
+  const { data: session } = useSession();
+  console.log(session);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
