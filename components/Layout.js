@@ -5,7 +5,7 @@ import { links } from "../utils/constants";
 import Link from "next/link";
 import CartButtons from "./CartButtons";
 import { AiOutlineMenuFold } from "react-icons/ai";
-import Sidebar from "./SIdebar";
+import Sidebar from "./Sidebar";
 import { useSelector, useDispatch } from "react-redux";
 import { menuState } from "../Slices/productSlice";
 
