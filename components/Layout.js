@@ -38,9 +38,12 @@ const Layout = ({ children, title }) => {
               <AiOutlineMenuFold />
             </div>
 
-            <ul className=' hidden  md:flex  items-center gap-4 capitalize'>
+            <ul className=' hidden  md:flex text-xl font-semibold  items-center gap-4 capitalize'>
               {links.map((link) => (
-                <li key={link.id}>
+                <li
+                  key={link.id}
+                  className='hover:text-red-400 transition-all duration-200 ease-linear'
+                >
                   <Link href={link.url}>
                     <a>{link.text}</a>
                   </Link>

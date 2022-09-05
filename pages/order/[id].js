@@ -6,19 +6,20 @@ import { formatPrice } from "../../utils/helpers";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
-import { fetchOrder } from "../../Slices/paymentSlice";
+import { fetchOrder, paymentMade } from "../../Slices/paymentSlice";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { getError } from "../../utils/error";
 import { stripeSession } from "../../Slices/paymentSlice";
+import { useState } from "react";
 
 const OrderId = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { id } = router.query;
+  const { id, status } = router.query;
   const order = useSelector((state) => state.paymentSlice.order);
   const loading = useSelector((state) => state.paymentSlice.loading);
-
-  console.log(order);
+  const sessionId = useSelector((state) => state.paymentSlice.stripeSessionId);
   const {
     orderItems,
     paymentMethod,
@@ -29,6 +30,22 @@ const OrderId = () => {
     isPaid,
     isDelivered,
   } = order;
+
+  useEffect(() => {
+    if (status !== undefined) {
+      if (status === "success") {
+        dispatch(paymentMade());
+        toast.success("Your payment was successful");
+      }
+      if (status === "cancel") {
+        toast.error(getError(status.message));
+      }
+    }
+  }, [dispatch, isPaid, status]);
+
+  console.log(sessionId);
+
+  console.log(order);
 
   const total = itemsPrice + taxPrize + shippingPrice;
 
@@ -56,7 +73,7 @@ const OrderId = () => {
 
   return (
     <Layout title={`order ${id}`}>
-      <ToastContainer position='bottom-center' />
+      <ToastContainer position='bottom-center' limit={1} />
       <div className='mx-24 my-8'>
         <h4>Order {id}</h4>
         <main className='grid grid-cols-4 mt-4  gap-8'>
@@ -168,8 +185,9 @@ const OrderId = () => {
               <button
                 className='primary-button w-full mb-4 text-xl'
                 onClick={makePayment}
+                disabled={isPaid}
               >
-                pay with {paymentMethod}
+                {isPaid ? "Thank You" : `pay with ${paymentMethod}`}
               </button>
             </section>
           </section>

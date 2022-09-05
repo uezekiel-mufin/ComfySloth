@@ -31,7 +31,7 @@ const handler = async (req, res) => {
     payment_method_types: ["card"],
     line_items: productLists,
     mode: "payment",
-    success_url: redirectURL + `/order/${id}`,
+    success_url: redirectURL + `/order/${id}?status=success`,
     // success_url: redirectURL + "?status=success",
     cancel_url: redirectURL + "?status=cancel",
   });

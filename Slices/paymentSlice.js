@@ -35,7 +35,11 @@ export const stripeSession = createAsyncThunk(
 const paymentSlice = createSlice({
   name: "payment",
   initialState,
-  reducers: {},
+  reducers: {
+    paymentMade: (state, action) => {
+      state.order.isPaid = true;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchOrder.pending, (state, action) => {
       state.loading = true;
@@ -60,3 +64,4 @@ const paymentSlice = createSlice({
 });
 
 export default paymentSlice.reducer;
+export const { paymentMade } = paymentSlice.actions;
