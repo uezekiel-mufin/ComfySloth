@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
-import React, { useState } from "react";
+import React from "react";
 import { links } from "../utils/constants";
 import Link from "next/link";
 import CartButtons from "./CartButtons";

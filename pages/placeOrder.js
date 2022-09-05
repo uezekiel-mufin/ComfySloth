@@ -11,7 +11,6 @@ import { getError } from "../utils/error";
 import axios from "axios";
 import { useState } from "react";
 import { clearShoppingCart } from "../Slices/cartSlice";
-import Cookies from "js-cookie";
 import { useSession } from "next-auth/react";
 
 const PlaceOrder = () => {

@@ -4,7 +4,7 @@ import { FaTimes } from "react-icons/fa";
 import { links } from "../utils/constants";
 import CartButtons from "./CartButtons";
 import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { menuState } from "../Slices/productSlice";
 
 const Sidebar = () => {

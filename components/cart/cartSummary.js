@@ -37,8 +37,8 @@ const CartSummary = ({ cartItems }) => {
         </div>
       </div>
       <div className='flex justify-stretch mt-4 md:w-2/5 '>
-        {/* {session?.user ? (
-          <Link href='/checkout'>
+        {session?.user ? (
+          <Link href='/shipping'>
             <button className='bg-[#ab7a5f] tracking-widest w-full  px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
               Checkout
             </button>
@@ -49,12 +49,7 @@ const CartSummary = ({ cartItems }) => {
               login
             </button>
           </Link>
-        )} */}
-        <Link href='/shipping'>
-          <button className='bg-[#ab7a5f] tracking-widest w-full  px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
-            checkout
-          </button>
-        </Link>
+        )}
       </div>
     </div>
   );

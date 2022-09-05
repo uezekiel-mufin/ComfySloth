@@ -11,7 +11,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getError } from "../../utils/error";
 import { stripeSession } from "../../Slices/paymentSlice";
-import { useState } from "react";
 
 const OrderId = () => {
   const dispatch = useDispatch();

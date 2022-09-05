@@ -36,28 +36,28 @@ const paymentSlice = createSlice({
   name: "payment",
   initialState,
   reducers: {
-    paymentMade: (state, action) => {
+    paymentMade: (state) => {
       state.order.isPaid = true;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchOrder.pending, (state, action) => {
+    builder.addCase(fetchOrder.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(fetchOrder.fulfilled, (state, action) => {
       state.loading = false;
       state.order = action.payload;
     });
-    builder.addCase(fetchOrder.rejected, (state, action) => {
+    builder.addCase(fetchOrder.rejected, (state) => {
       state.error = "There was an error fetching the order";
     });
-    builder.addCase(stripeSession.pending, (state, action) => {
+    builder.addCase(stripeSession.pending, (state) => {
       state.stripeLoading = true;
     });
     builder.addCase(stripeSession.fulfilled, (state, action) => {
       state.stripeSessionId = action.payload;
     });
-    builder.addCase(stripeSession.rejected, (state, action) => {
+    builder.addCase(stripeSession.rejected, (state) => {
       state.stripeError = "there was an error making the payment";
     });
   },

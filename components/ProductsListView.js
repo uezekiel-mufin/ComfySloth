@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FcSearch } from "react-icons/fc";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { formatPrice } from "../utils/helpers";
 
 const ProductsListView = () => {

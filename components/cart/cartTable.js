@@ -8,7 +8,7 @@ import { FcSearch } from "react-icons/fc";
 import { BiCheck } from "react-icons/bi";
 import Image from "next/image";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const CartTable = () => {
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);

@@ -13,10 +13,7 @@ import { fetchProduct } from "../../Slices/productSlice";
 import { BiCheck } from "react-icons/bi";
 import { formatPrice } from "../../utils/helpers";
 import Stars from "../../components/Stars";
-import { addToCart, removeFromCart } from "../../Slices/cartSlice";
-import axios from "axios";
-import db from "../../utils/db";
-import SingleProduct from "../../components/Models/SingleProduct";
+import { addToCart } from "../../Slices/cartSlice";
 import { wrapper } from "../../app/Store";
 import { FiMinus } from "react-icons/fi";
 import { HiPlusSm } from "react-icons/hi";
@@ -37,12 +34,8 @@ const SingleProductPage = () => {
     stars,
     company,
     colors,
-    featured,
     price,
     description,
-    available,
-    category,
-    shipping,
     stock,
     reviews,
   } = product;

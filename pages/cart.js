@@ -9,11 +9,10 @@ import { clearShoppingCart } from "../Slices/cartSlice";
 import dynamic from "next/dynamic";
 import Cookies from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 const CartScreen = () => {
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
-  const state = useSelector((state) => state.cartSlice.cart);
   const dispatch = useDispatch();
 
   const handleClearShoppingCart = () => {

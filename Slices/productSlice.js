@@ -1,10 +1,7 @@
-import React, { useState } from "react";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { products_url as url, single_product_url } from "../utils/constants";
 import axios from "axios";
 import { HYDRATE } from "next-redux-wrapper";
-import Product from "../components/Models/Products";
-import db from "../utils/db";
 
 const initialState = {
   isMenu: false,
@@ -20,23 +17,6 @@ const initialState = {
   list_view: false,
   filters: false,
 };
-
-// export const fetchProduct = createAsyncThunk(
-//   "product/fetchProduct",
-//   async (id) => {
-//     db.connect();
-//     const products = await products.find().lean();
-//     return products;
-//   }
-// );
-// export const fetchProducts = createAsyncThunk(
-//   "product/fetchProducts",
-//   async () => {
-//     db.connect();
-//     const products = await products.find().lean();
-//     return products;
-//   }
-// );
 
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",

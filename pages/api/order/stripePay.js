@@ -10,12 +10,6 @@ const handler = async (req, res) => {
       ? "http://localhost:3000"
       : "https://zicomm-v2.vercel.app";
 
-  // const transformedProduct = {
-  //   price: "price_1LejTwJElICB3CJXCNWRAePx",
-  //   quantity: 2,
-  //   description: `You are about to make a payment of ${formatPrice(total)}`,
-  // };
-
   const productLists = orderItems.map((product) => ({
     price_data: {
       currency: "usd",

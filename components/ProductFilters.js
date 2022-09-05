@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { BiCheck, BiCircle } from "react-icons/bi";
 import { categories } from "../utils/constants";
 import { companies } from "../utils/constants";
@@ -8,7 +8,6 @@ import { RangeStepInput } from "react-range-step-input";
 import { formatPrice } from "../utils/helpers";
 import {
   clearFilters,
-  fetchProducts,
   searchByFreeShipping,
   searchProducts,
   searchProductsByCategory,

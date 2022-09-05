@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../Slices/productSlice";
 
@@ -8,7 +8,6 @@ import Link from "next/link";
 import { formatPrice } from "../utils/helpers";
 
 const Featured = () => {
-  const [search, setSearch] = useState(false);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.productSlice.products_loading);
   const error = useSelector((state) => state.productSlice.products_error);
@@ -19,7 +18,7 @@ const Featured = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className='bg-[#f1f5f8] px-12 py-12 flex flex-col '>
