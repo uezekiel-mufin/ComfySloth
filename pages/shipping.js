@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React, { useEffect } from "react";
 import CheckoutWizard from "../components/CheckoutWizard";
 import Layout from "../components/Layout";

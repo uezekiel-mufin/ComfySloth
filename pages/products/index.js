@@ -12,7 +12,6 @@ import { useSession } from "next-auth/react";
 
 const Products = () => {
   const products = useSelector((state) => state.productSlice.filtered_products);
-  const state = useSelector((state) => state.productSlice);
   const grid_view = useSelector((state) => state.productSlice.grid_view);
   const list_view = useSelector((state) => state.productSlice.list_view);
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ const Products = () => {
   console.log(session);
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
   return (
     <div>
       <Layout title='products'>

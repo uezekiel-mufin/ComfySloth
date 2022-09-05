@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
@@ -46,7 +41,7 @@ const SingleProductPage = () => {
 
   useEffect(() => {
     dispatch(fetchProduct(id));
-  }, []);
+  }, [dispatch, id]);
 
   if (Cookies.get("cartItem3444")) {
     console.log(JSON.parse(Cookies.get("cartItem3444")));
