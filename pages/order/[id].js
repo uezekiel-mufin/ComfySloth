@@ -6,8 +6,10 @@ import { formatPrice } from "../../utils/helpers";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
-// import paymentSlice from "../../Slices/paymentSlice";
 import { fetchOrder } from "../../Slices/paymentSlice";
+import { ToastContainer, toast } from "react-toastify";
+import { getError } from "../../utils/error";
+import { stripeSession } from "../../Slices/paymentSlice";
 
 const OrderId = () => {
   const dispatch = useDispatch();
@@ -31,15 +33,30 @@ const OrderId = () => {
   const total = itemsPrice + taxPrize + shippingPrice;
 
   useEffect(() => {
-    dispatch(fetchOrder(id));
+    try {
+      dispatch(fetchOrder(id));
+    } catch (error) {
+      toast.error(getError(error));
+    }
   }, [dispatch, id]);
 
   if (loading) {
     return <h4>Loading.............</h4>;
   }
 
+  const paymentData = { orderItems, id };
+  const makePayment = async () => {
+    try {
+      dispatch(stripeSession(paymentData));
+      console.log(order);
+    } catch (error) {
+      toast.error(getError(error));
+    }
+  };
+
   return (
     <Layout title={`order ${id}`}>
+      <ToastContainer position='bottom-center' />
       <div className='mx-24 my-8'>
         <h4>Order {id}</h4>
         <main className='grid grid-cols-4 mt-4  gap-8'>
@@ -90,7 +107,7 @@ const OrderId = () => {
 
                 <tbody>
                   {orderItems?.map((item) => (
-                    <tr key={item.id} className='border-b text-xl font-normal'>
+                    <tr key={item._id} className='border-b text-xl font-normal'>
                       <td className='p-5 text-left flex gap-4 '>
                         <div className='flex items-center gap-2'>
                           <div className='h-20 w-20'>
@@ -148,8 +165,11 @@ const OrderId = () => {
                 <span>Total</span>
                 <span className='tracking-widest'>{formatPrice(total)}</span>
               </div>
-              <button className='primary-button w-full mb-4 text-xl'>
-                now
+              <button
+                className='primary-button w-full mb-4 text-xl'
+                onClick={makePayment}
+              >
+                pay with {paymentMethod}
               </button>
             </section>
           </section>
