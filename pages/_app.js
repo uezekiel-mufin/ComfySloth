@@ -21,7 +21,7 @@ export default wrapper.withRedux(MyApp);
 
 function Auth({ children }) {
   const router = useRouter();
-  const { data: session, status } = useSession({
+  const { status } = useSession({
     required: true,
     onUnauthenticated() {
       router.push("/unauthorized?message=login required");

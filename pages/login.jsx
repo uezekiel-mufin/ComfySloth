@@ -1,4 +1,4 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { providers } from "../utils/constants";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
@@ -13,11 +13,7 @@ export default function Component() {
   const router = useRouter();
   const { redirect } = router.query;
   console.log(session);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     if (session?.user) {

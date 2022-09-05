@@ -1,6 +1,4 @@
 import Stripe from "stripe";
-import { formatPrice } from "../../../utils/helpers";
-import { useRouter } from "next/dist/client/router";
 
 const handler = async (req, res) => {
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);

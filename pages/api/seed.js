@@ -3,8 +3,7 @@ import User from "../../components/Models/User";
 import data from "../../utils/data";
 import db from "../../utils/db";
 import axios from "axios";
-import { products_url as url, single_product_url } from "../../utils/constants";
-import SingleProduct from "../../components/Models/SingleProduct";
+import { products_url as url } from "../../utils/constants";
 
 const handler = async (req, res) => {
   const response = await axios.get(url);
@@ -13,9 +12,6 @@ const handler = async (req, res) => {
     arr.forEach((arr) => !arr.shipping && (arr.shipping = false));
   };
   generateShipping(products);
-
-  // const resp = await axios.get(`${single_product_url}recm7wC8TBVdU9oEL`);
-  // const product = resp.data;
 
   await db.connect();
 

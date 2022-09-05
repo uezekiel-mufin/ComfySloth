@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Layout from "../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import HeroSection from "../components/HeroSection";
