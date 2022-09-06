@@ -12,13 +12,14 @@ export default function Component() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const { redirect } = router.query;
-  console.log(session);
+  console.log(redirect);
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     if (session?.user) {
       setTimeout(() => {
-        router.push(redirect || "/products");
+        router.back();
+        // router.push(redirect || "/products");
       }, 3000);
     }
   }, [redirect, router, session?.user]);
@@ -32,7 +33,7 @@ export default function Component() {
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000"
         : "https://zicomm-v2.vercel.app";
-    signIn(provider, { callbackUrl: redirectURL + "/products" });
+    signIn(provider);
   };
 
   const formHandler = async ({ email, password }) => {

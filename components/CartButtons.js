@@ -56,7 +56,7 @@ const CartButtons = () => {
               <button onClick={() => handleSignOut()}>Sign out</button>
             </div>
           ) : (
-            <Link href={`/login`}>
+            <Link href={`/login `}>
               <a
                 className='flex items-center text-2xl md:text-xl'
                 onClick={() => router.push("/login")}

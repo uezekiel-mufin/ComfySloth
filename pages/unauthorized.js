@@ -1,10 +1,20 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/Layout";
+import { useSession } from "next-auth/react";
 
 const Unauthorized = () => {
+  const { data: session } = useSession();
   const router = useRouter();
-  const { message } = router.query;
+  console.log(router);
+  const { message, asPath } = router.query;
+
+  useEffect(() => {
+    if (session?.user) {
+      router.back();
+    }
+  }, [asPath, router, session?.user]);
+
   return (
     <Layout title='unauthorized'>
       <h1 className='text-xl'>Access Denied</h1>
