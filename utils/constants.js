@@ -1,6 +1,6 @@
 import React from "react";
 import { GiCompass, GiDiamondHard, GiStabbedNote } from "react-icons/gi";
-import { BsGithub, BsTwitter, BsGoogle } from "react-icons/bs";
+import { BsGithub, BsGoogle } from "react-icons/bs";
 export const links = [
   {
     id: 1,

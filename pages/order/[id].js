@@ -10,7 +10,9 @@ import { fetchOrder, paymentMade } from "../../Slices/paymentSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getError } from "../../utils/error";
-import { stripeSession } from "../../Slices/paymentSlice";
+import { stripeSession, paystackSession } from "../../Slices/paymentSlice";
+import { useSession } from "next-auth/react";
+import { usePaystackPayment } from "react-paystack";
 
 const OrderId = () => {
   const dispatch = useDispatch();
@@ -18,7 +20,11 @@ const OrderId = () => {
   const { id, status } = router.query;
   const order = useSelector((state) => state.paymentSlice.order);
   const loading = useSelector((state) => state.paymentSlice.loading);
-  const sessionId = useSelector((state) => state.paymentSlice.stripeSessionId);
+
+  const payStackData = useSelector((state) => state.paymentSlice.payStackData);
+  const { data: session } = useSession();
+
+  console.log(payStackData);
   const {
     orderItems,
     paymentMethod,
@@ -30,21 +36,40 @@ const OrderId = () => {
     isDelivered,
   } = order;
 
+  //to initialize paystack payment
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: session?.user?.email,
+    amount: 20000,
+    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+  };
+  const initializePayment = usePaystackPayment(config);
+
+  const onSuccess = (reference) => {
+    // Implementation for whatever you want to do with reference and after success call.
+    console.log(reference.reference);
+    dispatch(paystackSession(reference.reference));
+    isPaid && toast.success("Your payment was successful");
+  };
+
+  // you can call this function anything
+  const onClose = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log("closed");
+  };
+
   useEffect(() => {
     if (status !== undefined) {
       if (status === "success") {
         dispatch(paymentMade());
         toast.success("Your payment was successful");
+        console.log(order);
       }
       if (status === "cancel") {
         toast.error(getError(status.message));
       }
     }
-  }, [dispatch, isPaid, status]);
-
-  console.log(sessionId);
-
-  console.log(order);
+  }, [dispatch, isPaid, order, status]);
 
   const total = itemsPrice + taxPrize + shippingPrice;
 
@@ -61,9 +86,16 @@ const OrderId = () => {
   }
 
   const paymentData = { orderItems, id };
-  const makePayment = async () => {
+  const makePayment = async (paymentMethod) => {
     try {
-      dispatch(stripeSession(paymentData));
+      if (paymentMethod === "Stripe") {
+        dispatch(stripeSession(paymentData));
+      }
+      if (paymentMethod === "Paystack") {
+        console.log(paymentMethod);
+
+        initializePayment(onSuccess, onClose);
+      }
       console.log(order);
     } catch (error) {
       toast.error(getError(error));
@@ -183,7 +215,7 @@ const OrderId = () => {
               </div>
               <button
                 className='primary-button w-full mb-4 text-xl'
-                onClick={makePayment}
+                onClick={() => makePayment(paymentMethod)}
                 disabled={isPaid}
               >
                 {isPaid ? "Thank You" : `pay with ${paymentMethod}`}

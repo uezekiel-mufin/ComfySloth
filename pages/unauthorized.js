@@ -7,13 +7,13 @@ const Unauthorized = () => {
   const { data: session } = useSession();
   const router = useRouter();
   console.log(router);
-  const { message, asPath } = router.query;
+  const { message } = router.query;
 
   useEffect(() => {
     if (session?.user) {
       router.back();
     }
-  }, [asPath, router, session?.user]);
+  }, [router, session?.user]);
 
   return (
     <Layout title='unauthorized'>

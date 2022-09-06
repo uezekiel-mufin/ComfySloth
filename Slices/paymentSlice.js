@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
+import { usePaystackPayment } from "react-paystack";
 
 const initialState = {
   loading: false,
@@ -9,6 +10,9 @@ const initialState = {
   stripeSessionId: "",
   stripeLoading: false,
   stripeError: "",
+  payStackData_loading: false,
+  payStackData: {},
+  payStackData_error: "",
 };
 
 export const fetchOrder = createAsyncThunk("payment/fetchOrder", async (id) => {
@@ -29,6 +33,14 @@ export const stripeSession = createAsyncThunk(
       sessionId: checkoutSession.data.id,
     });
     return result;
+  }
+);
+
+export const paystackSession = createAsyncThunk(
+  "paystackSession",
+  async (reference) => {
+    const data = await axios.post(`/api/order/paystack`, { reference });
+    return data;
   }
 );
 
@@ -59,6 +71,16 @@ const paymentSlice = createSlice({
     });
     builder.addCase(stripeSession.rejected, (state) => {
       state.stripeError = "there was an error making the payment";
+    });
+    builder.addCase(paystackSession.pending, (state, action) => {
+      state.payStackData_loading = true;
+    });
+    builder.addCase(paystackSession.fulfilled, (state, action) => {
+      state.payStackData = action.payload;
+      state.order.isPaid = true;
+    });
+    builder.addCase(paystackSession.rejected, (state, action) => {
+      state.payStackData_error = action.payload;
     });
   },
 });
