@@ -54,10 +54,7 @@ export const providers = [
     name: "github",
     icon: <BsGithub />,
   },
-  {
-    name: "twitter",
-    icon: <BsTwitter />,
-  },
+
   {
     name: "google",
     icon: <BsGoogle />,

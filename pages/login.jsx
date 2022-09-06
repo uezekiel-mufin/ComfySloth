@@ -32,9 +32,6 @@ export default function Component() {
   };
 
   const formHandler = async ({ email, password }) => {
-    // e.preventDefault();
-    console.log(email, password);
-
     try {
       const result = await signIn("credentials", {
         redirect: false,
