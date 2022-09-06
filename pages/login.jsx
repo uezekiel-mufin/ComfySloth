@@ -28,7 +28,11 @@ export default function Component() {
   }
 
   const handleSignIn = (provider) => {
-    signIn(provider, { callbackUrl: "/products" });
+    const redirectURL =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://zicomm-v2.vercel.app";
+    signIn(provider, { callbackUrl: redirectURL + "/products" });
   };
 
   const formHandler = async ({ email, password }) => {
