@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "../Slices/productSlice";
+import { featuredProducts, fetchProductss } from "../Slices/productSlice";
 
 import Image from "next/image";
 import { FcSearch } from "react-icons/fc";
@@ -17,7 +17,7 @@ const Featured = () => {
   console.log(error);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(featuredProducts());
   }, [dispatch]);
 
   return (
@@ -37,7 +37,7 @@ const Featured = () => {
               className=' my-2 md:my-8 relative flex flex-col justify-center'
             >
               <Image
-                src={item.image}
+                src={item.images[0].url}
                 alt={item.name}
                 layout='intrinsic'
                 width='395px'

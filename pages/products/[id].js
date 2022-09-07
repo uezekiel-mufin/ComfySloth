@@ -227,13 +227,12 @@ const SingleProductPage = () => {
 export default SingleProductPage;
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    ({ query }) => {
-      const id = query.id;
-      id && store.dispatch(fetchProduct(`${id}`));
+  (store) => (context) => {
+    const { slug } = context.params;
+    slug && store.dispatch(fetchProduct(`${slug}`));
 
-      return {
-        props: {},
-      };
-    }
+    return {
+      props: {},
+    };
+  }
 );

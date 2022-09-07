@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { products_url as url, single_product_url } from "../utils/constants";
 import axios from "axios";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -8,10 +7,13 @@ const initialState = {
   products_loading: false,
   products_error: "",
   products: [],
+  productss: [],
   product_loading: false,
   product_error: "",
   product: {},
   featured_products: [],
+  featured_products_loading: false,
+  featured_products_error: "",
   filtered_products: [],
   grid_view: true,
   list_view: false,
@@ -20,15 +22,23 @@ const initialState = {
 
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
-  async (id) => {
-    const response = await axios.get(`${single_product_url}${id}`);
+  async (slug) => {
+    const response = await axios.get(`/api/products/${slug}`);
     return response.data;
   }
 );
-export const fetchProducts = createAsyncThunk(
-  "product/fetchProducts",
+export const featuredProducts = createAsyncThunk(
+  "product/featuredProduct",
   async () => {
-    const response = await axios.get(`${url}`);
+    const response = await axios.get(`/api/products/featured`);
+    return response.data;
+  }
+);
+
+export const fetchProductss = createAsyncThunk(
+  "product/fetchProductss",
+  async () => {
+    const response = await axios.get(`/api/products`);
     return response.data;
   }
 );
@@ -156,23 +166,17 @@ const productSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchProducts.pending, (state) => {
-      state.products_loading = true;
-    });
-    builder.addCase(fetchProducts.fulfilled, (state, action) => {
+    builder.addCase(fetchProductss.fulfilled, (state, action) => {
       (state.products_loading = false),
         (state.products = action.payload),
-        (state.filtered_products = action.payload),
-        (state.featured_products = action.payload.filter(
-          (product) => product.featured === true
-        ));
+        (state.filtered_products = action.payload);
     });
-    builder.addCase(fetchProducts.rejected, (state) => {
+    builder.addCase(fetchProductss.rejected, (state) => {
       state.products_loading = false;
       state.products = [];
       state.products_error = "There was an error";
     });
-    builder.addCase(fetchProduct.pending, (state) => {
+    builder.addCase(fetchProductss.pending, (state) => {
       state.product_loading = true;
     });
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
@@ -185,6 +189,21 @@ const productSlice = createSlice({
         (state.product = {}),
         (state.product_error = "There was an error fetching this Product");
     });
+    builder.addCase(featuredProducts.pending, (state) => {
+      state.featured_products_loading = true;
+    });
+    builder.addCase(featuredProducts.fulfilled, (state, action) => {
+      (state.featured_products_loading = false),
+        (state.featured_products = action.payload),
+        (state.featured_products_error = "");
+    });
+    builder.addCase(featuredProducts.rejected, (state) => {
+      (state.featured_products_loading = false),
+        (state.featured_products = []),
+        (state.featured_products_error =
+          "There was an error fetching these Product");
+    });
+
     builder.addCase([HYDRATE], (state, action) => {
       state.product = action.payload.products.product;
       state.featured_products = action.payload.products.featured_products;
