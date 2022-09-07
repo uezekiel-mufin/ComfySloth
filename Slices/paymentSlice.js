@@ -8,6 +8,7 @@ const initialState = {
   error: "",
   stripeSessionId: "",
   stripeLoading: false,
+
   stripeError: "",
   payStackData_loading: false,
   payStackData: {},
@@ -28,10 +29,11 @@ export const stripeSession = createAsyncThunk(
     const checkoutSession = await axios.post("/api/order/stripePay", {
       ...order,
     });
-    const result = await stripe.redirectToCheckout({
+    await stripe.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     });
-    return result;
+
+    return checkoutSession;
   }
 );
 
@@ -68,7 +70,7 @@ const paymentSlice = createSlice({
       state.stripeLoading = true;
     });
     builder.addCase(stripeSession.fulfilled, (state, action) => {
-      state.stripeSessionId = action.payload;
+      state.stripeSessionId = action.payload.data.id;
     });
     builder.addCase(stripeSession.rejected, (state) => {
       state.stripeError = "there was an error making the payment";

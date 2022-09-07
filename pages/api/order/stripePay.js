@@ -1,4 +1,8 @@
+import { toast } from "react-toastify";
 import Stripe from "stripe";
+import Order from "../../../components/Models/Order";
+import db from "../../../utils/db";
+import { getError } from "../../../utils/error";
 
 const handler = async (req, res) => {
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
@@ -19,16 +23,24 @@ const handler = async (req, res) => {
     quantity: product.quantity,
   }));
 
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    line_items: productLists,
-    mode: "payment",
-    success_url: redirectURL + `/order/${id}?status=success`,
-    // success_url: redirectURL + "?status=success",
-    cancel_url: redirectURL + "?status=cancel",
-  });
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: productLists,
+      mode: "payment",
+      success_url: redirectURL + `/order/${id}?status=success`,
+      // success_url: redirectURL + "?status=success",
+      cancel_url: redirectURL + `/order/${id}?status=cancel`,
+    });
 
-  res.send(session);
+    db.connect();
+    await Order.updateOne({ _id: id }, { $set: { isPaid: true } });
+    db.disconnect();
+
+    res.send(session);
+  } catch (error) {
+    toast.error(getError(error.message));
+  }
 };
 
 export default handler;

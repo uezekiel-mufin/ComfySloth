@@ -59,8 +59,6 @@ const SingleProductPage = () => {
     console.log(product);
   };
 
-  // Cookies.remove("cartItem3444");
-
   const handleAddToCart = (product) => {
     console.log(product);
     console.log({ ...product });
