@@ -24,7 +24,7 @@ const OrderId = () => {
   const payStackData = useSelector((state) => state.paymentSlice.payStackData);
   const { data: session } = useSession();
 
-  console.log(payStackData);
+  console.log(payStackData, order);
   const {
     orderItems,
     paymentMethod,
@@ -35,20 +35,21 @@ const OrderId = () => {
     isPaid,
     isDelivered,
   } = order;
+  const total = itemsPrice + taxPrize + shippingPrice;
 
   //to initialize paystack payment
   const config = {
     reference: new Date().getTime().toString(),
     email: session?.user?.email,
-    amount: 20000,
+    amount: Math.round(total),
+    name: shippingAddress?.name,
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
   };
   const initializePayment = usePaystackPayment(config);
 
   const onSuccess = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
-    console.log(reference.reference);
-    dispatch(paystackSession(reference.reference));
+    dispatch(paystackSession({ ...order, reference }));
     isPaid && toast.success("Your payment was successful");
   };
 
@@ -71,8 +72,6 @@ const OrderId = () => {
     }
   }, [dispatch, isPaid, order, status]);
 
-  const total = itemsPrice + taxPrize + shippingPrice;
-
   useEffect(() => {
     try {
       dispatch(fetchOrder(id));
@@ -93,7 +92,6 @@ const OrderId = () => {
       }
       if (paymentMethod === "Paystack") {
         console.log(paymentMethod);
-
         initializePayment(onSuccess, onClose);
       }
       console.log(order);

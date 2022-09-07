@@ -71,7 +71,7 @@ const SingleProductPage = () => {
   return (
     <div>
       <Layout title={`Product ${id}`}>
-        <ToastContainer />
+        <ToastContainer position='bottom-center' limit={1} />
         <HeroSection singleProduct={product} />
         <div className='p-24'>
           <Link href='/products'>

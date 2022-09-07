@@ -1,5 +1,7 @@
 import axios from "axios";
 import { getSession } from "next-auth/react";
+import Order from "../../../components/Models/Order";
+import db from "../../../utils/db";
 
 const handler = async (req, res) => {
   const session = getSession({ req });
@@ -7,12 +9,12 @@ const handler = async (req, res) => {
   if (!session) {
     return res.status(401).send("Authentication required for this page");
   }
-  const { reference } = req.body;
+  const { order } = req.body;
 
-  if (reference) {
+  if (order.reference) {
     try {
       const response = await axios.get(
-        `https://api.paystack.co/transaction/verify/${reference}`,
+        `https://api.paystack.co/transaction/verify/${order.reference.reference}`,
         {
           headers: {
             Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
@@ -20,6 +22,9 @@ const handler = async (req, res) => {
         }
       );
 
+      db.connect();
+      await Order.updateOne({ _id: order._id }, { $set: { isPaid: true } });
+      db.disconnect();
       res.status(201).send(response.data);
     } catch (error) {
       console.log(error);
@@ -27,7 +32,7 @@ const handler = async (req, res) => {
     }
   }
 
-  //   res.status(201).send(reference);
+  res.status(201).send(order);
 };
 
 export default handler;

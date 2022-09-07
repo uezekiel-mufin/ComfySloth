@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
-import { usePaystackPayment } from "react-paystack";
 
 const initialState = {
   loading: false,
@@ -38,8 +37,10 @@ export const stripeSession = createAsyncThunk(
 
 export const paystackSession = createAsyncThunk(
   "paystackSession",
-  async (reference) => {
-    const data = await axios.post(`/api/order/paystack`, { reference });
+  async (order) => {
+    const data = await axios.post(`/api/order/paystack`, {
+      order,
+    });
     return data;
   }
 );
