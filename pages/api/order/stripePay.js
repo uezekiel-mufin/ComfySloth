@@ -3,8 +3,13 @@ import Stripe from "stripe";
 import Order from "../../../components/Models/Order";
 import db from "../../../utils/db";
 import { getError } from "../../../utils/error";
+import { getSession } from "next-auth/react";
 
 const handler = async (req, res) => {
+  const session = await getSession({ req });
+  if (!session) {
+    return res.status(401).send("You are not authorized to view this page");
+  }
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
   const { orderItems, id } = req.body;
   const redirectURL =

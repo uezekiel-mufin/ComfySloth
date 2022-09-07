@@ -8,17 +8,27 @@ const initialState = {
   error: "",
   stripeSessionId: "",
   stripeLoading: false,
-
   stripeError: "",
   payStackData_loading: false,
   payStackData: {},
   payStackData_error: "",
+  orderHistory: [],
+  orderHistory_loading: false,
+  orderHistory_error: "",
 };
 
 export const fetchOrder = createAsyncThunk("payment/fetchOrder", async (id) => {
   const { data } = await axios.get(`/api/order/${id}`);
   return data;
 });
+
+export const fetchOrderHistory = createAsyncThunk(
+  "payment/fetchOrderHistory",
+  async () => {
+    const { data } = await axios.get(`/api/order/history`);
+    return data;
+  }
+);
 
 export const stripeSession = createAsyncThunk(
   "stripeSession",
@@ -84,6 +94,19 @@ const paymentSlice = createSlice({
     });
     builder.addCase(paystackSession.rejected, (state, action) => {
       state.payStackData_error = action.payload;
+    });
+    builder.addCase(fetchOrderHistory.pending, (state) => {
+      state.orderHistory_loading = true;
+    });
+    builder.addCase(fetchOrderHistory.fulfilled, (state, action) => {
+      state.orderHistory_loading = false;
+      state.orderHistory = action.payload;
+    });
+    builder.addCase(fetchOrderHistory.rejected, (state) => {
+      state.orderHistory_loading = false;
+      state.orderHistory = [];
+      state.orderHistory_error =
+        "There was an error fetching the order History";
     });
   },
 });

@@ -10,11 +10,14 @@ import dynamic from "next/dynamic";
 import Cookies from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { useSession } from "next-auth/react";
 
 const CartScreen = () => {
+  const { data: session } = useSession();
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
   const dispatch = useDispatch();
 
+  console.log(session);
   const handleClearShoppingCart = () => {
     dispatch(clearShoppingCart());
     console.log("cleared");

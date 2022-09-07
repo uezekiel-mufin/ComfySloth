@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const HeroSection = ({ singleProduct }) => {
+const HeroSection = ({ singleProduct, title }) => {
   return (
     <div className='bg-[#eaded7] h-32 flex items-center text-3xl font-bold text-[#453227] p-8 w-full'>
       <Link href='/'>
@@ -10,7 +10,7 @@ const HeroSection = ({ singleProduct }) => {
       &nbsp;/&nbsp;
       <Link href={`/products`}>
         <a>
-          <h4>products</h4>
+          <h4>{title}</h4>
         </a>
       </Link>
       {singleProduct && <h4> &nbsp;/&nbsp;{singleProduct.name}</h4>}
