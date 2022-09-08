@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { featuredProducts, fetchProductss } from "../Slices/productSlice";
+import { featuredProducts } from "../Slices/productSlice";
 
 import Image from "next/image";
 import { FcSearch } from "react-icons/fc";

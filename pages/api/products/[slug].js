@@ -1,5 +1,4 @@
 import { getSession } from "next-auth/react";
-import Product from "../../../components/Models/Products";
 import singleProduct from "../../../components/Models/SingleProduct";
 
 import db from "../../../utils/db";

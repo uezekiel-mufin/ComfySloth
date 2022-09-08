@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { wrapper } from "../../app/Store";
-import { fetchProducts, fetchProductss } from "../../Slices/productSlice";
 import ProductFilters from "../../components/ProductFilters";
 import ProductsSorts from "../../components/ProductsSorts";
 import ProductsGridView from "../../components/ProductsGridView";
@@ -12,7 +11,6 @@ import { useSession } from "next-auth/react";
 
 const Products = () => {
   const products = useSelector((state) => state.productSlice.filtered_products);
-  const productss = useSelector((state) => state.productSlice.productss);
   const grid_view = useSelector((state) => state.productSlice.grid_view);
   const list_view = useSelector((state) => state.productSlice.list_view);
   const dispatch = useDispatch();

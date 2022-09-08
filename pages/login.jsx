@@ -28,10 +28,6 @@ export default function Component() {
   }
 
   const handleSignIn = (provider) => {
-    const redirectURL =
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3000"
-        : "https://zicomm-v2.vercel.app";
     signIn(provider);
   };
 

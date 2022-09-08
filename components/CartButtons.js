@@ -8,7 +8,7 @@ import { menuState } from "../Slices/productSlice";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { TiArrowSortedDown } from "react-icons/ti";
-import { Menu, Transition } from "@headlessui/react";
+import { Menu } from "@headlessui/react";
 
 const menuList = ["profile", "orderHistory", "Log out"];
 

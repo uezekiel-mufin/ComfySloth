@@ -13,7 +13,7 @@ const OrderHistory = () => {
 
   useEffect(() => {
     dispatch(fetchOrderHistory());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Layout title='order history'>
