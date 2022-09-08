@@ -18,8 +18,8 @@ export default function Component() {
   useEffect(() => {
     if (session?.user) {
       setTimeout(() => {
-        // router.push(redirect || "/products");
-      }, 3000);
+        router.push(redirect || "/products");
+      }, 1000);
     }
   }, [redirect, router, session?.user]);
 

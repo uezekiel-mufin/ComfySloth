@@ -34,6 +34,8 @@ const CartButtons = () => {
     dispatch(menuState());
   };
 
+  
+
   return (
     <div>
       <ul className='flex gap-4 items-center'>

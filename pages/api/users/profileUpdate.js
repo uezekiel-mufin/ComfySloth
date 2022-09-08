@@ -13,7 +13,7 @@ const handler = async (req, res) => {
   const { newData } = req.body;
 
   db.connect();
-  await User.updateMany(
+  const newUser = await User.updateMany(
     { email: session.user.email },
     {
       $set: {

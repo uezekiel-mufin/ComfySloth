@@ -10,9 +10,10 @@ const OrderHistory = () => {
   const dispatch = useDispatch();
   const orderHistory = useSelector((state) => state.paymentSlice.orderHistory);
   console.log(orderHistory);
+
   useEffect(() => {
     dispatch(fetchOrderHistory());
-  }, [dispatch]);
+  }, []);
 
   return (
     <Layout title='order history'>
@@ -42,13 +43,25 @@ const OrderHistory = () => {
                   {formatPrice(order.total)}
                 </td>
                 <td className='p-5 mb-3'>
-                  {order.isPaid ? <h6>paid</h6> : <h6>not paid</h6>}
+                  {order.isPaid ? (
+                    <h6 className='text-green-500 font-semibold text-2xl'>
+                      paid
+                    </h6>
+                  ) : (
+                    <h6 className='text-red-500 font-semibold text-xl'>
+                      not paid
+                    </h6>
+                  )}
                 </td>
                 <td className='p-5 mb-3'>
                   {order.isDelivered ? (
-                    <h6>delivered</h6>
+                    <h6 className='text-green-500 font-semibold text-2xl'>
+                      delivered
+                    </h6>
                   ) : (
-                    <h6>not delivered</h6>
+                    <h6 className='text-red-500 font-semibold text-xl'>
+                      not delivered
+                    </h6>
                   )}
                 </td>
                 <td className='p-5 mb-3'>

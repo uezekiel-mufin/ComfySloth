@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateProfile } from "../Slices/paymentSlice";
 import { toast, ToastContainer } from "react-toastify";
 import { getError } from "../utils/error";
-import { useSession, signIn } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const ProfileUpdate = () => {
@@ -29,7 +29,9 @@ const ProfileUpdate = () => {
       dispatch(updateProfile(data));
 
       if (updatedUser) {
+        // await signOut();
         const { email, password } = updatedUser;
+        console.log(email, password);
         const result = await signIn("credentials", {
           redirect: false,
           email,
