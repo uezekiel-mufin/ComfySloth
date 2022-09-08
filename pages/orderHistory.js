@@ -17,10 +17,10 @@ const OrderHistory = () => {
   return (
     <Layout title='order history'>
       <HeroSection title='order-history' />
-      <div className='mx-16 my-8 '>
+      <div className='mx-4 md:mx-16 my-8 overflow-auto'>
         <h3 className='font-bold'>Order History</h3>
 
-        <table className='min-w-full mt-8'>
+        <table className='min-w-full mt-8 '>
           <thead className='border-b-2'>
             <tr className='text-xl font-semibold'>
               <td className='p-5 mb-2'>ID</td>
@@ -66,3 +66,5 @@ const OrderHistory = () => {
 };
 
 export default OrderHistory;
+
+OrderHistory.auth = true;

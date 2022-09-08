@@ -18,7 +18,6 @@ export default function Component() {
   useEffect(() => {
     if (session?.user) {
       setTimeout(() => {
-        router.back();
         // router.push(redirect || "/products");
       }, 3000);
     }

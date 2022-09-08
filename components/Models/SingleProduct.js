@@ -20,5 +20,7 @@ const singleProductSchema = new mongoose.Schema(
     timestamps: false,
   }
 );
-const singleProduct = mongoose.models.singleproducts;
+const singleProduct =
+  mongoose.models.singleproducts ||
+  mongoose.model("singleproducts", singleProductSchema);
 export default singleProduct;

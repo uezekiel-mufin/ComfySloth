@@ -22,7 +22,7 @@ const Layout = ({ children, title }) => {
       </Head>
       <div className='flex  flex-col w-full min-h-screen justify-between '>
         <header className=' '>
-          <nav className='relative flex justify-between p-4 items-center h-20  '>
+          <nav className='relative flex justify-between py-4 px-2 items-center h-20  '>
             <div className='text-5xl'>
               <Link href='/'>
                 <a className='pointer'>

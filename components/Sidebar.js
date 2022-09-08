@@ -32,11 +32,6 @@ const Sidebar = () => {
             <Link href={link.url}>{link.text}</Link>
           </li>
         ))}
-        <Link href='/checkout'>
-          <li className='mb-4 p-4' onClick={() => dispatch(menuState())}>
-            checkout
-          </li>
-        </Link>
       </ul>
 
       <div className='flex justify-center'>

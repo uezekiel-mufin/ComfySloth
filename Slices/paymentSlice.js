@@ -15,7 +15,18 @@ const initialState = {
   orderHistory: [],
   orderHistory_loading: false,
   orderHistory_error: "",
+  updatedUser: {},
+  updatedUser_loading: false,
+  updatedUser_error: "",
 };
+
+export const updateProfile = createAsyncThunk(
+  "updateProfile",
+  async (newData) => {
+    const { data } = await axios.post(`/api/users/profileUpdate`, { newData });
+    return data;
+  }
+);
 
 export const fetchOrder = createAsyncThunk("payment/fetchOrder", async (id) => {
   const { data } = await axios.get(`/api/order/${id}`);
@@ -85,7 +96,7 @@ const paymentSlice = createSlice({
     builder.addCase(stripeSession.rejected, (state) => {
       state.stripeError = "there was an error making the payment";
     });
-    builder.addCase(paystackSession.pending, (state, action) => {
+    builder.addCase(paystackSession.pending, (state) => {
       state.payStackData_loading = true;
     });
     builder.addCase(paystackSession.fulfilled, (state, action) => {
@@ -107,6 +118,18 @@ const paymentSlice = createSlice({
       state.orderHistory = [];
       state.orderHistory_error =
         "There was an error fetching the order History";
+    });
+    builder.addCase(updateProfile.pending, (state) => {
+      state.updatedUser_loading = true;
+    });
+    builder.addCase(updateProfile.fulfilled, (state, action) => {
+      state.updatedUser_loading = false;
+      state.updatedUser = action.payload;
+    });
+    builder.addCase(updateProfile.rejected, (state) => {
+      state.updatedUser_loading = false;
+      state.updatedUser = {};
+      state.updatedUser_error = "there was an error updating your profile";
     });
   },
 });
