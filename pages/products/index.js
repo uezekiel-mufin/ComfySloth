@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { wrapper } from "../../app/Store";
+import { fetchProductss } from "../../Slices/productSlice";
 import ProductFilters from "../../components/ProductFilters";
 import ProductsSorts from "../../components/ProductsSorts";
 import ProductsGridView from "../../components/ProductsGridView";
