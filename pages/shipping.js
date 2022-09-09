@@ -39,7 +39,7 @@ const Shipping = () => {
         <h3 className='font-semibold '>Shipping Address</h3>
         <form
           onSubmit={handleSubmit(formHandler)}
-          className='flex flex-col min-h-screen gap-4 mt-8 text-2xl font-semibold '
+          className='flex flex-col min-h-screen gap-4 mt-8 text-xl  '
         >
           <div className='flex flex-col mb-4'>
             <label htmlFor='name'>Full Name</label>

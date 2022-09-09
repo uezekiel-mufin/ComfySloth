@@ -65,7 +65,7 @@ const OrderHistory = () => {
                   )}
                 </td>
                 <td className='p-5 mb-3'>
-                  <Link href={`/products/${order._id}`}>
+                  <Link href={`/order/${order._id}`}>
                     <a className='text-blue-500 hover:text-red-500'>Details</a>
                   </Link>
                 </td>

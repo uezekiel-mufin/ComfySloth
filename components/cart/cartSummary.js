@@ -16,8 +16,8 @@ const CartSummary = ({ cartItems }) => {
 
   const orderTotal = subTotal + shippingFee;
   return (
-    <div className='flex flex-col mx-4 md:items-end gap-2 mb-28  md:px-28 mt-8 '>
-      <div className='shadow-xl border-2 px-10 py-5 md:w-2/5 rounded-lg'>
+    <div className='flex flex-col mx-8 md:items-end gap-2 mb-28  md:px-28 mt-8 '>
+      <div className='shadow-xl border-2 px-4 py-5 md:w-2/5 rounded-lg'>
         <h3 className='text-center font-bold'>Summary</h3>
         <div className='flex flex-col'>
           <div className='flex flex-col gap-4 my-8'>
@@ -39,13 +39,13 @@ const CartSummary = ({ cartItems }) => {
       <div className='flex justify-stretch mt-4 md:w-2/5 '>
         {session?.user ? (
           <Link href='/shipping'>
-            <button className='bg-[#ab7a5f] tracking-widest w-full  px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
+            <button className='bg-[#ab7a5f] tracking-widest w-4/12 md:w-full  px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
               Checkout
             </button>
           </Link>
         ) : (
           <Link href='/login'>
-            <button className='bg-[#ab7a5f] tracking-widest w-full  px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
+            <button className='bg-[#ab7a5f] tracking-widest w-4/12 md:w-full px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
               login
             </button>
           </Link>

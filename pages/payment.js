@@ -16,7 +16,7 @@ const Payment = () => {
   console.log(shippingAddress);
   console.log(payment);
   const [selectedPayment, setSelectedPayment] = useState(payment);
-  const paymentMethod = ["Paypal", "Stripe", "Paystack", "CashOnDelivery"];
+  const paymentMethod = ["Stripe", "Paystack", "CashOnDelivery"];
 
   useEffect(() => {
     if (!shippingAddress.address) {

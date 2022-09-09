@@ -20,14 +20,10 @@ const OrderId = () => {
   const { id, status } = router.query;
   const order = useSelector((state) => state.paymentSlice.order);
   const loading = useSelector((state) => state.paymentSlice.loading);
-  const stripeSessionId = useSelector(
-    (state) => state.paymentSlice.stripeSessionId
-  );
+
   const payStackData = useSelector((state) => state.paymentSlice.payStackData);
   const { data: session } = useSession();
 
-  console.log(payStackData, order);
-  console.log(stripeSessionId);
   const {
     orderItems,
     paymentMethod,
@@ -65,14 +61,13 @@ const OrderId = () => {
     if (status !== undefined) {
       if (status === "success") {
         dispatch(paymentMade());
-
         toast.success("Your payment was successful");
       }
       if (status === "cancel") {
         toast.error(getError(status.message));
       }
     }
-  }, [dispatch, isPaid, order, status]);
+  }, [dispatch, payStackData, status]);
 
   useEffect(() => {
     try {

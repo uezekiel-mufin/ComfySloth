@@ -48,13 +48,13 @@ const CartScreen = () => {
           <div className='flex justify-between px-5 lg:px-28 font-normal mt-4 '>
             <Link href='/products'>
               <a>
-                <button className='bg-[#ab7a5f] tracking-widest px-2 md:px-4  py-2 text-white  md:text-xl text-base rounded-md'>
+                <button className='bg-[#ab7a5f] tracking-widest px-2 md:px-4  py-3 text-white  md:text-xl text-base rounded-md'>
                   Continue Shopping
                 </button>
               </a>
             </Link>
             <button
-              className='bg-[#222] tracking-widest px-2 md:px-4  py-2 text-white  md:text-xl text-base rounded-md'
+              className='bg-[#222] tracking-widest px-2 md:px-4  py-3 text-white  md:text-xl text-base rounded-md'
               onClick={() => handleClearShoppingCart()}
             >
               Clear Shopping cart

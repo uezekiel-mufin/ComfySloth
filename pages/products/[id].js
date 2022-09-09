@@ -70,15 +70,15 @@ const SingleProductPage = () => {
     <div>
       <Layout title={`Product ${id}`}>
         <ToastContainer position='bottom-center' limit={1} />
-        <HeroSection singleProduct={product} />
-        <div className='p-24'>
+        <HeroSection singleProduct={product} title='products' />
+        <div className='p-8 md:p-24'>
           <Link href='/products'>
-            <button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white px-6 md:px-8 tracking-widest mb-10 rounded-md py-1 mt-4 md:py-2'>
+            <button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white px-6 md:px-8 tracking-widest mb-10 rounded-md text-xl py-2 mt-4 md:py-2'>
               back to product
             </button>
           </Link>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-            <div className='h-11/12 w-11/12'>
+            <div className='h-11/12 md:w-11/12'>
               <Image
                 src={viewImage}
                 alt={name}
@@ -103,7 +103,7 @@ const SingleProductPage = () => {
                 ))}
               </div>
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col gap-2'>
               <h3 className='flex-1 font-bold'>{name}</h3>
               <h4 className='flex-1 flex gap-4'>
                 <Stars stars={stars} /> ({reviews} customer reviews)
@@ -158,7 +158,7 @@ const SingleProductPage = () => {
                 </div>
               </div>
 
-              <div className='flex gap-8 items-center flex-1'>
+              <div className='flex gap-4 items-center flex-1'>
                 <button
                   onClick={() =>
                     setQuantityOrdered(() => {
