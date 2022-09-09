@@ -53,7 +53,6 @@ const OrderId = () => {
   const onSuccess = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
     dispatch(paystackSession({ ...order, reference }));
-    isPaid && toast.success("Your payment was successful");
   };
 
   // you can call this function anything
@@ -68,7 +67,6 @@ const OrderId = () => {
         dispatch(paymentMade());
 
         toast.success("Your payment was successful");
-        console.log(order);
       }
       if (status === "cancel") {
         toast.error(getError(status.message));
@@ -107,12 +105,12 @@ const OrderId = () => {
   return (
     <Layout title={`order ${id}`}>
       <ToastContainer position='bottom-center' limit={1} />
-      <div className='mx-24 my-8'>
-        <h4>Order {id}</h4>
-        <main className='grid grid-cols-4 mt-4  gap-8'>
+      <div className='md:mx-24 mx-4 my-8'>
+        <h4 className=' font-semibold'>Order {id}</h4>
+        <main className='grid grid-cols-1 md:grid-cols-4 mt-4  md:gap-8'>
           <section className='col-span-3 '>
             <div className='card mb-4 p-6 '>
-              <h4>Shipping Address</h4>
+              <h4 className='font-semibold'>Shipping Address</h4>
               <div className='text-xl my-2'>
                 {shippingAddress?.name}, {shippingAddress?.address},{" "}
                 {shippingAddress?.city}, {shippingAddress?.country},{" "}
@@ -130,7 +128,7 @@ const OrderId = () => {
               </h5>
             </div>
             <div className='card mb-4 p-5'>
-              <h4>Payment Method</h4>
+              <h4 className='font-semibold'>Payment Method</h4>
               <div className='text-xl my-2'>{paymentMethod}</div>
               <h5
                 className='text-blue-500 text-xl font-semibold'
@@ -143,8 +141,8 @@ const OrderId = () => {
                 )}
               </h5>
             </div>
-            <div className='card mb-4 p-3'>
-              <h4 className='p-5'>Order Items</h4>
+            <div className='card mb-4 p-3 overflow-auto'>
+              <h4 className='p-5 font-semibold'>Order Items</h4>
               <table className='min-w-full mx-auto'>
                 <thead className='border-b'>
                   <tr className='font-bold text-2xl'>
@@ -198,7 +196,9 @@ const OrderId = () => {
               <h4 className='my-4 font-bold text-center'>Order Summary</h4>
               <div className='mb-4 text-xl font-normal flex justify-between'>
                 <span>Items</span>
-                <span>{formatPrice(itemsPrice)}</span>
+                <span className='tracking-widest'>
+                  {formatPrice(itemsPrice)}
+                </span>
               </div>
               <div className='mb-4 text-xl font-normal flex justify-between'>
                 <span>Tax</span>
@@ -216,7 +216,7 @@ const OrderId = () => {
                 <span className='tracking-widest'>{formatPrice(total)}</span>
               </div>
               <button
-                className='primary-button w-full mb-4 text-xl'
+                className='primary-button w-full mb-4 text-xl capitalize'
                 onClick={() => makePayment(paymentMethod)}
                 disabled={isPaid}
               >

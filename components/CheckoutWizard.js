@@ -7,7 +7,7 @@ const CheckoutWizard = ({ activeStep = 0 }) => {
       {data.map((item, index) => (
         <div
           key={item}
-          className={`flex justify-center p-2 flex-1 text-3xl border-b-2 ${
+          className={`flex justify-center p-2 flex-1 text-xl md:text-3xl border-b-2 ${
             index <= activeStep
               ? "border-indigo-600 text-indigo-600"
               : "border-gray-500 text-gray-500"

@@ -12,14 +12,13 @@ export default function Component() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const { redirect } = router.query;
-  console.log(redirect);
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     if (session?.user) {
       setTimeout(() => {
         router.push(redirect || "/products");
-      }, 1000);
+      }, 100);
     }
   }, [redirect, router, session?.user]);
 
