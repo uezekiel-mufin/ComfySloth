@@ -25,12 +25,7 @@ const ProductFilters = () => {
 
   const highestPrice =
     products.length > 1 &&
-    products
-      .map((product) => product.price)
-      .reduce((acc, cur) => {
-        if (cur > acc) return cur;
-        if (acc > cur) return acc;
-      }, 0);
+    Math.max(...products.map((product) => product.price));
   const [filterPrice, setFilterPrice] = useState(highestPrice);
 
   const handleFilterColor = (e, color) => {
@@ -144,7 +139,7 @@ const ProductFilters = () => {
       <div>
         <h4 className='font-bold mb-2'>Price</h4>
         <p className='text-xl tracking-widest mb-0'>
-          {formatPrice(highestPrice)}
+          {formatPrice(filterPrice)}
         </p>
         <RangeStepInput
           min={0}

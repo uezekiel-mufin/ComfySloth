@@ -8,7 +8,6 @@ import ProductsSorts from "../../components/ProductsSorts";
 import ProductsGridView from "../../components/ProductsGridView";
 import ProductsListView from "../../components/ProductsListView";
 import HeroSection from "../../components/HeroSection";
-import { useSession } from "next-auth/react";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 
 const Products = () => {
@@ -17,8 +16,6 @@ const Products = () => {
   const list_view = useSelector((state) => state.productSlice.list_view);
   const dispatch = useDispatch();
 
-  const { data: session } = useSession();
-  console.log(session);
   useEffect(() => {
     dispatch(fetchProductss());
   }, [dispatch]);
@@ -26,10 +23,6 @@ const Products = () => {
   const handleScrollToTop = () => {
     const top = document.getElementById("window__top");
     top.scrollIntoView({ behavior: "smooth" });
-    console.log(top);
-    console.log("scroll to top");
-    console.log(window.top);
-    // document.documentElement.scrollTop({ behavior: "smooth" });
   };
   console.log(products);
   return (
