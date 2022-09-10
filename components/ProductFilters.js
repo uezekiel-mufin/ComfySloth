@@ -62,7 +62,7 @@ const ProductFilters = () => {
   };
 
   return (
-    <form className='flex flex-col gap-8 mb-24 mx-4 md:mx-0'>
+    <form className='flex flex-col gap-4 mb-24 mx-4 md:mx-0'>
       <div>
         <input
           type='text'
@@ -142,8 +142,10 @@ const ProductFilters = () => {
         </div>
       </div>
       <div>
-        <h4 className='font-bold mb-4'>Price</h4>
-        <p className='text-xl tracking-widest'>{formatPrice(filterPrice)}</p>
+        <h4 className='font-bold mb-2'>Price</h4>
+        <p className='text-xl tracking-widest mb-0'>
+          {formatPrice(highestPrice)}
+        </p>
         <RangeStepInput
           min={0}
           max={309999}
@@ -153,8 +155,7 @@ const ProductFilters = () => {
             setFilterPrice(e.target.value);
             dispatch(searchProductsByPrice(filterPrice));
           }}
-          // onChange={(e) => handlePriceChange(e)}
-          className='text-3xl'
+          className='text-3xl p-0 mt-1'
         />
       </div>
       <div className='flex gap-4 items-end p-2'>

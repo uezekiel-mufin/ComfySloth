@@ -9,6 +9,7 @@ import ProductsGridView from "../../components/ProductsGridView";
 import ProductsListView from "../../components/ProductsListView";
 import HeroSection from "../../components/HeroSection";
 import { useSession } from "next-auth/react";
+import { BsArrowUpCircleFill } from "react-icons/bs";
 
 const Products = () => {
   const products = useSelector((state) => state.productSlice.filtered_products);
@@ -19,34 +20,46 @@ const Products = () => {
   const { data: session } = useSession();
   console.log(session);
   useEffect(() => {
-    // dispatch(fetchProducts());
     dispatch(fetchProductss());
   }, [dispatch]);
 
+  const handleScrollToTop = () => {
+    const top = document.getElementById("window__top");
+    top.scrollIntoView({ behavior: "smooth" });
+    console.log(top);
+    console.log("scroll to top");
+    console.log(window.top);
+    // document.documentElement.scrollTop({ behavior: "smooth" });
+  };
   console.log(products);
   return (
-    <div>
+    <div id='window__top'>
       <Layout title='products'>
         <HeroSection title='products' />
-        <div className='productPageViewSmall productPageView md:pl-32 md:pr-8 relative gap-16 mt-20 '>
-          <div className='md:h-screen mb-8'>
+        <div className='relative productPageViewSmall productPageView md:pl-32 md:pr-8  gap-16 mt-20 '>
+          <div className='mb-8 md:sticky h-screen top-4'>
             <ProductFilters />
           </div>
           <div className=' '>
-            <div>
-              <ProductsSorts />
-            </div>
+            <ProductsSorts />
+
             {products.length < 1 ? (
               <h4 className='italic bold mt-32'>
                 No products for match the search result, try another search
                 query....
               </h4>
             ) : (
-              <div className='md:h-screen mx-4 md:overflow-auto  '>
+              <div className='relative  mx-4   '>
                 {grid_view && <ProductsGridView />}
                 {list_view && <ProductsListView />}
               </div>
             )}
+            <span
+              className='text-4xl absolute bottom-0 right-8'
+              onClick={handleScrollToTop}
+            >
+              <BsArrowUpCircleFill />
+            </span>
           </div>
         </div>
       </Layout>

@@ -29,7 +29,7 @@ const ProductsListView = () => {
               </a>
             </Link>
           </div>
-          <div className='flex flex-col mx-2 gap-1 items-start justify-center'>
+          <div className='flex flex-col mx-2 gap-4 items-start justify-center'>
             <h3 className='text-[#102a42] font-bold text-3xl md:text-5xl tracking-widest'>
               {product.name}
             </h3>
@@ -37,9 +37,9 @@ const ProductsListView = () => {
               {formatPrice(product.price)}
             </p>
             <p className='mb-0 tracking-widest'>
-              {`${product.description}`.substring(0, 300)}.....
+              {`${product.description}`.substring(0, 150)}.....
             </p>
-            <button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-6 md:px-12 tracking-widest rounded-md py-2 mt-4 md:py-4'>
+            <button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-3 md:px-6 tracking-widest rounded-md py-2 mt-4 md:py-2'>
               Details
             </button>
           </div>
