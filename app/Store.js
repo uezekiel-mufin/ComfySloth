@@ -5,8 +5,9 @@ import cartSlice from "../Slices/cartSlice";
 import { createWrapper } from "next-redux-wrapper";
 import paymentSlice from "../Slices/paymentSlice";
 import storage from "redux-persist/lib/storage";
-import { persistReducer, persistStore } from "redux-persist";
+import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
+import { productsApi } from "../Slices/productsQuery";
 
 const persistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   productSlice,
   cartSlice,
   paymentSlice,
+  [productsApi.reducerPath]: productsApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

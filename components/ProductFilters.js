@@ -64,6 +64,7 @@ const ProductFilters = () => {
           placeholder='search'
           className='bg-[#f1f5f8] p-4 rounded-lg tracking-widest w-full text-xl'
           onChange={(e) => handleSearchTerm(e)}
+          // onKeyUp={(e) => handleSearchTerm(e)}
         />
       </div>
       <div>

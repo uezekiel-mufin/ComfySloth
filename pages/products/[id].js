@@ -17,7 +17,14 @@ import Cookies from "js-cookie";
 import Link from "next/link";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+// import { useGetSingleProductQuery } from "../../Slices/productsQuery";
+
 const SingleProductPage = () => {
+  const [quantityOrdered, setQuantityOrdered] = useState(1);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { id } = router.query;
+  // const { data, isLoading } = useGetSingleProductQuery(id);
   const product = useSelector((state) => state.productSlice.product);
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
 
@@ -34,10 +41,6 @@ const SingleProductPage = () => {
     stock,
     reviews,
   } = product;
-  const [quantityOrdered, setQuantityOrdered] = useState(1);
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const { id } = router.query;
 
   useEffect(() => {
     dispatch(fetchProduct(id));

@@ -88,7 +88,7 @@ const productSlice = createSlice({
     },
     searchProducts: (state, action) => {
       state.filtered_products = state.filters
-        ? state.filtered_products.filter((product) =>
+        ? state.products.filter((product) =>
             product.name.includes(action.payload)
           )
         : state.products.filter((product) =>
