@@ -24,12 +24,12 @@ const Products = () => {
     const top = document.getElementById("window__top");
     top.scrollIntoView({ behavior: "smooth" });
   };
-  console.log(products);
+
   return (
     <div id='window__top'>
       <Layout title='products'>
         <HeroSection title='products' />
-        <div className='relative productPageViewSmall productPageView md:pl-32 md:pr-8  gap-16 mt-20 '>
+        <div className='relative productPageViewSmall productPageView md:pl-32 md:pr-8 gap-8  md:gap-16 mt-4 md:mt-20 '>
           <div className='md:mb-8 md:sticky md:h-screen top-4'>
             <ProductFilters />
           </div>

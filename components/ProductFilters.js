@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiCheck, BiCircle } from "react-icons/bi";
 import { categories } from "../utils/constants";
 import { companies } from "../utils/constants";
@@ -21,13 +21,17 @@ const ProductFilters = () => {
   const products = useSelector((state) => state.productSlice.filtered_products);
   const dispatch = useDispatch();
   const [filterColor, setFilterColor] = useState("");
+  const [filterPrice, setFilterPrice] = useState(0);
 
   //calculating the highest price in an array. extract the prices first and then reduce them using the resuce method
 
-  const highestPrice =
-    products.length > 1 &&
-    Math.max(...products.map((product) => product.price));
-  const [filterPrice, setFilterPrice] = useState(highestPrice);
+  useEffect(() => {
+    setFilterPrice(
+      () =>
+        products.length > 1 &&
+        Math.max(...products.map((product) => product.price))
+    );
+  }, [products]);
 
   const handleFilterColor = (e, color) => {
     e.preventDefault();
@@ -86,7 +90,7 @@ const ProductFilters = () => {
           className='bg-[] text-sm items-center flex  justify-start md:hidden bg-[#ab7a5f] p-1 px-2 text-white capitalize gap-1 transition-all duration-300 ease-linear hover:scale-110  rounded-lg'
           onClick={(e) => handleFilterShow(e)}
         >
-          filters{" "}
+          more filters{" "}
           <span className='text-sm flex justify-start'>
             <FiFilter />
           </span>
@@ -116,7 +120,7 @@ const ProductFilters = () => {
               ))}
             </ul>
           </div>
-          <div>
+          <div className='my-4'>
             <h4 className='font-bold mb-4'>Company</h4>
             <select
               name='company'
@@ -131,8 +135,8 @@ const ProductFilters = () => {
               ))}
             </select>
           </div>
-          <div>
-            <h4 className='font-bold mb-4'>Colors</h4>
+          <div className='my-5'>
+            <h4 className='font-bold '>Colors</h4>
             <div className='flex gap-2 items-center'>
               <button
                 className='flex items-center mb-0 text-2xl'
