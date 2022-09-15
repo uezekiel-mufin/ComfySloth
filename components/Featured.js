@@ -6,6 +6,7 @@ import Image from "next/image";
 import { FcSearch } from "react-icons/fc";
 import Link from "next/link";
 import { formatPrice } from "../utils/helpers";
+import { useLayoutEffect } from "react";
 
 const Featured = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Featured = () => {
   console.log(loading);
   console.log(error);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(featuredProducts());
   }, [dispatch]);
 

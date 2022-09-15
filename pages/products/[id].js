@@ -17,6 +17,7 @@ import Cookies from "js-cookie";
 import Link from "next/link";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { useLayoutEffect } from "react";
 // import { useGetSingleProductQuery } from "../../Slices/productsQuery";
 
 const SingleProductPage = () => {
@@ -42,7 +43,7 @@ const SingleProductPage = () => {
     reviews,
   } = product;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(fetchProduct(id));
   }, [dispatch, id]);
 
@@ -51,8 +52,8 @@ const SingleProductPage = () => {
   }
 
   const [viewImage, setViewImage] = useState("/hero-bcg.jpeg");
-  useEffect(() => {
-    images && setViewImage(images[0].url);
+  useLayoutEffect(() => {
+    images && setViewImage(() => images[0].url);
   }, [images]);
 
   const [selectedColor, setSelectedColor] = useState("");

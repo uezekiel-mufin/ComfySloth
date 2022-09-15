@@ -9,6 +9,7 @@ import ProductsGridView from "../../components/ProductsGridView";
 import ProductsListView from "../../components/ProductsListView";
 import HeroSection from "../../components/HeroSection";
 import { BsArrowUpCircleFill } from "react-icons/bs";
+import { useLayoutEffect } from "react";
 
 const Products = () => {
   const products = useSelector((state) => state.productSlice.filtered_products);
@@ -16,7 +17,7 @@ const Products = () => {
   const list_view = useSelector((state) => state.productSlice.list_view);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(fetchProductss());
   }, [dispatch]);
 
