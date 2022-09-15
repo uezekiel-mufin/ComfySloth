@@ -57,7 +57,7 @@ const ProductFilters = () => {
     dispatch(clearFilters());
   };
 
-  const handleCategorySwitch = (e) => {
+  const handleCategorySwitch = () => {
     const el = document.getElementById("category");
     el.style.display = "none";
     console.log(el);
