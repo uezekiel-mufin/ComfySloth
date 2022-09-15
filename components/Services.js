@@ -4,7 +4,7 @@ import { services } from "../utils/constants";
 const Services = () => {
   return (
     <div className='bg-[#eaded7] py-8 '>
-      <div className='mx-20 my-8 md:grid md:grid-cols-2 '>
+      <div className='mx-8 md:mx-20 my-8 md:grid md:grid-cols-2 '>
         <h2 className='text-[#453227] font-bold flex items-center'>
           Custom Furniture <br /> Built Only For You
         </h2>

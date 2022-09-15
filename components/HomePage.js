@@ -4,11 +4,8 @@ import Link from "next/link";
 import Services from "./Services";
 import Newsletter from "./Newsletter";
 import Featured from "./Featured";
-import { useGetAllProductsQuery } from "../Slices/productsQuery";
 
 const HomePage = () => {
-  const { data, isLoading } = useGetAllProductsQuery();
-  console.log(data);
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col md:grid grid-cols-2 gap-16 mx-auto w-11/12 p-8'>

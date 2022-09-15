@@ -2,7 +2,7 @@ import React from "react";
 
 const Newsletter = () => {
   return (
-    <div className='pt-20 pb-20 px-20 md:py-60 mx-4 flex flex-col gap-8'>
+    <div className='pt-20 pb-20 px-8 md:px-20 md:py-60 mx-4 flex flex-col gap-8'>
       <h3 className='text-[#102a42] font-bold  '>
         Join our newsletter and get 20% off
       </h3>

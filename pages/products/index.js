@@ -30,7 +30,7 @@ const Products = () => {
       <Layout title='products'>
         <HeroSection title='products' />
         <div className='relative productPageViewSmall productPageView md:pl-32 md:pr-8  gap-16 mt-20 '>
-          <div className='mb-8 md:sticky h-screen top-4'>
+          <div className='md:mb-8 md:sticky md:h-screen top-4'>
             <ProductFilters />
           </div>
           <div className=' '>

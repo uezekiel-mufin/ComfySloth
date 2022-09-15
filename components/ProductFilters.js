@@ -56,6 +56,12 @@ const ProductFilters = () => {
     dispatch(clearFilters());
   };
 
+  const handleCategorySwitch = (e) => {
+    const el = document.getElementById("category");
+    el.style.display = "none";
+    console.log(el);
+  };
+
   return (
     <form className='flex flex-col gap-4 mb-24 mx-4 md:mx-0'>
       <div>
@@ -68,8 +74,16 @@ const ProductFilters = () => {
         />
       </div>
       <div>
-        <h4 className='font-bold mb-4'>Category</h4>
-        <ul className='text-base '>
+        <h4
+          className='font-bold mb-4 cursor-pointer'
+          onClick={(e) => handleCategorySwitch(e)}
+        >
+          Category
+        </h4>
+        <ul
+          className='text-base transition-all duration-300 ease-linear'
+          id='category'
+        >
           {categories.map((category, index) => (
             <li
               key={index}
