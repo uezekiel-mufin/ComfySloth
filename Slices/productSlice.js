@@ -134,7 +134,7 @@ const productSlice = createSlice({
         state.filtered_products = [...state.products];
       } else {
         state.filtered_products = state.filters
-          ? state.filtered_products.filter((product) =>
+          ? state.products.filter((product) =>
               product.colors.includes(action.payload)
             )
           : state.products.filter((product) =>

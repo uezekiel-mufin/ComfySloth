@@ -1,5 +1,6 @@
 import React from "react";
 import { BsFillGridFill } from "react-icons/bs";
+
 import { FaListUl } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -38,7 +39,7 @@ const ProductsSorts = () => {
         <button
           className={` ${
             grid_view && "viewActive"
-          } h-9 text-2xl w-9 flex justify-center items-center border border-solid border-gray-600 rounded-lg`}
+          } md:h-9 h-6 text-md md:text-2xl w-7 md:w-9 flex justify-center items-center border border-solid border-gray-600 rounded-lg`}
           onClick={() => dispatch(gridView())}
         >
           <BsFillGridFill />
@@ -46,7 +47,7 @@ const ProductsSorts = () => {
         <button
           className={`${
             list_view && "viewActive"
-          } h-9 text-2xl  w-9 flex justify-center items-center border border-solid border-gray-600 rounded-lg`}
+          } md:h-9 h-6 text-md md:text-2xl w-7 md:w-9 flex justify-center items-center border border-solid border-gray-600 rounded-lg`}
           onClick={() => dispatch(listView())}
         >
           <FaListUl />
@@ -66,11 +67,11 @@ const ProductsSorts = () => {
         />
       </div>
       <div className='col-span-4 md:col-span-1  flex gap-10 items-center  md:gap-4'>
-        <h4>Sort By</h4>
+        <h4 className='text-base'>Sort By</h4>
         <select
           name='sort'
           id='sort '
-          className='capitalize text-base md:text-2xl font-semibold focus:border-none'
+          className='capitalize text-sm p-2  text-md md:text-lg font-semibold focus:border-none'
           onChange={(e) => handleSort(e)}
         >
           <option value='price-lowest'>price&nbsp;(Lowest)</option>
