@@ -18,6 +18,7 @@ import Link from "next/link";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useLayoutEffect } from "react";
+import { Circles } from "react-loader-spinner";
 // import { useGetSingleProductQuery } from "../../Slices/productsQuery";
 
 const SingleProductPage = () => {
@@ -27,9 +28,12 @@ const SingleProductPage = () => {
   const { id } = router.query;
   // const { data, isLoading } = useGetSingleProductQuery(id);
   const product = useSelector((state) => state.productSlice.product);
+  const product_loading = useSelector(
+    (state) => state.productSlice.product_loading
+  );
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
 
-  console.log(cart);
+  console.log(product_loading);
 
   const {
     images,
@@ -69,6 +73,24 @@ const SingleProductPage = () => {
     dispatch(addToCart({ ...product }));
     toast.success("you just updated your cart item");
   };
+
+  if (product_loading) {
+    return (
+      <Layout>
+        <div className='w-full h-screen flex justify-center items-center  bg-[#f3f0ee] '>
+          <Circles
+            height='150'
+            width='150'
+            color='#cea792'
+            ariaLabel='circles-loading'
+            wrapperStyle={{}}
+            wrapperClass=''
+            visible={true}
+          />
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <div>

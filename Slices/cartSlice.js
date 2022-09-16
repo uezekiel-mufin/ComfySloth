@@ -55,7 +55,7 @@ const cartSlice = createSlice({
         stock: item.stock,
       }));
 
-      Cookies.set("cartItem3444", JSON.stringify([...cartItems]));
+      Cookies.set("cartItem3444", JSON.stringify(cartItems));
     },
     removeFromCart: (state, action) => {
       state.cart.cartItems = state.cart.cartItems.filter(

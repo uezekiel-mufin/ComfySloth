@@ -33,22 +33,22 @@ const CartTable = () => {
     toast.success("you just removed an item from your cart");
   };
   return (
-    <div className='px-4 py-10 md:px-28'>
+    <div className='px-4 py-5 md:py-10 md:px-28'>
       <table className='min-w-full '>
         <thead className=' border-b border-b-black'>
-          <tr className='font-bold text-xl'>
+          <tr className='font-bold md:text-xl'>
             <td className='px-5 text-left'>Item</td>
-            <td className='p-5 text-right'>Price</td>
-            <td className='p-5 text-right'>Quantity</td>
-            <td className='p-5 text-right'>Subtotal</td>
-            <td className='p-5 text-center'>Actions</td>
+            <td className='p-2 md:p-5 text-right'>Price</td>
+            <td className='p-2 md:p-5text-right'>Quantity</td>
+            <td className='p-2 md:p-5 text-right'>Subtotal</td>
+            <td className='p-2 md:p-5 text-center'>Actions</td>
           </tr>
         </thead>
         <tbody>
           {cart.map((item) => (
             <tr key={item.id} className='border-b'>
-              <td className='p-5 text-left flex gap-4'>
-                <div className='h-36 w-36 relative'>
+              <td className='p-2 md:p-5 text-left flex gap-4'>
+                <div className='h-16 w-16 md:h-36 md:w-36 relative'>
                   <Image
                     src={item.images[0].url}
                     alt={item.name}
@@ -64,8 +64,10 @@ const CartTable = () => {
                   </Link>
                 </div>
                 <div className='flex flex-col justify-center '>
-                  <h4 className='font-bold'>{item.name}</h4>
-                  <span className='flex gap-4 text-xl font-semibold'>
+                  <h4 className='font-bold text-sm md:text-xl'>
+                    {item.name.split(" ")[0]}...
+                  </h4>
+                  <span className='flex gap-4 text-base md:text-xl font-semibold'>
                     Color:
                     <span
                       className={` flex justify-center rounded-full text-white  items-center `}
@@ -73,8 +75,8 @@ const CartTable = () => {
                       <BiCheck
                         style={{
                           background: item.selectedColor,
-                          height: "1.5rem",
-                          width: "1.5rem",
+                          height: "1rem",
+                          width: "1rem",
                           borderRadius: "50%",
                         }}
                       />
@@ -82,13 +84,13 @@ const CartTable = () => {
                   </span>
                 </div>
               </td>
-              <td className='p-5 text-right text-[#ab7a5f] text-xl tracking-widest'>
+              <td className='p-2 md:p-5 text-right text-[#ab7a5f] md:text-xl tracking-widest'>
                 {formatPrice(item.price)}
               </td>
-              <td className='p-5 text-right'>
+              <td className='p-2 md:p-5 text-right'>
                 <select
                   value={item.quantity}
-                  className='p-2 max-w-md text-2xl font-bold'
+                  className='p-1 max-w-md md:text-2xl font-semibold'
                   onChange={(e) => handleUpdate(e, item)}
                 >
                   {selectItems(item.stock + 1)
@@ -100,10 +102,10 @@ const CartTable = () => {
                     ))}
                 </select>
               </td>
-              <td className='p-5 text-right text-xl tracking-widest'>
+              <td className='p-2 md:p-5 text-right md:text-xl tracking-widest'>
                 {formatPrice(item.quantity * item.price)}
               </td>
-              <td className='p-5 text-center h-full text-red-500  justify-center  text-3xl'>
+              <td className='p-2 md:p-5 text-center h-full text-red-500  justify-center text-base  md:text-3xl'>
                 <button onClick={(e) => handleDelete(e, item)}>
                   <AiOutlineDelete />
                 </button>

@@ -17,20 +17,20 @@ const CartSummary = ({ cartItems }) => {
   const orderTotal = subTotal + shippingFee;
   return (
     <div className='flex flex-col mx-8 md:items-end gap-2 mb-28  md:px-28 mt-8 '>
-      <div className='shadow-xl border-2 px-4 py-5 md:w-2/5 rounded-lg'>
-        <h3 className='text-center font-bold'>Summary</h3>
+      <div className='shadow-xl border-2 px-2 py-3 md:px-4 md:py-5  md:w-2/5 rounded-lg'>
+        <h3 className='text-center font-bold text-sm md:text-xl'>Summary</h3>
         <div className='flex flex-col'>
           <div className='flex flex-col gap-4 my-8'>
-            <h4 className='flex justify-between font-bold '>
+            <h4 className='flex justify-between text-md md:text-xl'>
               Subtotal: <span>{formatPrice(subTotal)}</span>
             </h4>
-            <h4 className='flex justify-between'>
+            <h4 className='flex justify-between text-sm md:text-xl'>
               Shipping Fee: <span>{formatPrice(shippingFee)}</span>
             </h4>
           </div>
           <hr />
-          <div className=' my-10 mb-10 '>
-            <h3 className='flex justify-between font-bold'>
+          <div className='my-5 mb-5 md:my-10 md:mb-10 '>
+            <h3 className='flex justify-between font-bold text-sm md:text-xl'>
               Order Total : <span>{formatPrice(orderTotal)}</span>
             </h3>
           </div>

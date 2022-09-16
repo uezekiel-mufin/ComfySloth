@@ -57,6 +57,7 @@ const OrderId = () => {
     console.log("closed");
   };
 
+  console.log(status);
   useEffect(() => {
     if (status !== undefined) {
       if (status === "success") {

@@ -10,12 +10,17 @@ import ProductsListView from "../../components/ProductsListView";
 import HeroSection from "../../components/HeroSection";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 import { useLayoutEffect } from "react";
+import { Circles } from "react-loader-spinner";
 
 const Products = () => {
   const products = useSelector((state) => state.productSlice.filtered_products);
   const grid_view = useSelector((state) => state.productSlice.grid_view);
   const list_view = useSelector((state) => state.productSlice.list_view);
+  const products_loading = useSelector(
+    (state) => state.productSlice.products_loading
+  );
   const dispatch = useDispatch();
+  console.log(products_loading);
 
   useLayoutEffect(() => {
     dispatch(fetchProductss());
@@ -25,6 +30,23 @@ const Products = () => {
     const top = document.getElementById("window__top");
     top.scrollIntoView({ behavior: "smooth" });
   };
+  if (products_loading) {
+    return (
+      <Layout>
+        <div className='w-full h-screen flex justify-center items-center  bg-[#f3f0ee] '>
+          <Circles
+            height='150'
+            width='150'
+            color='#cea792'
+            ariaLabel='circles-loading'
+            wrapperStyle={{}}
+            wrapperClass=''
+            visible={true}
+          />
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <div id='window__top'>

@@ -17,6 +17,7 @@ const CartScreen = () => {
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
   const dispatch = useDispatch();
 
+  console.log(cart);
   console.log(session);
   const handleClearShoppingCart = () => {
     dispatch(clearShoppingCart());
@@ -41,7 +42,7 @@ const CartScreen = () => {
           </Link>
         </h3>
       ) : (
-        <div>
+        <div className='flex flex-col gap-8'>
           <div className='overflow-auto'>
             <CartTable cartItems={cart} />
           </div>
