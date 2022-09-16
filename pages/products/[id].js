@@ -31,7 +31,6 @@ const SingleProductPage = () => {
   const product_loading = useSelector(
     (state) => state.productSlice.product_loading
   );
-  const cart = useSelector((state) => state.cartSlice.cart.cartItems);
 
   console.log(product_loading);
 
