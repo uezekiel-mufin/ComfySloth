@@ -99,7 +99,7 @@ export default function Component() {
               {providers.map(({ name, icon }) => (
                 <li
                   key={name}
-                  className='hidden bg-slate-100 p-3 w-full flex justify-between items-center cursor-pointer rounded-lg hover:bg-slate-200 transition-all duration-200 ease-linear '
+                  className='hidden bg-slate-100 p-3 w-full  justify-between items-center cursor-pointer rounded-lg hover:bg-slate-200 transition-all duration-200 ease-linear '
                   onClick={() => handleSignIn(name)}
                 >
                   <span className='text-2xl'>{icon}</span>
