@@ -49,7 +49,7 @@ export default function Component() {
   return (
     <Layout title='login'>
       <div className='bg-slate-700'>
-        <div className='flex justify-center items-center flex-col-reverse h-screen mx-auto w-[400px] p-10'>
+        <div className='flex justify-center items-center flex-col-reverse h-screen mx-auto w-full md:w-[450px] p-10'>
           <form className='w-full my-4' onSubmit={handleSubmit(formHandler)}>
             <label htmlFor='email' className='text-white '>
               Email
@@ -57,7 +57,7 @@ export default function Component() {
             <input
               type='text'
               id='email'
-              className='w-full p-2 border '
+              className='w-full p-2 border mb-2'
               {...register("email", {
                 required: "please enter email address",
                 pattern: {
@@ -87,9 +87,11 @@ export default function Component() {
             >
               Sign in with email
             </button>
-            <p className='text-white text-2xl'>
+            <p className='text-white  text-lg'>
               Dont&apos;t have an account? &nbsp;
-              <Link href='/register'>Register</Link>
+              <Link href='/register'>
+                <a className=''>Register</a>
+              </Link>
             </p>
           </form>
           <div className='w-full'>
@@ -97,11 +99,11 @@ export default function Component() {
               {providers.map(({ name, icon }) => (
                 <li
                   key={name}
-                  className='bg-slate-100 p-2 w-full flex justify-between items-center cursor-pointer rounded-lg hover:bg-slate-200 transition-all duration-200 ease-linear '
+                  className='hidden bg-slate-100 p-3 w-full flex justify-between items-center cursor-pointer rounded-lg hover:bg-slate-200 transition-all duration-200 ease-linear '
                   onClick={() => handleSignIn(name)}
                 >
-                  <span className='text-4xl'>{icon}</span>
-                  <span className='uppercase flex gap-2 text-xl '>
+                  <span className='text-2xl'>{icon}</span>
+                  <span className='uppercase flex gap-2 text-lg '>
                     Sign in with {name}
                   </span>
                 </li>

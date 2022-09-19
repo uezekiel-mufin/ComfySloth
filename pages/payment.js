@@ -35,12 +35,12 @@ const Payment = () => {
       <Layout title='payment method'>
         <CheckoutWizard activeStep={2} />
         <main className='mx-auto max-w-screen-md min-h-screen p-16 '>
-          <h3 className='font-bold'>Payment Method</h3>
+          <h3 className='font-semibold'>Payment Method</h3>
           <ul className='mt-8'>
             {paymentMethod.map((method) => (
               <li
                 key={method}
-                className=' flex gap-4 mb-2 text-2xl items-center font-semibold'
+                className=' flex gap-4 mb-2 text-base md:text-2xl items-center '
               >
                 <input
                   type='radio'
@@ -61,7 +61,11 @@ const Payment = () => {
             >
               back
             </button>
-            <button onClick={() => handleSubmit()} className='primary-button'>
+            <button
+              disabled={!selectedPayment}
+              onClick={() => handleSubmit()}
+              className='primary-button'
+            >
               Next
             </button>
           </div>

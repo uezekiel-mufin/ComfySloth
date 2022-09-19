@@ -20,7 +20,6 @@ const OrderId = () => {
   const { id, status } = router.query;
   const order = useSelector((state) => state.paymentSlice.order);
   const loading = useSelector((state) => state.paymentSlice.loading);
-
   const payStackData = useSelector((state) => state.paymentSlice.payStackData);
   const { data: session } = useSession();
 

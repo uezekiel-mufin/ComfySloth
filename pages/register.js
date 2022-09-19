@@ -67,9 +67,9 @@ const LoginScreen = () => {
       </Head>
       <ToastContainer position='bottom-center' />
       <div className='flex min-h-screen justify-between flex-col'>
-        <main className='container m-auto mt-4 px-4 '>
+        <main className='  mt-4 px-4 '>
           <form
-            className='mx-auto max-w-screen-md'
+            className='mx-auto max-w-screen'
             onSubmit={handleSubmit(formHandler)}
           >
             <h1 className='mb-4 text-xl '>Create Account</h1>

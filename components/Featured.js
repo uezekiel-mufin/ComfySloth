@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { featuredProducts } from "../Slices/productSlice";
-
+import { Circles } from "react-loader-spinner";
 import Image from "next/image";
 import { FcSearch } from "react-icons/fc";
 import Link from "next/link";
@@ -13,6 +13,9 @@ const Featured = () => {
   const loading = useSelector((state) => state.productSlice.products_loading);
   const error = useSelector((state) => state.productSlice.products_error);
   const featured = useSelector((state) => state.productSlice.featured_products);
+  const featured_loading = useSelector(
+    (state) => state.productSlice.featured_products_loading
+  );
   console.log(featured);
   console.log(loading);
   console.log(error);
@@ -29,7 +32,19 @@ const Featured = () => {
       </div>
 
       <div>
-        {loading && <h4>Loading......</h4>}
+        {featured_loading && (
+          <div className='w-full  flex justify-center items-center   '>
+            <Circles
+              height='80'
+              width='80'
+              color='#cea792'
+              ariaLabel='circles-loading'
+              wrapperStyle={{}}
+              wrapperClass=''
+              visible={true}
+            />
+          </div>
+        )}
         {error && <h4>There was an error......</h4>}
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:justify-items-stretch gap-2 md:gap-4 lg:px-16'>
           {featured.slice(0, 3).map((item) => (
