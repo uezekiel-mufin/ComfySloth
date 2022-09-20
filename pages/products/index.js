@@ -20,7 +20,6 @@ const Products = () => {
     (state) => state.productSlice.products_loading
   );
   const dispatch = useDispatch();
-  console.log(products_loading);
 
   useLayoutEffect(() => {
     dispatch(fetchProductss());

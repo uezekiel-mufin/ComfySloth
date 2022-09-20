@@ -10,15 +10,12 @@ import { useLayoutEffect } from "react";
 
 const Featured = () => {
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.productSlice.products_loading);
+
   const error = useSelector((state) => state.productSlice.products_error);
   const featured = useSelector((state) => state.productSlice.featured_products);
   const featured_loading = useSelector(
     (state) => state.productSlice.featured_products_loading
   );
-  console.log(featured);
-  console.log(loading);
-  console.log(error);
 
   useLayoutEffect(() => {
     dispatch(featuredProducts());

@@ -13,26 +13,22 @@ import { wrapper } from "../../app/Store";
 import { FiMinus } from "react-icons/fi";
 import { HiPlusSm } from "react-icons/hi";
 import { BiCircle } from "react-icons/bi";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useLayoutEffect } from "react";
 import { Circles } from "react-loader-spinner";
-// import { useGetSingleProductQuery } from "../../Slices/productsQuery";
 
 const SingleProductPage = () => {
   const [quantityOrdered, setQuantityOrdered] = useState(1);
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
-  // const { data, isLoading } = useGetSingleProductQuery(id);
+
   const product = useSelector((state) => state.productSlice.product);
   const product_loading = useSelector(
     (state) => state.productSlice.product_loading
   );
-
-  console.log(product_loading);
 
   const {
     images,
@@ -50,10 +46,6 @@ const SingleProductPage = () => {
     dispatch(fetchProduct(id));
   }, [dispatch, id]);
 
-  if (Cookies.get("cartItem3444")) {
-    console.log(JSON.parse(Cookies.get("cartItem3444")));
-  }
-
   const [viewImage, setViewImage] = useState("/hero-bcg.jpeg");
   useLayoutEffect(() => {
     images && setViewImage(() => images[0].url);
@@ -62,13 +54,9 @@ const SingleProductPage = () => {
   const [selectedColor, setSelectedColor] = useState("");
   const handleColorSet = (color) => {
     setSelectedColor(color);
-    console.log(selectedColor);
-    console.log(product);
   };
 
   const handleAddToCart = (product) => {
-    console.log(product);
-    console.log({ ...product });
     dispatch(addToCart({ ...product }));
     toast.success("you just updated your cart item");
   };
@@ -94,7 +82,7 @@ const SingleProductPage = () => {
   return (
     <div>
       <Layout title={`Product ${id}`}>
-        <ToastContainer position='bottom-center' limit={1} />
+        <ToastContainer position='top-center' limit={1} />
         <HeroSection singleProduct={product} title='products' />
         <div className='p-8 md:p-24'>
           <Link href='/products'>

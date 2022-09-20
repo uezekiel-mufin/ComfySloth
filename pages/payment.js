@@ -4,7 +4,8 @@ import CheckoutWizard from "../components/CheckoutWizard";
 import Layout from "../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { setPaymentMethod } from "../Slices/cartSlice";
-import Cookies from "js-cookie";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Payment = () => {
   const router = useRouter();
@@ -13,10 +14,9 @@ const Payment = () => {
   );
   const payment = useSelector((state) => state.cartSlice.cart.paymentMethod);
   const dispatch = useDispatch();
-  console.log(shippingAddress);
-  console.log(payment);
   const [selectedPayment, setSelectedPayment] = useState(payment);
   const paymentMethod = ["Stripe", "Paystack", "CashOnDelivery"];
+  console.log(payment);
 
   useEffect(() => {
     if (!shippingAddress.address) {
@@ -25,15 +25,19 @@ const Payment = () => {
   }, [router, shippingAddress.address]);
 
   const handleSubmit = () => {
+    if (!selectedPayment) {
+      toast.error("please select a payment method");
+      return;
+    }
     dispatch(setPaymentMethod(selectedPayment));
     router.push("/placeOrder");
   };
 
-  console.log(Cookies.get("paymentMethod"));
   return (
     <div>
       <Layout title='payment method'>
         <CheckoutWizard activeStep={2} />
+        <ToastContainer position='top-center' />
         <main className='mx-auto max-w-screen-md min-h-screen p-16 '>
           <h3 className='font-semibold'>Payment Method</h3>
           <ul className='mt-8'>
@@ -61,11 +65,7 @@ const Payment = () => {
             >
               back
             </button>
-            <button
-              disabled={!selectedPayment}
-              onClick={() => handleSubmit()}
-              className='primary-button'
-            >
+            <button onClick={() => handleSubmit()} className='primary-button'>
               Next
             </button>
           </div>

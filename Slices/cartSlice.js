@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
-import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   cart: {
@@ -10,7 +9,7 @@ const initialState = {
     shippingAddress: Cookies.get("shipping")
       ? JSON.parse(Cookies.get("shipping"))
       : {},
-    paymentMethod: Cookies.get("paymentMethod") || "",
+    paymentMethod: Cookies.get("paymentMethod") || null,
   },
 };
 
@@ -19,11 +18,9 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      console.log(action.payload);
       const existItem = state.cart.cartItems.find(
         (item) => item.id === action.payload.id
       );
-      console.log(action.payload);
 
       state.cart.cartItems = existItem
         ? state.cart.cartItems.map((item) =>
@@ -70,13 +67,12 @@ const cartSlice = createSlice({
       item.quantity = action.payload.quantity;
     },
 
-    clearShoppingCart: (state, action) => {
+    clearShoppingCart: (state) => {
       Cookies.remove("cartItem3444");
       state.cart.cartItems = [];
     },
 
     addShippingAddress: (state, action) => {
-      console.log(action.payload);
       const { name, address, city, postalcode, country } = action.payload;
       state.cart.shippingAddress = {
         name,

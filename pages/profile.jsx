@@ -8,6 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { getError } from "../utils/error";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProfileUpdate = () => {
   const router = useRouter();
@@ -29,7 +30,6 @@ const ProfileUpdate = () => {
       dispatch(updateProfile(data));
 
       if (updatedUser) {
-        // await signOut();
         const { email, password } = updatedUser;
         console.log(email, password);
         const result = await signIn("credentials", {
@@ -118,22 +118,6 @@ const ProfileUpdate = () => {
           />
           {errors.confirm_password && (
             <p className='text-red-500'>{errors.confirm_password.message}</p>
-          )}
-        </div>
-        <div className='flex flex-col mb-4 items-start '>
-          <label htmlFor='image' className='font-semibold'>
-            Image
-          </label>
-          <input
-            id='image'
-            type='file'
-            className='border-none px-0 pt-0 active:border-none w-3/10 focus:ring-0'
-            {...register("image", {
-              required: "please select an image for upload",
-            })}
-          />
-          {errors.image && (
-            <p className='text-red-500'>{errors.image.message}</p>
           )}
         </div>
 

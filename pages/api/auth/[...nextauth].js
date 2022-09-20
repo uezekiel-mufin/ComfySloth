@@ -8,7 +8,8 @@ import bcryptjs from "bcryptjs";
 import clientPromise from "../../../components/connectMongDb";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 
-export default NextAuth({
+export const authOptions = {
+  // your configs
   // Configure one or more authentication providers
   session: {
     strategy: "jwt",
@@ -46,7 +47,7 @@ export default NextAuth({
             _id: user._id,
             name: user.name,
             email: user.email,
-            image: "f",
+            image: "",
             isAdmin: user.isAdmin,
           };
         }
@@ -66,4 +67,6 @@ export default NextAuth({
     // }),
   ],
   adapter: MongoDBAdapter(clientPromise),
-});
+};
+
+export default NextAuth(authOptions);

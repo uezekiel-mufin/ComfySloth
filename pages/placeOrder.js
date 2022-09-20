@@ -11,11 +11,16 @@ import { getError } from "../utils/error";
 import axios from "axios";
 import { useState } from "react";
 import { clearShoppingCart } from "../Slices/cartSlice";
-import { useSession } from "next-auth/react";
+
+import { useEffect } from "react";
 
 const PlaceOrder = () => {
-  const { data: session } = useSession();
-  console.log(session);
+  const [ssr, setSsr] = useState(true);
+
+  useEffect(() => {
+    setSsr(false);
+  }, []);
+
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -51,14 +56,16 @@ const PlaceOrder = () => {
         total,
       });
       setLoading(false);
-      dispatch(clearShoppingCart());
       router.push(`/order/${data._id}`);
+      dispatch(clearShoppingCart());
     } catch (error) {
       toast.error(getError(error));
       setLoading(false);
     }
   };
   console.log(shippingAddress);
+
+  if (ssr) return;
 
   return (
     <Layout title='place order'>

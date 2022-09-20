@@ -1,11 +1,11 @@
-import { getSession } from "next-auth/react";
 import Order from "../../../components/Models/Order";
 import db from "../../../utils/db";
+import { getCsrfToken } from "next-auth/react";
 
 const handler = async (req, res) => {
-  const session = getSession({ req });
+  const csrfToken = await getCsrfToken({ req });
 
-  if (!session) {
+  if (!csrfToken) {
     return res.status(401).send("Sign in required");
   }
 

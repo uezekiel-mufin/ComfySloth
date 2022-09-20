@@ -6,7 +6,8 @@ import db from "../../../utils/db";
 const handler = async (req, res) => {
   const session = await getSession({ req });
 
-  if (!session) {
+  console.log(session);
+  if (!session?.user) {
     return res.status(401).send("you are not authenticated, signin required");
   }
 

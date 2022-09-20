@@ -179,6 +179,9 @@ const productSlice = createSlice({
       state.products = [];
       state.products_error = "There was an error";
     });
+    builder.addCase(fetchProduct.pending, (state) => {
+      state.product_loading = true;
+    });
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
       (state.product_loading = false),
         (state.product = action.payload),

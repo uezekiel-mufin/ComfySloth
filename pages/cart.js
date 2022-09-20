@@ -7,26 +7,16 @@ import CartSummary from "../components/cart/cartSummary";
 import Link from "next/link";
 import { clearShoppingCart } from "../Slices/cartSlice";
 import dynamic from "next/dynamic";
-import Cookies from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import { useSession } from "next-auth/react";
 
 const CartScreen = () => {
-  const { data: session } = useSession();
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
   const dispatch = useDispatch();
 
-  console.log(cart);
-  console.log(session);
   const handleClearShoppingCart = () => {
     dispatch(clearShoppingCart());
-    console.log("cleared");
   };
-
-  if (Cookies.get("cartItem3444")) {
-    console.log(JSON.parse(Cookies.get("cartItem3444")));
-  }
 
   return (
     <Layout title='cart'>
