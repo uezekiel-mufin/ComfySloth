@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { getError } from "../../utils/error";
 import { stripeSession, paystackSession } from "../../Slices/paymentSlice";
 import { useSession } from "next-auth/react";
+import { Circles } from "react-loader-spinner";
 import { usePaystackPayment } from "react-paystack";
 
 const OrderId = () => {
@@ -21,7 +22,12 @@ const OrderId = () => {
   const order = useSelector((state) => state.paymentSlice.order);
   const loading = useSelector((state) => state.paymentSlice.loading);
   const payStackData = useSelector((state) => state.paymentSlice.payStackData);
+  const payStackData_status = useSelector(
+    (state) => state.paymentSlice.payStackData_status
+  );
   const { data: session } = useSession();
+  console.log(payStackData);
+  console.log(payStackData_status);
 
   const {
     orderItems,
@@ -56,20 +62,17 @@ const OrderId = () => {
     console.log("closed");
   };
 
-  console.log(payStackData);
-  const { status } = payStackData.data.data;
-  console.log(status);
   useEffect(() => {
-    if (status !== undefined) {
-      if (status === "success") {
+    if (payStackData_status !== undefined) {
+      if (payStackData_status === "success") {
         dispatch(paymentMade());
         toast.success("Your payment was successful");
       }
-      if (status === "cancel") {
+      if (payStackData_status === "cancel") {
         toast.error(getError(status.message));
       }
     }
-  }, [dispatch, payStackData, status]);
+  }, [dispatch, payStackData]);
 
   useEffect(() => {
     try {
@@ -80,7 +83,21 @@ const OrderId = () => {
   }, [dispatch, id]);
 
   if (loading) {
-    return <h4>Loading.............</h4>;
+    return (
+      <Layout>
+        <div className='w-full h-screen flex justify-center items-center  bg-[#f3f0ee] '>
+          <Circles
+            height='150'
+            width='150'
+            color='#cea792'
+            ariaLabel='circles-loading'
+            wrapperStyle={{}}
+            wrapperClass=''
+            visible={true}
+          />
+        </div>
+      </Layout>
+    );
   }
 
   const paymentData = { orderItems, id };

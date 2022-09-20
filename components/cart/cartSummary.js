@@ -37,19 +37,11 @@ const CartSummary = ({ cartItems }) => {
         </div>
       </div>
       <div className='flex justify-stretch mt-4 md:w-2/5 '>
-        {session?.user ? (
-          <Link href='/shipping'>
-            <button className='bg-[#ab7a5f] tracking-widest w-4/12 md:w-full  px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
-              Checkout
-            </button>
-          </Link>
-        ) : (
-          <Link href='/login'>
-            <button className='bg-[#ab7a5f] tracking-widest w-4/12 md:w-full px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
-              login
-            </button>
-          </Link>
-        )}
+        <Link href={session?.user ? "/shipping" : "/login?redirect=/shipping"}>
+          <button className='bg-[#ab7a5f] tracking-widest w-4/12 md:w-full  px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
+            Checkout
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -16,8 +16,8 @@ import { BiCircle } from "react-icons/bi";
 import Link from "next/link";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { useLayoutEffect } from "react";
 import { Circles } from "react-loader-spinner";
+import { useEffect } from "react";
 
 const SingleProductPage = () => {
   const [quantityOrdered, setQuantityOrdered] = useState(1);
@@ -42,12 +42,12 @@ const SingleProductPage = () => {
     reviews,
   } = product;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(fetchProduct(id));
   }, [dispatch, id]);
 
   const [viewImage, setViewImage] = useState("/hero-bcg.jpeg");
-  useLayoutEffect(() => {
+  useEffect(() => {
     images && setViewImage(() => images[0].url);
   }, [images]);
 

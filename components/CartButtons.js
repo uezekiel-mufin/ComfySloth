@@ -24,8 +24,8 @@ const CartButtons = () => {
   }, [cart]);
 
   const handleSignOut = async () => {
-    const data = await signOut({ redirect: false, callbackUrl: "/" });
-    router.push(data.url);
+    await signOut({ redirect: false });
+    router.push("/");
     dispatch(menuState());
   };
 
@@ -33,8 +33,6 @@ const CartButtons = () => {
     router.push(`/${item}`);
     dispatch(menuState());
   };
-
-  
 
   return (
     <div>
@@ -91,7 +89,6 @@ const CartButtons = () => {
                     ))}
                   </Menu.Items>
                 </Menu>
-                {/* <TiArrowSortedDown style={{ fontSize: "2rem" }} /> */}
               </div>
             </div>
           ) : (

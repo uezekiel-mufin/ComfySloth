@@ -11,6 +11,7 @@ const initialState = {
   stripeError: "",
   payStackData_loading: false,
   payStackData: {},
+  payStackData_status: "",
   payStackData_error: "",
   orderHistory: [],
   orderHistory_loading: false,
@@ -101,6 +102,7 @@ const paymentSlice = createSlice({
     });
     builder.addCase(paystackSession.fulfilled, (state, action) => {
       state.payStackData = action.payload;
+      state.payStackData_status = action.payload.data.data.status;
       state.order.isPaid = true;
     });
     builder.addCase(paystackSession.rejected, (state, action) => {
