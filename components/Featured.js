@@ -6,18 +6,17 @@ import Image from "next/image";
 import { FcSearch } from "react-icons/fc";
 import Link from "next/link";
 import { formatPrice } from "../utils/helpers";
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 
 const Featured = () => {
   const dispatch = useDispatch();
-
   const error = useSelector((state) => state.productSlice.products_error);
   const featured = useSelector((state) => state.productSlice.featured_products);
   const featured_loading = useSelector(
     (state) => state.productSlice.featured_products_loading
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(featuredProducts());
   }, [dispatch]);
 
@@ -74,7 +73,7 @@ const Featured = () => {
 
         <div className='flex justify-center'>
           <Link href='/products'>
-            <button className='bg-[#ab7a5f] capitalize text-white px-6 md:px-12 transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] tracking-widest rounded-md py-2 mt-4 md:py-4'>
+            <button className='bg-[#ab7a5f] capitalize text-white px-6 md:px-12 transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] tracking-widest rounded-md py-3 mt-4 md:py-4'>
               all products
             </button>
           </Link>

@@ -20,7 +20,7 @@ const HomePage = () => {
             quis alias?
           </h5>
           <Link href='/products'>
-            <button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white px-6 md:px-12 tracking-widest rounded-md py-2 mt-4 md:py-4'>
+            <button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white px-6 md:px-12 tracking-widest rounded-md py-3 mt-4 md:py-4'>
               Shop Now
             </button>
           </Link>

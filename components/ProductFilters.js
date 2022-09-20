@@ -87,7 +87,7 @@ const ProductFilters = () => {
       </div>
       <div>
         <button
-          className='bg-[] text-sm items-center flex  justify-start md:hidden bg-[#ab7a5f] p-1 px-2 text-white capitalize gap-1 transition-all duration-300 ease-linear hover:scale-110  rounded-lg'
+          className='bg-[] text-sm items-center flex  justify-start md:hidden bg-[#ab7a5f] p-2 px-4 text-white capitalize gap-1 transition-all duration-300 ease-linear hover:scale-110  rounded-lg'
           onClick={(e) => handleFilterShow(e)}
         >
           more filters{" "}

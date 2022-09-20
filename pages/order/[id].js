@@ -17,7 +17,7 @@ import { usePaystackPayment } from "react-paystack";
 const OrderId = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { id, status } = router.query;
+  const { id } = router.query;
   const order = useSelector((state) => state.paymentSlice.order);
   const loading = useSelector((state) => state.paymentSlice.loading);
   const payStackData = useSelector((state) => state.paymentSlice.payStackData);
@@ -56,6 +56,8 @@ const OrderId = () => {
     console.log("closed");
   };
 
+  console.log(payStackData);
+  const { status } = payStackData.data.data;
   console.log(status);
   useEffect(() => {
     if (status !== undefined) {
@@ -99,7 +101,7 @@ const OrderId = () => {
 
   return (
     <Layout title={`order ${id}`}>
-      <ToastContainer position='bottom-center' limit={1} />
+      <ToastContainer position='top-center' limit={1} />
       <div className='md:mx-24 mx-4 my-8'>
         <h4 className=' font-semibold'>Order {id}</h4>
         <main className='grid grid-cols-1 md:grid-cols-4 mt-4  md:gap-8'>

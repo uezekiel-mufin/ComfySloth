@@ -57,7 +57,7 @@ const ProductsSorts = () => {
         <h4> {products.length} items found</h4>
       </div>
 
-      <div className='col-span-4 md:col-span-1 md:flex flex-1 items-center md:mx-8'>
+      <div className='col-span-4 md:col-span-1 md:flex flex-1 items-center my-4 md:my-0 md:mx-8'>
         <hr
           style={{
             borderTop: "0.2px solid #bcccdc",

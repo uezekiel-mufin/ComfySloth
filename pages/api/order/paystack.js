@@ -27,7 +27,6 @@ const handler = async (req, res) => {
       db.disconnect();
       res.status(201).send(response.data);
     } catch (error) {
-      console.log(error);
       res.status(400).send(error.message);
     }
   }
