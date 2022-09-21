@@ -38,7 +38,7 @@ const CartSummary = ({ cartItems }) => {
       </div>
       <div className='flex justify-stretch mt-4 md:w-2/5 '>
         <Link href={session?.user ? "/shipping" : "/login?redirect=/shipping"}>
-          <button className='bg-[#ab7a5f] tracking-widest w-4/12 md:w-full  px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
+          <button className='bg-[#ab7a5f] tracking-widest w-2/5 md:w-full  px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
             Checkout
           </button>
         </Link>
