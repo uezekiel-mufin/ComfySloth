@@ -1,23 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { BsPersonPlusFill } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { menuState } from "../Slices/productSlice";
-import { useSession, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { Menu } from "@headlessui/react";
+import { GoogleLogin } from "@react-oauth/google";
+import { createOrGetUser } from "../utils/helpers";
+import { setUser } from "../Slices/cartSlice";
+import Cookies from "js-cookie";
 
 const menuList = ["profile", "orderHistory", "Log out"];
 
 const CartButtons = () => {
   const router = useRouter();
   const [cartQuantity, setCartQuantity] = useState();
-  const { data: session } = useSession();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
+  const user = useSelector((state) => state.cartSlice.user);
+
+  console.log(user);
 
   useEffect(() => {
     setCartQuantity(cart.reduce((acc, cur) => acc + +cur.quantity, 0));
@@ -32,6 +37,12 @@ const CartButtons = () => {
   const handleMenu = (item) => {
     router.push(`/${item}`);
     dispatch(menuState());
+  };
+  const handleSignIn = async (credentialResponse) => {
+    console.log(credentialResponse);
+    const user = await createOrGetUser(credentialResponse);
+    dispatch(setUser(user));
+    Cookies.set("userProfile", JSON.stringify(user));
   };
 
   return (
@@ -53,15 +64,15 @@ const CartButtons = () => {
           </Link>
         </li>
         <li>
-          {session?.user ? (
+          {user?.userName ? (
             <div className='flex gap-4 items-center'>
               <div className='flex items-center gap-1'>
                 <img
-                  src={session?.user.image}
-                  alt={session?.user.name.split("")[1]}
+                  src={user.picture}
+                  alt={user.userName.split("")[1]}
                   className='w-10 h-10 rounded-full flex items-center justify-center'
                 />
-                <h5>{session?.user.name.split(" ")[0]}</h5>
+                <h5>{user.userName.split(" ")[0]}</h5>
                 <Menu as='div' className='relative inline-block text-left'>
                   <Menu.Button className='inline-flex w-full justify-center rounded-md py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 '>
                     <TiArrowSortedDown
@@ -92,20 +103,16 @@ const CartButtons = () => {
               </div>
             </div>
           ) : (
-            <Link href={`/login `}>
-              <a
-                className='flex items-center text-2xl md:text-xl'
-                onClick={() => {
-                  router.push("/login");
-                  dispatch(menuState());
-                }}
-              >
-                <h5>Login</h5>
-                <span className='text-xl'>
-                  <BsPersonPlusFill />
-                </span>
-              </a>
-            </Link>
+            <GoogleLogin
+              size='medium'
+              text='signin'
+              onSuccess={(credentialResponse) => {
+                handleSignIn(credentialResponse);
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
           )}
         </li>
       </ul>

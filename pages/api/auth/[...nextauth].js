@@ -1,12 +1,10 @@
 import NextAuth from "next-auth";
-import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
 import CredentialProvider from "next-auth/providers/credentials";
 import db from "../../../utils/db";
 import User from "../../../components/Models/User";
 import bcryptjs from "bcryptjs";
-import clientPromise from "../../../components/connectMongDb";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+// import clientPromise from "../../../components/connectMongDb";
+// import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 
 export const authOptions = {
   // your configs
@@ -27,14 +25,6 @@ export const authOptions = {
     },
   },
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
     CredentialProvider({
       async authorize(credentials) {
         await db.connect();
@@ -54,19 +44,7 @@ export const authOptions = {
         throw new Error("Invalid email and password");
       },
     }),
-    // EmailProvider({
-    //   server: {
-    //     host: process.env.EMAIL_SERVER_HOST,
-    //     port: process.env.EMAIL_SERVER_PORT,
-    //     auth: {
-    //       user: process.env.EMAIL_SERVER_USER,
-    //       pass: process.env.EMAIL_SERVER_PASSWORD,
-    //     },
-    //   },
-    //   from: process.env.EMAIL_FROM,
-    // }),
   ],
-  adapter: MongoDBAdapter(clientPromise),
 };
 
 export default NextAuth(authOptions);

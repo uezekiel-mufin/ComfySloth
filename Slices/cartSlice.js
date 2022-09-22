@@ -11,6 +11,9 @@ const initialState = {
       : {},
     paymentMethod: Cookies.get("paymentMethod") || null,
   },
+  user: Cookies.get("userProfile")
+    ? JSON.parse(Cookies.get("userProfile"))
+    : {},
 };
 
 const cartSlice = createSlice({
@@ -91,12 +94,16 @@ const cartSlice = createSlice({
       Cookies.set("paymentMethod", action.payload);
       state.cart.paymentMethod = action.payload;
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
 
 export default cartSlice.reducer;
 export const {
   addToCart,
+  setUser,
   removeFromCart,
   quantityUpdate,
   deleteItem,
