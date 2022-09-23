@@ -11,7 +11,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getError } from "../../utils/error";
 import { stripeSession, paystackSession } from "../../Slices/paymentSlice";
-import { useSession } from "next-auth/react";
 import { Circles } from "react-loader-spinner";
 import { usePaystackPayment } from "react-paystack";
 
@@ -25,9 +24,7 @@ const OrderId = () => {
   const payStackData_status = useSelector(
     (state) => state.paymentSlice.payStackData_status
   );
-  const { data: session } = useSession();
-  console.log(payStackData);
-  console.log(payStackData_status);
+  const userProfile = useSelector((state) => state.cartSlice.user);
 
   const {
     orderItems,
@@ -44,7 +41,7 @@ const OrderId = () => {
   //to initialize paystack payment
   const config = {
     reference: new Date().getTime().toString(),
-    email: session?.user?.email,
+    email: userProfile?.email,
     amount: Math.round(total),
     name: shippingAddress?.name,
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
@@ -59,7 +56,7 @@ const OrderId = () => {
   // you can call this function anything
   const onClose = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
-    console.log("closed");
+    toast.error("there was a problem processing your payment");
   };
 
   useEffect(() => {
@@ -69,10 +66,10 @@ const OrderId = () => {
         toast.success("Your payment was successful");
       }
       if (payStackData_status === "cancel") {
-        toast.error(getError(status.message));
+        toast.error("There was an error in processing your payment");
       }
     }
-  }, [dispatch, payStackData]);
+  }, [dispatch, payStackData, payStackData_status]);
 
   useEffect(() => {
     try {

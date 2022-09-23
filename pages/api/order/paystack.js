@@ -1,14 +1,8 @@
 import axios from "axios";
-import { getSession } from "next-auth/react";
 import Order from "../../../components/Models/Order";
 import db from "../../../utils/db";
 
 const handler = async (req, res) => {
-  const session = await getSession({ req });
-
-  if (!session) {
-    return res.status(401).send("Authentication required for this page");
-  }
   const { order } = req.body;
 
   if (order.reference) {

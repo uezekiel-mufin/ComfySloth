@@ -4,14 +4,14 @@ import React, { useState, useEffect } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { menuState } from "../Slices/productSlice";
-import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { Menu } from "@headlessui/react";
 import { GoogleLogin } from "@react-oauth/google";
 import { createOrGetUser } from "../utils/helpers";
-import { setUser } from "../Slices/cartSlice";
+import { setUser, signOut } from "../Slices/cartSlice";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 const menuList = ["profile", "orderHistory", "Log out"];
 
@@ -22,15 +22,13 @@ const CartButtons = () => {
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
   const user = useSelector((state) => state.cartSlice.user);
 
-  console.log(user);
-
   useEffect(() => {
     setCartQuantity(cart.reduce((acc, cur) => acc + +cur.quantity, 0));
   }, [cart]);
 
   const handleSignOut = async () => {
-    await signOut({ redirect: false });
     router.push("/");
+    dispatch(signOut());
     dispatch(menuState());
   };
 
@@ -39,9 +37,11 @@ const CartButtons = () => {
     dispatch(menuState());
   };
   const handleSignIn = async (credentialResponse) => {
-    console.log(credentialResponse);
     const user = await createOrGetUser(credentialResponse);
     dispatch(setUser(user));
+    const { data } = await axios.post(`/api/google`, { ...user });
+    console.log(data);
+    // router.back();
     Cookies.set("userProfile", JSON.stringify(user));
   };
 
@@ -106,6 +106,9 @@ const CartButtons = () => {
             <GoogleLogin
               size='medium'
               text='signin'
+              shape='circle'
+              cancel_on_tap_outside
+              useOneTap
               onSuccess={(credentialResponse) => {
                 handleSignIn(credentialResponse);
               }}

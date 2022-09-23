@@ -9,6 +9,7 @@ import { menuState } from "../Slices/productSlice";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+
   return (
     <aside className='flex flex-col pt-4 gap-8'>
       <div className='flex justify-between w-full p-2 h-16'>

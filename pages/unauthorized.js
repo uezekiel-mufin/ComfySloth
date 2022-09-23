@@ -1,23 +1,30 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Layout from "../components/Layout";
-import { useSession } from "next-auth/react";
+import { useSelector } from "react-redux";
 
 const Unauthorized = () => {
-  const { data: session } = useSession();
+  const userProfile = useSelector((state) => state.cartSlice.user);
   const router = useRouter();
-  console.log(router);
   const { message } = router.query;
 
   useEffect(() => {
-    if (session?.user) {
+    if (userProfile?.email) {
       router.back();
     }
-  }, [router, session?.user]);
+
+    if (!userProfile.email) {
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+    }
+  }, [router, userProfile?.email]);
 
   return (
     <Layout title='unauthorized'>
-      <h1 className='text-xl'>Access Denied</h1>
+      <h1 className='text-xl w-full h-screen flex justify-center items-center text-red-500'>
+        Access Denied
+      </h1>
       {message && <div className='mb-4 text-red-500'>{message}</div>}
     </Layout>
   );

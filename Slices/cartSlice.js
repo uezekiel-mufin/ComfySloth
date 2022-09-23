@@ -97,6 +97,9 @@ const cartSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    signOut: (state, action) => {
+      state.user = {};
+    },
   },
 });
 
@@ -104,6 +107,7 @@ export default cartSlice.reducer;
 export const {
   addToCart,
   setUser,
+  signOut,
   removeFromCart,
   quantityUpdate,
   deleteItem,

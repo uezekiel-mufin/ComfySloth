@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { BiCheck, BiCircle } from "react-icons/bi";
 import { categories } from "../utils/constants";
 import { companies } from "../utils/constants";
 import { colors } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { RangeStepInput } from "react-range-step-input";
-import { formatPrice } from "../utils/helpers";
 import { FiFilter } from "react-icons/fi";
 import {
   clearFilters,
@@ -14,7 +12,6 @@ import {
   searchProductsByCategory,
   searchProductsByColor,
   searchProductsByCompany,
-  searchProductsByPrice,
 } from "../Slices/productSlice";
 
 const ProductFilters = () => {
@@ -22,6 +19,9 @@ const ProductFilters = () => {
   const dispatch = useDispatch();
   const [filterColor, setFilterColor] = useState("");
   const [filterPrice, setFilterPrice] = useState(0);
+  const [maxValue, setMaxValue] = useState(undefined);
+  const [minValue, setMinValue] = useState(undefined);
+  const [activeCategory, setActiveCategory] = useState(undefined);
 
   //calculating the highest price in an array. extract the prices first and then reduce them using the resuce method
 
@@ -51,20 +51,21 @@ const ProductFilters = () => {
 
   const handleFilterByCompany = (e) => {
     e.preventDefault();
+
     const company = e.target.value;
     dispatch(searchProductsByCompany(company));
   };
 
   const handleClearFilters = (e) => {
     e.preventDefault();
-    console.log("now");
+    setFilterColor("");
+    setActiveCategory("");
     dispatch(clearFilters());
   };
 
   const handleCategorySwitch = () => {
     const el = document.getElementById("category");
-    el.style.display = "none";
-    console.log(el);
+    el.classList.toggle("categoryDisplay");
   };
 
   const handleFilterShow = (e) => {
@@ -100,7 +101,7 @@ const ProductFilters = () => {
         <div>
           <div>
             <h4
-              className='font-bold mb-4 cursor-pointer'
+              className='font-bold mb-4 text-lg cursor-pointer'
               onClick={(e) => handleCategorySwitch(e)}
             >
               Category
@@ -112,16 +113,23 @@ const ProductFilters = () => {
               {categories.map((category, index) => (
                 <li
                   key={index}
-                  className='mb-2 text-xl tracking-widest font-normal'
-                  onClick={(e) => handleCategory(e, category)}
+                  className={`mb-2 text-lg tracking-widest font-normal ${
+                    activeCategory === category
+                      ? "bg-gray-300 rounded-lg p-1"
+                      : ""
+                  }`}
+                  onClick={(e) => {
+                    setActiveCategory(e.target.textContent);
+                    handleCategory(e, category);
+                  }}
                 >
-                  <button className='capitalize'>{category}</button>
+                  <button>{category}</button>
                 </li>
               ))}
             </ul>
           </div>
           <div className='my-4'>
-            <h4 className='font-bold mb-4'>Company</h4>
+            <h4 className='font-bold mb-4 text-lg'>Company</h4>
             <select
               name='company'
               id='company'
@@ -136,10 +144,10 @@ const ProductFilters = () => {
             </select>
           </div>
           <div className='my-5'>
-            <h4 className='font-bold '>Colors</h4>
+            <h4 className='font-bold text-lg '>Colors</h4>
             <div className='flex gap-2 items-center'>
               <button
-                className='flex items-center mb-0 text-2xl'
+                className='flex items-center mb-0 text-lg'
                 onClick={(e) => handleFilterColor(e, "all")}
               >
                 all
@@ -177,24 +185,37 @@ const ProductFilters = () => {
             </div>
           </div>
           <div>
-            <h4 className='font-bold mb-2'>Price</h4>
-            <p className='text-xl tracking-widest mb-0'>
-              {formatPrice(filterPrice)}
-            </p>
-            <RangeStepInput
-              min={0}
-              max={309999}
-              value={filterPrice}
-              step={1}
-              onChange={(e) => {
-                setFilterPrice(e.target.value);
-                dispatch(searchProductsByPrice(filterPrice));
-              }}
-              className='text-3xl p-0 mt-1'
-            />
+            <h4 className='font-bold text-sm md:text-lg mb-2'>
+              choose a Price range
+            </h4>
+
+            <div className='flex w-full gap-4'>
+              <div className='flex flex-col items-center'>
+                <label htmlFor='min'>min</label>
+                <input
+                  id='min'
+                  type='number'
+                  onChange={(e) => {
+                    setMinValue(+e.target.value);
+                  }}
+                  className='text-xl p-0 mt-1 w-16  h-6'
+                />
+              </div>
+              <div className='flex flex-col items-center'>
+                <label htmlFor='max'>max</label>
+                <input
+                  id='max'
+                  type='number'
+                  onChange={(e) => {
+                    setMaxValue(+e.target.value);
+                  }}
+                  className='text-xl p-0 mt-1 w-16  h-6 '
+                />
+              </div>
+            </div>
           </div>
           <div className='flex gap-4 items-end p-2'>
-            <h4 className='font-bold mb-0 text-2xl'>Free Shipping</h4>
+            <h4 className='font-bold mb-0 text-lg'>Free Shipping</h4>
             <input
               type='checkbox'
               className='h-5 w-5 flex items-end'
@@ -210,7 +231,7 @@ const ProductFilters = () => {
           </div>
           <div>
             <button
-              className='bg-[#ab7a5f] w-3/5 transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-2  tracking-widest rounded-md py-2 '
+              className='bg-[#ab7a5f]  transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white capitalize px-2  tracking-widest rounded-md py-2 '
               onClick={(e) => handleClearFilters(e)}
             >
               clear filters

@@ -16,10 +16,9 @@ export const getUniqueValues = () => {};
 export const createOrGetUser = async (response) => {
   const decoded = jwt_Decode(response.credential);
   console.log(decoded);
-  const { name, picture, sub, email } = decoded;
+  const { name, picture, email } = decoded;
 
   const user = {
-    _id: sub,
     picture,
     email,
     userName: name,
@@ -28,7 +27,4 @@ export const createOrGetUser = async (response) => {
 
   console.log(user);
   return user;
-  // setUser(user);
-
-  // await axios.post(`http://localhost:3000/api/auth`, user);
 };

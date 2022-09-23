@@ -15,8 +15,10 @@ import { clearShoppingCart } from "../Slices/cartSlice";
 import { useEffect } from "react";
 
 const PlaceOrder = () => {
-  const [ssr, setSsr] = useState(true);
+  const userProfile = useSelector((state) => state.cartSlice.user);
 
+  //disabbling server side rendering
+  const [ssr, setSsr] = useState(true);
   useEffect(() => {
     setSsr(false);
   }, []);
@@ -54,6 +56,7 @@ const PlaceOrder = () => {
         taxPrize,
         shippingPrice,
         total,
+        ...userProfile,
       });
       setLoading(false);
       router.push(`/order/${data._id}`);

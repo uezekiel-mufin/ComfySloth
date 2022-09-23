@@ -1,19 +1,33 @@
 import { getSession } from "next-auth/react";
+import { useSelector } from "react-redux";
 import Order from "../../../components/Models/Order";
 import User from "../../../components/Models/User";
 import db from "../../../utils/db";
+import { OAuth2Client } from "google-auth-library";
 
 const handler = async (req, res) => {
+  const {
+    orderItems: cartItems,
+    shippingAddress,
+    paymentMethod,
+    itemsPrice,
+    taxPrize,
+    shippingPrice,
+    total,
+    email,
+    userName,
+    picture,
+  } = req.body;
   const session = await getSession({ req });
 
   console.log(session);
-  if (!session?.user) {
+  if (!email) {
     return res.status(401).send("you are not authenticated, signin required");
   }
 
-  if (session?.user) {
+  if (email) {
     await db.connect();
-    const user = await User.findOne({ email: session.user.email });
+    const user = await User.findOne({ email: email });
 
     const newOrder = new Order({
       ...req.body,
