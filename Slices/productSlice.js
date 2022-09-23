@@ -111,14 +111,14 @@ const productSlice = createSlice({
     },
     searchProductsByCompany: (state, action) => {
       if (action.payload === "all") {
-        state.filtered_products = state.filters
+        state.products = state.filters
           ? state.filtered_products.filter(
               (product) => product.company !== "all"
             )
           : state.products.filter((product) => product.company !== "all");
       } else {
         state.filtered_products = state.filters
-          ? state.filtered_products.filter(
+          ? state.products.filter(
               (product) =>
                 product.company === action.payload && action.payload !== "all"
             )
@@ -127,7 +127,6 @@ const productSlice = createSlice({
                 product.company === action.payload && action.payload !== "all"
             );
       }
-      state.filters = true;
     },
     searchProductsByColor: (state, action) => {
       if (action.payload == "all") {

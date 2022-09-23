@@ -108,6 +108,7 @@ const CartButtons = () => {
               text='signin'
               shape='circle'
               cancel_on_tap_outside
+              auto_select
               useOneTap
               onSuccess={(credentialResponse) => {
                 handleSignIn(credentialResponse);

@@ -1,23 +1,10 @@
 import { getSession } from "next-auth/react";
-import { useSelector } from "react-redux";
 import Order from "../../../components/Models/Order";
 import User from "../../../components/Models/User";
 import db from "../../../utils/db";
-import { OAuth2Client } from "google-auth-library";
 
 const handler = async (req, res) => {
-  const {
-    orderItems: cartItems,
-    shippingAddress,
-    paymentMethod,
-    itemsPrice,
-    taxPrize,
-    shippingPrice,
-    total,
-    email,
-    userName,
-    picture,
-  } = req.body;
+  const { email } = req.body;
   const session = await getSession({ req });
 
   console.log(session);

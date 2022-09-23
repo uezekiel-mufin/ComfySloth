@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import "../styles/globals.css";
-import { SessionProvider, useSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import { wrapper } from "../app/Store";
 import { useRouter } from "next/router";
 import { GoogleOAuthProvider } from "@react-oauth/google";

@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import { BiCheck, BiCircle } from "react-icons/bi";
 import { categories } from "../utils/constants";
 import { companies } from "../utils/constants";
 import { colors } from "../utils/constants";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FiFilter } from "react-icons/fi";
 import {
   clearFilters,
@@ -15,23 +15,13 @@ import {
 } from "../Slices/productSlice";
 
 const ProductFilters = () => {
-  const products = useSelector((state) => state.productSlice.filtered_products);
   const dispatch = useDispatch();
   const [filterColor, setFilterColor] = useState("");
-  const [filterPrice, setFilterPrice] = useState(0);
-  const [maxValue, setMaxValue] = useState(undefined);
-  const [minValue, setMinValue] = useState(undefined);
+
   const [activeCategory, setActiveCategory] = useState(undefined);
+  const [selectedCompany, setSelectedCompany] = useState("");
 
   //calculating the highest price in an array. extract the prices first and then reduce them using the resuce method
-
-  useEffect(() => {
-    setFilterPrice(
-      () =>
-        products.length > 1 &&
-        Math.max(...products.map((product) => product.price))
-    );
-  }, [products]);
 
   const handleFilterColor = (e, color) => {
     e.preventDefault();
@@ -53,6 +43,8 @@ const ProductFilters = () => {
     e.preventDefault();
 
     const company = e.target.value;
+    setSelectedCompany(company);
+    console.log(selectedCompany);
     dispatch(searchProductsByCompany(company));
   };
 
@@ -60,6 +52,7 @@ const ProductFilters = () => {
     e.preventDefault();
     setFilterColor("");
     setActiveCategory("");
+    setSelectedCompany("");
     dispatch(clearFilters());
   };
 
@@ -137,7 +130,7 @@ const ProductFilters = () => {
               onChange={(e) => handleFilterByCompany(e)}
             >
               {companies.map((company, index) => (
-                <option value={company} key={index} className=''>
+                <option value={company} key={index}>
                   {company}
                 </option>
               ))}
@@ -184,12 +177,12 @@ const ProductFilters = () => {
               ))}
             </div>
           </div>
-          <div>
+          {/* <div>
             <h4 className='font-bold text-sm md:text-lg mb-2'>
               choose a Price range
             </h4>
 
-            <div className='flex w-full gap-4'>
+            <div className='flex w-full gap-4 items-end'>
               <div className='flex flex-col items-center'>
                 <label htmlFor='min'>min</label>
                 <input
@@ -201,7 +194,7 @@ const ProductFilters = () => {
                   className='text-xl p-0 mt-1 w-16  h-6'
                 />
               </div>
-              <div className='flex flex-col items-center'>
+              <div className='flex flex-col '>
                 <label htmlFor='max'>max</label>
                 <input
                   id='max'
@@ -212,8 +205,14 @@ const ProductFilters = () => {
                   className='text-xl p-0 mt-1 w-16  h-6 '
                 />
               </div>
+              <button
+                type='submit'
+                className='bg-[#ab7a5f] p-1 rounded-lg text-white '
+              >
+                set price
+              </button>
             </div>
-          </div>
+          </div> */}
           <div className='flex gap-4 items-end p-2'>
             <h4 className='font-bold mb-0 text-lg'>Free Shipping</h4>
             <input
