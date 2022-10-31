@@ -128,7 +128,7 @@ const LoginScreen = () => {
               <label htmlFor='password'>confirmPassword</label>
               <input
                 type='password'
-                id='confirmconfirmPassword'
+                id='confirmPassword'
                 className='w-full'
                 {...register("confirmPassword", {
                   required: "Please enter your password",

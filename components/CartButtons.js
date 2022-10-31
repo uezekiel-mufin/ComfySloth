@@ -12,6 +12,7 @@ import { createOrGetUser } from "../utils/helpers";
 import { setUser, signOut } from "../Slices/cartSlice";
 import Cookies from "js-cookie";
 import axios from "axios";
+import Button from "./Button";
 
 const menuList = ["profile", "orderHistory", "Log out"];
 
@@ -36,13 +37,17 @@ const CartButtons = () => {
     router.push(`/${item}`);
     dispatch(menuState());
   };
-  const handleSignIn = async (credentialResponse) => {
-    const user = await createOrGetUser(credentialResponse);
-    dispatch(setUser(user));
-    const { data } = await axios.post(`/api/google`, { ...user });
-    console.log(data);
-    // router.back();
-    Cookies.set("userProfile", JSON.stringify(user));
+  // const handleSignIn = async (credentialResponse) => {
+  //   const user = await createOrGetUser(credentialResponse);
+  //   dispatch(setUser(user));
+  //   const { data } = await axios.post(`/api/google`, { ...user });
+  //   console.log(data);
+  //   // router.back();
+  //   Cookies.set("userProfile", JSON.stringify(user));
+  // };
+
+  const handleSignIn = () => {
+    router.push("/login");
   };
 
   return (
@@ -103,19 +108,25 @@ const CartButtons = () => {
               </div>
             </div>
           ) : (
-            <GoogleLogin
-              size='medium'
-              text='signin'
-              shape='circle'
-              cancel_on_tap_outside
-              auto_select
-              useOneTap
-              onSuccess={(credentialResponse) => {
-                handleSignIn(credentialResponse);
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
+            // <GoogleLogin
+            //   size='medium'
+            //   text='signin'
+            //   shape='circle'
+            //   cancel_on_tap_outside
+            //   auto_select
+            //   useOneTap
+            //   onSuccess={(credentialResponse) => {
+            //     handleSignIn(credentialResponse);
+            //   }}
+            //   onError={() => {
+            //     console.log("Login Failed");
+            //   }}
+            // />
+            <Button
+              title='Sign In'
+              py={1}
+              px={2}
+              onClick={() => handleSignIn()}
             />
           )}
         </li>
