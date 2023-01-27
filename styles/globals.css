@@ -159,7 +159,7 @@ p {
 input,
 select,
 textarea {
-  @apply rounded border p-4 outline-none ring-indigo-300;
+  @apply rounded border focus:outline-none p-4 active:outline-0;
 }
 
 .primary-button {
