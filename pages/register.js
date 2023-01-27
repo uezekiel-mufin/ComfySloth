@@ -66,10 +66,10 @@ const LoginScreen = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <ToastContainer position='bottom-center' />
-      <div className='flex min-h-screen justify-between flex-col pt-[100px] '>
+      <div className='flex min-h-screen justify-between flex-col pt-[100px] bg-[#ebdcce]'>
         <main className='  mt-4 px-4 flex justify-center align-center'>
           <form
-            className='mx-auto max-w-screen w-full md:w-[500px] px-4 bg-[#e5e7eb]'
+            className='py-8 mx-auto max-w-screen w-full md:w-[500px] px-4 bg-[#e7bd93]'
             onSubmit={handleSubmit(formHandler)}
           >
             <h1 className='mb-4 text-2xl font-bold  '>Create Account</h1>
@@ -111,7 +111,7 @@ const LoginScreen = () => {
               <input
                 type='password'
                 id='password'
-                className='w-full'
+                className='w-full focus:outline-0'
                 {...register('password', {
                   required: 'Please enter your password',
                   minLength: {
@@ -129,7 +129,7 @@ const LoginScreen = () => {
               <input
                 type='password'
                 id='confirmPassword'
-                className='w-full'
+                className='w-full focus:outline-0'
                 {...register('confirmPassword', {
                   required: 'Please enter your password',
                   validate: (value) => value === getValues('password'),
@@ -148,12 +148,12 @@ const LoginScreen = () => {
                 )}
             </div>
             <div className='mb-4'>
-              <button className='primary-button'>create</button>
+              <button className='login-button'>create</button>
             </div>
             <div className='mb-4'>
-              Dont&apos;t have an account? &nbsp;
-              <Link href={`/register?redirect=${redirect || '/'}`}>
-                Register
+              Have an account? &nbsp;
+              <Link href='/login'>
+                <a className='underline font-bold'>Login</a>
               </Link>
             </div>
           </form>

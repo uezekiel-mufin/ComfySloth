@@ -9,6 +9,7 @@ import { TiArrowSortedDown } from 'react-icons/ti';
 import { Menu } from '@headlessui/react';
 import { useSession } from 'next-auth/react';
 import Button from './Button';
+import { signOut } from 'next-auth/react';
 
 const menuList = ['profile', 'orderHistory', 'Log out'];
 
@@ -25,8 +26,8 @@ const CartButtons = () => {
   }, [cart]);
 
   const handleSignOut = async () => {
-    router.push('/');
-
+    const data = await signOut({ redirect: false, callbackUrl: '/' });
+    router.push(data.url);
     dispatch(menuState());
   };
 

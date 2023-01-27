@@ -50,8 +50,8 @@ Global Styles
 
 html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background: var(--clr-white);
   color: var(--clr-grey-1);
   line-height: 1.5;
@@ -159,12 +159,13 @@ p {
 input,
 select,
 textarea {
-  @apply rounded border p-4 outline-none ring-indigo-300 focus:ring;
+  @apply rounded border-0 focus:outline-none p-4 active:outline-0;
 }
 
 .primary-button {
-  @apply rounded bg-amber-300 py-2 px-4 outline-none hover:bg-amber-400 active:bg-amber-600;
+  @apply rounded bg-amber-300 py-2 px-8 text-xl outline-none hover:bg-amber-400 active:bg-amber-600;
 }
+
 .default-button {
   @apply rounded bg-gray-100 py-2 px-4 text-black shadow outline-none hover:bg-gray-200 active:bg-gray-300;
 }
@@ -195,4 +196,10 @@ textarea {
 
 .categoryDisplay {
   @apply hidden;
+}
+
+@layer components {
+  .login-button {
+    @apply rounded bg-[#996633] py-2 px-8 text-xl outline-none hover:bg-[#5f3811]  active:bg-[#58320c] text-gray-200;
+  }
 }
