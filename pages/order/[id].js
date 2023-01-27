@@ -1,19 +1,19 @@
-import React from "react";
-import { useRouter } from "next/router";
-import Layout from "../../components/Layout";
-import { useEffect } from "react";
-import { formatPrice } from "../../utils/helpers";
-import { useSelector, useDispatch } from "react-redux";
-import Link from "next/link";
-import Image from "next/image";
-import { fetchOrder, paymentMade } from "../../Slices/paymentSlice";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { getError } from "../../utils/error";
-import { stripeSession, paystackSession } from "../../Slices/paymentSlice";
-import { Circles } from "react-loader-spinner";
-import { usePaystackPayment } from "react-paystack";
-
+import React from 'react';
+import { useRouter } from 'next/router';
+import Layout from '../../components/Layout';
+import { useEffect } from 'react';
+import { formatPrice } from '../../utils/helpers';
+import { useSelector, useDispatch } from 'react-redux';
+import Link from 'next/link';
+import Image from 'next/image';
+import { fetchOrder, paymentMade } from '../../Slices/paymentSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { getError } from '../../utils/error';
+import { stripeSession, paystackSession } from '../../Slices/paymentSlice';
+import { Circles } from 'react-loader-spinner';
+import { usePaystackPayment } from 'react-paystack';
+import { useSession } from 'next-auth/react';
 const OrderId = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -24,7 +24,7 @@ const OrderId = () => {
   const payStackData_status = useSelector(
     (state) => state.paymentSlice.payStackData_status
   );
-  const userProfile = useSelector((state) => state.cartSlice.user);
+  const { data: session } = useSession();
 
   const {
     orderItems,
@@ -41,7 +41,7 @@ const OrderId = () => {
   //to initialize paystack payment
   const config = {
     reference: new Date().getTime().toString(),
-    email: userProfile?.email,
+    email: session?.user.email,
     amount: Math.round(total),
     name: shippingAddress?.name,
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
@@ -56,17 +56,17 @@ const OrderId = () => {
   // you can call this function anything
   const onClose = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
-    toast.error("there was a problem processing your payment");
+    toast.error('there was a problem processing your payment');
   };
 
   useEffect(() => {
     if (payStackData_status !== undefined) {
-      if (payStackData_status === "success") {
+      if (payStackData_status === 'success') {
         dispatch(paymentMade());
-        toast.success("Your payment was successful");
+        toast.success('Your payment was successful');
       }
-      if (payStackData_status === "cancel") {
-        toast.error("There was an error in processing your payment");
+      if (payStackData_status === 'cancel') {
+        toast.error('There was an error in processing your payment');
       }
     }
   }, [dispatch, payStackData, payStackData_status]);
@@ -100,10 +100,10 @@ const OrderId = () => {
   const paymentData = { orderItems, id };
   const makePayment = async (paymentMethod) => {
     try {
-      if (paymentMethod === "Stripe") {
+      if (paymentMethod === 'Stripe') {
         dispatch(stripeSession(paymentData));
       }
-      if (paymentMethod === "Paystack") {
+      if (paymentMethod === 'Paystack') {
         console.log(paymentMethod);
         initializePayment(onSuccess, onClose);
       }
@@ -123,13 +123,13 @@ const OrderId = () => {
             <div className='card mb-4 p-6 '>
               <h4 className='font-semibold'>Shipping Address</h4>
               <div className='text-xl my-2'>
-                {shippingAddress?.name}, {shippingAddress?.address},{" "}
-                {shippingAddress?.city}, {shippingAddress?.country},{" "}
+                {shippingAddress?.name}, {shippingAddress?.address},{' '}
+                {shippingAddress?.city}, {shippingAddress?.country},{' '}
                 {shippingAddress?.postalcode}
               </div>
               <h5
                 className='text-blue-500 w-full text-xl font-semibold'
-                onClick={() => router.push("/shipping")}
+                onClick={() => router.push('/shipping')}
               >
                 {isDelivered ? (
                   <div className='alert-success'>delivered</div>
@@ -143,7 +143,7 @@ const OrderId = () => {
               <div className='text-xl my-2'>{paymentMethod}</div>
               <h5
                 className='text-blue-500 text-xl font-semibold'
-                onClick={() => router.push("/payment")}
+                onClick={() => router.push('/payment')}
               >
                 {isPaid ? (
                   <div className='alert-success'>paid</div>
@@ -231,7 +231,7 @@ const OrderId = () => {
                 onClick={() => makePayment(paymentMethod)}
                 disabled={isPaid}
               >
-                {isPaid ? "Thank You" : `pay with ${paymentMethod}`}
+                {isPaid ? 'Thank You' : `pay with ${paymentMethod}`}
               </button>
             </section>
           </section>

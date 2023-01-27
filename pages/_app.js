@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import "../styles/globals.css";
-import { SessionProvider } from "next-auth/react";
-import { wrapper } from "../app/Store";
-import { useRouter } from "next/router";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { useState } from 'react';
+import '../styles/globals.css';
+import { SessionProvider } from 'next-auth/react';
+import { wrapper } from '../app/Store';
+import { useRouter } from 'next/router';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { useSession } from 'next-auth/react';
 
 function MyApp({ Component, pageProps: session, pageProps }) {
   const [ssr, setSsr] = useState(true);
@@ -36,9 +36,10 @@ export default wrapper.withRedux(MyApp);
 
 function Auth({ children }) {
   const router = useRouter();
-  const userProfile = useSelector((state) => state.cartSlice.user);
-  if (!userProfile?.email) {
-    router.push("/unauthorized?message=login required");
+  const { data: session } = useSession();
+  console.log(session);
+  if (!session?.user) {
+    router.push('/unauthorized?message=login required');
   }
 
   return children;

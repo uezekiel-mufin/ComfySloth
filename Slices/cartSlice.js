@@ -1,23 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
+import { createSlice } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
 
 const initialState = {
   cart: {
-    cartItems: Cookies.get("cartItem3444")
-      ? JSON.parse(Cookies.get("cartItem3444"))
+    cartItems: Cookies.get('cartItem3444')
+      ? JSON.parse(Cookies.get('cartItem3444'))
       : [],
-    shippingAddress: Cookies.get("shipping")
-      ? JSON.parse(Cookies.get("shipping"))
+    shippingAddress: Cookies.get('shipping')
+      ? JSON.parse(Cookies.get('shipping'))
       : {},
-    paymentMethod: Cookies.get("paymentMethod") || null,
+    paymentMethod: Cookies.get('paymentMethod') || null,
   },
-  user: Cookies.get("userProfile")
-    ? JSON.parse(Cookies.get("userProfile"))
+  user: Cookies.get('userProfile')
+    ? JSON.parse(Cookies.get('userProfile'))
     : {},
 };
 
 const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     addToCart: (state, action) => {
@@ -55,7 +55,7 @@ const cartSlice = createSlice({
         stock: item.stock,
       }));
 
-      Cookies.set("cartItem3444", JSON.stringify(cartItems));
+      Cookies.set('cartItem3444', JSON.stringify(cartItems));
     },
     removeFromCart: (state, action) => {
       state.cart.cartItems = state.cart.cartItems.filter(
@@ -71,7 +71,7 @@ const cartSlice = createSlice({
     },
 
     clearShoppingCart: (state) => {
-      Cookies.remove("cartItem3444");
+      Cookies.remove('cartItem3444');
       state.cart.cartItems = [];
     },
 
@@ -85,20 +85,17 @@ const cartSlice = createSlice({
         country,
       };
       Cookies.set(
-        "shipping",
+        'shipping',
         JSON.stringify({ name, address, city, postalcode, country })
       );
     },
     setPaymentMethod: (state, action) => {
       console.log(action.payload);
-      Cookies.set("paymentMethod", action.payload);
+      Cookies.set('paymentMethod', action.payload);
       state.cart.paymentMethod = action.payload;
     },
     setUser: (state, action) => {
       state.user = action.payload;
-    },
-    signOut: (state, action) => {
-      state.user = {};
     },
   },
 });
@@ -107,7 +104,6 @@ export default cartSlice.reducer;
 export const {
   addToCart,
   setUser,
-  signOut,
   removeFromCart,
   quantityUpdate,
   deleteItem,

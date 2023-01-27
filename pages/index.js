@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import HomePage from "../components/HomePage";
-import Layout from "../components/Layout";
+import { useEffect } from 'react';
+import { useState } from 'react';
+import HomePage from '../components/HomePage';
+import Layout from '../components/Layout';
 
 export default function Home() {
   const [ssr, setSsr] = useState(true);
@@ -13,7 +13,7 @@ export default function Home() {
   if (ssr) return;
   return (
     <div>
-      <Layout title='ezzy'>
+      <Layout title='Home'>
         <HomePage />
       </Layout>
     </div>

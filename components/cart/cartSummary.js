@@ -1,14 +1,13 @@
-import React from "react";
-import { formatPrice } from "../../utils/helpers";
-import Link from "next/link";
-import { useSelector } from "react-redux";
-
+import React from 'react';
+import { formatPrice } from '../../utils/helpers';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 const CartSummary = ({ cartItems }) => {
+  const { data: session } = useSession();
   const subTotal = cartItems.reduce(
     (acc, cur) => acc + cur.quantity * cur.price,
     0
   );
-  const userProfile = useSelector((state) => state.cartSlice.user);
 
   const shippingFee = cartItems
     .filter((item) => item.shipping === true)
@@ -37,9 +36,7 @@ const CartSummary = ({ cartItems }) => {
         </div>
       </div>
       <div className='flex justify-stretch mt-4 md:w-2/5 '>
-        <Link
-          href={userProfile?.email ? "/shipping" : "/login?redirect=/shipping"}
-        >
+        <Link href={session?.user ? '/shipping' : '/login?redirect=/shipping'}>
           <button className='bg-[#ab7a5f] tracking-widest w-2/5 md:w-full  px-4 py-3 text-white text-xl font-bold capitalize  rounded-md'>
             Checkout
           </button>

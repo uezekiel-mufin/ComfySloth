@@ -1,35 +1,32 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import { FaShoppingCart } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
-import { menuState } from "../Slices/productSlice";
-import { useRouter } from "next/router";
-import { TiArrowSortedDown } from "react-icons/ti";
-import { Menu } from "@headlessui/react";
-import { GoogleLogin } from "@react-oauth/google";
-import { createOrGetUser } from "../utils/helpers";
-import { setUser, signOut } from "../Slices/cartSlice";
-import Cookies from "js-cookie";
-import axios from "axios";
-import Button from "./Button";
+import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
+import { FaShoppingCart } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
+import { menuState } from '../Slices/productSlice';
+import { useRouter } from 'next/router';
+import { TiArrowSortedDown } from 'react-icons/ti';
+import { Menu } from '@headlessui/react';
+import { useSession } from 'next-auth/react';
+import Button from './Button';
 
-const menuList = ["profile", "orderHistory", "Log out"];
+const menuList = ['profile', 'orderHistory', 'Log out'];
 
 const CartButtons = () => {
   const router = useRouter();
+  const { data: session } = useSession();
+
   const [cartQuantity, setCartQuantity] = useState();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartSlice.cart.cartItems);
-  const user = useSelector((state) => state.cartSlice.user);
 
   useEffect(() => {
     setCartQuantity(cart.reduce((acc, cur) => acc + +cur.quantity, 0));
   }, [cart]);
 
   const handleSignOut = async () => {
-    router.push("/");
-    dispatch(signOut());
+    router.push('/');
+
     dispatch(menuState());
   };
 
@@ -37,17 +34,9 @@ const CartButtons = () => {
     router.push(`/${item}`);
     dispatch(menuState());
   };
-  // const handleSignIn = async (credentialResponse) => {
-  //   const user = await createOrGetUser(credentialResponse);
-  //   dispatch(setUser(user));
-  //   const { data } = await axios.post(`/api/google`, { ...user });
-  //   console.log(data);
-  //   // router.back();
-  //   Cookies.set("userProfile", JSON.stringify(user));
-  // };
 
   const handleSignIn = () => {
-    router.push("/login");
+    router.push('/login');
   };
 
   return (
@@ -69,15 +58,10 @@ const CartButtons = () => {
           </Link>
         </li>
         <li>
-          {user?.userName ? (
+          {session?.user?.name ? (
             <div className='flex gap-4 items-center'>
               <div className='flex items-center gap-1'>
-                <img
-                  src={user.picture}
-                  alt={user.userName.split("")[1]}
-                  className='w-10 h-10 rounded-full flex items-center justify-center'
-                />
-                <h5>{user.userName.split(" ")[0]}</h5>
+                <h5>{session?.user.name.split(' ')[0]}</h5>
                 <Menu as='div' className='relative inline-block text-left'>
                   <Menu.Button className='inline-flex w-full justify-center rounded-md py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 '>
                     <TiArrowSortedDown
@@ -94,7 +78,7 @@ const CartButtons = () => {
                         <button
                           className='flex justify-start p-2 hover:bg-gray-200 text-blue-500 transition-all duration-300 ease-linear'
                           onClick={
-                            item === "Log out"
+                            item === 'Log out'
                               ? () => handleSignOut()
                               : () => handleMenu(item)
                           }
@@ -108,20 +92,6 @@ const CartButtons = () => {
               </div>
             </div>
           ) : (
-            // <GoogleLogin
-            //   size='medium'
-            //   text='signin'
-            //   shape='circle'
-            //   cancel_on_tap_outside
-            //   auto_select
-            //   useOneTap
-            //   onSuccess={(credentialResponse) => {
-            //     handleSignIn(credentialResponse);
-            //   }}
-            //   onError={() => {
-            //     console.log("Login Failed");
-            //   }}
-            // />
             <Button
               title='Sign In'
               py={1}

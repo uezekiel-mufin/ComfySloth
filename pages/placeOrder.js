@@ -1,18 +1,17 @@
-import React from "react";
-import CheckoutWizard from "../components/CheckoutWizard";
-import Layout from "../components/Layout";
-import { useDispatch, useSelector } from "react-redux";
-import Link from "next/link";
-import Image from "next/image";
-import { formatPrice } from "../utils/helpers";
-import { useRouter } from "next/router";
-import { toast } from "react-toastify";
-import { getError } from "../utils/error";
-import axios from "axios";
-import { useState } from "react";
-import { clearShoppingCart } from "../Slices/cartSlice";
-
-import { useEffect } from "react";
+import React from 'react';
+import CheckoutWizard from '../components/CheckoutWizard';
+import Layout from '../components/Layout';
+import { useDispatch, useSelector } from 'react-redux';
+import Link from 'next/link';
+import Image from 'next/image';
+import { formatPrice } from '../utils/helpers';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
+import { getError } from '../utils/error';
+import axios from 'axios';
+import { useState } from 'react';
+import { clearShoppingCart } from '../Slices/cartSlice';
+import { useEffect } from 'react';
 
 const PlaceOrder = () => {
   const userProfile = useSelector((state) => state.cartSlice.user);
@@ -48,7 +47,7 @@ const PlaceOrder = () => {
   const handlePlaceOrder = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/order", {
+      const { data } = await axios.post('/api/order', {
         orderItems: cartItems,
         shippingAddress,
         paymentMethod,
@@ -66,7 +65,6 @@ const PlaceOrder = () => {
       setLoading(false);
     }
   };
-  console.log(shippingAddress);
 
   if (ssr) return;
 
@@ -80,13 +78,13 @@ const PlaceOrder = () => {
             <div className='card mb-4 p-6 '>
               <h4 className=' font-semibold'>Shipping Address</h4>
               <div className='text-2xl my-2'>
-                {shippingAddress.name}, {shippingAddress.address},{" "}
-                {shippingAddress.city}, {shippingAddress.country},{" "}
+                {shippingAddress.name}, {shippingAddress.address},{' '}
+                {shippingAddress.city}, {shippingAddress.country},{' '}
                 {shippingAddress.postalcode}
               </div>
               <button
                 className='text-blue-500 text-2xl font-semibold'
-                onClick={() => router.push("/shipping")}
+                onClick={() => router.push('/shipping')}
               >
                 Edit
               </button>
@@ -96,7 +94,7 @@ const PlaceOrder = () => {
               <div className='text-2xl my-2'>{paymentMethod}</div>
               <button
                 className='text-blue-500 text-2xl font-semibold'
-                onClick={() => router.push("/payment")}
+                onClick={() => router.push('/payment')}
               >
                 Edit
               </button>
@@ -151,7 +149,7 @@ const PlaceOrder = () => {
               </table>
               <button
                 className='text-blue-500 text-2xl font-semibold p-3'
-                onClick={() => router.push("/cart")}
+                onClick={() => router.push('/cart')}
               >
                 Edit
               </button>
@@ -185,7 +183,7 @@ const PlaceOrder = () => {
                 className='primary-button w-full mb-4 text-xl'
                 onClick={handlePlaceOrder}
               >
-                {loading ? "Loading....." : "Place Order"}
+                {loading ? 'Loading.....' : 'Place Order'}
               </button>
             </section>
           </section>

@@ -1,17 +1,17 @@
-import Head from "next/head";
-import Link from "next/link";
-import React from "react";
+import Head from 'next/head';
+import Link from 'next/link';
+import React from 'react';
 
-import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
-import { getError } from "../utils/error";
-import { toast, ToastContainer } from "react-toastify";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
-import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-import Layout from "../components/Layout";
+import { useForm } from 'react-hook-form';
+import { signIn } from 'next-auth/react';
+import { getError } from '../utils/error';
+import { toast, ToastContainer } from 'react-toastify';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import Layout from '../components/Layout';
 
 const LoginScreen = () => {
   console.log(useSession());
@@ -21,7 +21,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (session?.user) {
-      router.push(redirect || "/cart");
+      router.push(redirect || '/cart');
     }
   }, [router, session, redirect]);
 
@@ -43,7 +43,7 @@ const LoginScreen = () => {
         password,
       });
 
-      const result = await signIn("credentials", {
+      const result = await signIn('credentials', {
         redirect: false,
         email,
         password,
@@ -66,13 +66,13 @@ const LoginScreen = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <ToastContainer position='bottom-center' />
-      <div className='flex min-h-screen justify-between flex-col'>
-        <main className='  mt-4 px-4 '>
+      <div className='flex min-h-screen justify-between flex-col pt-[100px] '>
+        <main className='  mt-4 px-4 flex justify-center align-center'>
           <form
-            className='mx-auto max-w-screen'
+            className='mx-auto max-w-screen w-full md:w-[500px] px-4 bg-[#e5e7eb]'
             onSubmit={handleSubmit(formHandler)}
           >
-            <h1 className='mb-4 text-xl '>Create Account</h1>
+            <h1 className='mb-4 text-2xl font-bold  '>Create Account</h1>
             <div className='mb-4'>
               <label htmlFor='name'>Full name</label>
               <input
@@ -80,8 +80,8 @@ const LoginScreen = () => {
                 id='name'
                 autoFocus
                 className='w-full'
-                {...register("name", {
-                  required: "Please enter full name",
+                {...register('name', {
+                  required: 'Please enter full name',
                 })}
               />
               {errors.name && (
@@ -94,11 +94,11 @@ const LoginScreen = () => {
                 type='email'
                 id='email'
                 className='w-full'
-                {...register("email", {
-                  required: "Please enter email address",
+                {...register('email', {
+                  required: 'Please enter email address',
                   pattern: {
                     value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/i,
-                    message: "Please enter valid email",
+                    message: 'Please enter valid email',
                   },
                 })}
               />
@@ -112,11 +112,11 @@ const LoginScreen = () => {
                 type='password'
                 id='password'
                 className='w-full'
-                {...register("password", {
-                  required: "Please enter your password",
+                {...register('password', {
+                  required: 'Please enter your password',
                   minLength: {
                     value: 6,
-                    message: "password should be more than 5 chars",
+                    message: 'password should be more than 5 chars',
                   },
                 })}
               />
@@ -130,12 +130,12 @@ const LoginScreen = () => {
                 type='password'
                 id='confirmPassword'
                 className='w-full'
-                {...register("confirmPassword", {
-                  required: "Please enter your password",
-                  validate: (value) => value === getValues("password"),
+                {...register('confirmPassword', {
+                  required: 'Please enter your password',
+                  validate: (value) => value === getValues('password'),
                   minLength: {
                     value: 6,
-                    message: "password should be more than 5 chars",
+                    message: 'password should be more than 5 chars',
                   },
                 })}
               />
@@ -143,7 +143,7 @@ const LoginScreen = () => {
                 <p className='text-red-500'>{errors.confirmPassword.message}</p>
               )}
               {errors.confirmPassword &&
-                errors.confirmPassword.type === "validate" && (
+                errors.confirmPassword.type === 'validate' && (
                   <div className='text-red-500'>Pasword do not match</div>
                 )}
             </div>
@@ -152,7 +152,7 @@ const LoginScreen = () => {
             </div>
             <div className='mb-4'>
               Dont&apos;t have an account? &nbsp;
-              <Link href={`/register?redirect=${redirect || "/"}`}>
+              <Link href={`/register?redirect=${redirect || '/'}`}>
                 Register
               </Link>
             </div>

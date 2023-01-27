@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import CheckoutWizard from "../components/CheckoutWizard";
-import Layout from "../components/Layout";
-import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
-import { addShippingAddress } from "../Slices/cartSlice";
-import { useRouter } from "next/router";
+import React, { useEffect } from 'react';
+import CheckoutWizard from '../components/CheckoutWizard';
+import Layout from '../components/Layout';
+import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { addShippingAddress } from '../Slices/cartSlice';
+import { useRouter } from 'next/router';
 
 const Shipping = () => {
   const dispatch = useDispatch();
@@ -20,16 +20,16 @@ const Shipping = () => {
   } = useForm();
 
   useEffect(() => {
-    setValue("name", shippingAddress.name);
-    setValue("address", shippingAddress.address);
-    setValue("city", shippingAddress.city);
-    setValue("postalcode", shippingAddress.postalcode);
-    setValue("country", shippingAddress.country);
+    setValue('name', shippingAddress.name);
+    setValue('address', shippingAddress.address);
+    setValue('city', shippingAddress.city);
+    setValue('postalcode', shippingAddress.postalcode);
+    setValue('country', shippingAddress.country);
   }, [setValue, shippingAddress]);
 
   const formHandler = (data) => {
     dispatch(addShippingAddress({ ...data }));
-    router.push("/payment");
+    router.push('/payment');
   };
 
   return (
@@ -46,8 +46,8 @@ const Shipping = () => {
             <input
               type='text'
               id='name'
-              {...register("name", {
-                required: "Please enter your full name",
+              {...register('name', {
+                required: 'Please enter your full name',
               })}
             />
             {errors.name && (
@@ -60,8 +60,8 @@ const Shipping = () => {
             <input
               type='text'
               id='address'
-              {...register("address", {
-                required: "Please enter your address",
+              {...register('address', {
+                required: 'Please enter your address',
               })}
             />
             {errors.address && (
@@ -73,7 +73,7 @@ const Shipping = () => {
             <input
               type='text'
               id='city'
-              {...register("city", { required: "Please enter your city" })}
+              {...register('city', { required: 'Please enter your city' })}
             />
             {errors.city && (
               <p className='text-red-400'>{errors.city.message}</p>
@@ -84,8 +84,8 @@ const Shipping = () => {
             <input
               type='text'
               id='country'
-              {...register("country", {
-                required: "Please enter your country",
+              {...register('country', {
+                required: 'Please enter your country',
               })}
             />
             {errors.country && (
@@ -97,8 +97,8 @@ const Shipping = () => {
             <input
               type='text'
               id='postalcode'
-              {...register("postalcode", {
-                required: "Please enter postal code",
+              {...register('postalcode', {
+                required: 'Please enter postal code',
               })}
             />
             {errors.postalcode && (
@@ -106,11 +106,9 @@ const Shipping = () => {
             )}
           </div>
           <div className='mb-4 flex justify-between'>
-            {/* <Link href='/payment'> */}
             <button className='primary-button ' type='submit'>
               Next
             </button>
-            {/* </Link> */}
           </div>
         </form>
       </div>
