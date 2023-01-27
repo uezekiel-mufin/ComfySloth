@@ -38,8 +38,15 @@ function Auth({ children }) {
   const router = useRouter();
   const { data: session } = useSession();
   console.log(session);
-  if (!session?.user) {
-    router.push('/unauthorized?message=login required');
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push('/unauthorized?message=login required');
+    },
+  });
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
   }
 
   return children;
