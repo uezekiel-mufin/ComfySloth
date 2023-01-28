@@ -40,13 +40,15 @@ This Project was built with the following technologies
     <li><a href="">TailwindCSS</a></li>
     <li><a href="">Redux</a></li>
   </ul>
-  <summary>Backend</summary>
+</details>
+
+<details>
+ <summary>Backend</summary>
   <ul>
     <li><a href="">NextAuth</a></li>
     <li><a href="">MongoDB</a></li>
     <li><a href="">axios</a></li>
-  </ul>
-</details>
+  </ul></details>
 
 ### Key Features <a name="key-features"></a>
 
