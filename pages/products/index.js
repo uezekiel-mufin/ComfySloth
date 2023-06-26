@@ -37,15 +37,7 @@ const Products = () => {
 		return (
 			<Layout>
 				<div className='w-full h-screen flex justify-center items-center  bg-[#f3f0ee] '>
-					<Circles
-						height='150'
-						width='150'
-						color='#cea792'
-						ariaLabel='circles-loading'
-						wrapperStyle={{}}
-						wrapperClass=''
-						visible={true}
-					/>
+					<Circles height='150' width='150' color='#cea792' ariaLabel='circles-loading' wrapperStyle={{}} wrapperClass='' visible={true} />
 				</div>
 			</Layout>
 		);
@@ -63,9 +55,7 @@ const Products = () => {
 						<ProductsSorts newProducts={newProducts} />
 
 						{newProducts.length < 1 ? (
-							<h4 className='italic bold mt-32'>
-								No products for match the search result, try another search query....
-							</h4>
+							<h4 className='italic bold mt-32'>No products for match the search result, try another search query....</h4>
 						) : (
 							<div className='relative  mx-4   '>
 								{grid_view && <ProductsGridView newProducts={newProducts} />}
