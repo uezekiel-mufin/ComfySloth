@@ -37,8 +37,7 @@ const Featured = () => {
 				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:justify-items-stretch gap-2 md:gap-4 lg:px-16'>
 					{featured.slice(0, 3).map((item) => (
 						<div key={item.id} className=' my-2 md:my-8 relative flex flex-col justify-center'>
-							<Image src='https://images.unsplash.com/photo-1618221710640-c0eaaa2adb49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZnVybml0dXJlc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=400&q=60' alt={item.name} layout='intrinsic' width='395px' height='200px' className='rounded-lg hover:brightness-50  transition-all duration-300 ease-linear' />
-							{/* <Image src={item.images[0].url} alt={item.name} layout='intrinsic' width='395px' height='200px' className='rounded-lg hover:brightness-50  transition-all duration-300 ease-linear' /> */}
+							<Image src={item.images[0].url} alt={item.name} layout='intrinsic' width='400px' height='300px' className='rounded-lg hover:brightness-50 aspect-video h-[400px]  transition-all duration-300 ease-linear' />
 
 							<Link href={`/products/${item.id}`}>
 								<a className='absolute top-0  right-0 flex justify-center transition-all duration-300 ease-linear items-center w-full h-full text-4xl opacity-5 hover:opacity-100 hover:bg-none '>
@@ -47,8 +46,8 @@ const Featured = () => {
 							</Link>
 
 							<div className='flex justify-between mt-6 '>
-								<p className='text-xl capitalize '>{item.name}</p>
-								<p className='text-[#ab7a5f]'>{formatPrice(item.price)}</p>
+								<p className='text-2xl capitalize font-semibold'>{item.name}</p>
+								<p className='text-[#ab7a5f] text-2xl capitalize font-semibold'>{formatPrice(item.price)}</p>
 							</div>
 						</div>
 					))}
