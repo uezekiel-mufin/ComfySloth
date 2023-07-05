@@ -1,7 +1,3 @@
-<a name="readme-top"></a>
-
-<!-- TABLE OF CONTENTS -->
-
 # 📗 Table of Contents
 
 - [📖 About the Project](#about-project)
@@ -65,7 +61,7 @@ This Project was built with the following technologies
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://zicomms-v2.vercel.app)
+- [Live Demo Link](https://zicomm-v2.vercel.app)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
