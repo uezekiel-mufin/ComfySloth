@@ -13,8 +13,7 @@ export default function Component() {
   const router = useRouter();
   const { redirect } = router.query;
   const { register, handleSubmit } = useForm();
-  console.log(redirect);
-  console.log(router);
+
   useEffect(() => {
     if (session?.user) {
       setTimeout(() => {
