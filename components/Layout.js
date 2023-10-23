@@ -8,11 +8,14 @@ import { AiOutlineMenuFold } from 'react-icons/ai';
 import Sidebar from './Sidebar';
 import { useSelector, useDispatch } from 'react-redux';
 import { menuState } from '../Slices/productSlice';
+import { useRouter } from 'next/router';
 
 const Layout = ({ children, title }) => {
 	const dispatch = useDispatch();
 	const isMenu = useSelector((state) => state.productSlice.isMenu);
-
+	const router = useRouter();
+	const currentPath = router.pathname;
+	console.log(currentPath);
 	return (
 		<div className='relative'>
 			<Head>
@@ -21,25 +24,23 @@ const Layout = ({ children, title }) => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className='flex  flex-col w-full min-h-screen justify-between '>
-				<header className=' '>
-					<nav className='relative flex justify-between py-4 px-2 md:px-10 items-center h-20  '>
-						<div className='text-5xl'>
-							<Link href='/'>
-								<a className='pointer'>
-									<img src='/logo.svg' alt='Logo' width='175px' height='80px' />
-								</a>
-							</Link>
-						</div>
+				<div className=' relative'>
+					<nav className='w-full bg-white shadow-lg fixed top-0 left-0 z-10 flex border justify-between py-4 px-2 md:px-10 items-center h-20  '>
+						<Link href='/'>
+							<a className='pointer'>
+								<img src='/logo.svg' alt='Logo' width='175px' height='70px' />
+							</a>
+						</Link>
 
 						<div className='flex md:hidden text-5xl mr-2 font-bold text-[#ab7a5f]' onClick={() => dispatch(menuState())}>
 							<AiOutlineMenuFold />
 						</div>
 
-						<ul className=' hidden  md:flex text-xl font-semibold  items-center gap-4 capitalize'>
+						<ul className=' hidden  md:flex text-xl font-semibold  items-center gap-8 capitalize'>
 							{links.map((link) => (
 								<li key={link.id} className='hover:text-red-400 transition-all duration-200 ease-linear'>
 									<Link href={link.url}>
-										<a>{link.text}</a>
+										<a className={`${currentPath === link.url && 'text-red-400'}`}>{link.text}</a>
 									</Link>
 								</li>
 							))}
@@ -48,17 +49,15 @@ const Layout = ({ children, title }) => {
 							<CartButtons />
 						</div>
 					</nav>
-					<main>{children}</main>
-				</header>
+				</div>
+				<main className='bg-white mt-[70px]'>{children}</main>
 
-				<div className={`w-screen absolute top-0  h-screen bg-white md:hidden transition duration-500 ease-linear ${isMenu ? 'translate-x-0  ' : '-translate-x-full'}`}>
+				<div className={`w-screen fixed z-50 top-0  h-screen bg-white md:hidden transition duration-500 ease-linear ${isMenu ? 'translate-x-0  ' : '-translate-x-full'}`}>
 					<Sidebar />
 				</div>
 
 				<footer className='footer bg-[#222] text-lg mt-8'>
-					<div>
-						<p className='text-white'>&copy; {new Date().getFullYear()} Zicomm2.0 All rights reserved</p>
-					</div>
+					<p className='text-white'>&copy; 2021 Zicomm2.0 All rights reserved</p>
 				</footer>
 			</div>
 		</div>

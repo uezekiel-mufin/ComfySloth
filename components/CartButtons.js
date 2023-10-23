@@ -46,7 +46,7 @@ const CartButtons = () => {
 				<li onClick={() => dispatch(menuState())}>
 					<Link href='/cart'>
 						<a className='flex items-center text-2xl md:text-xl'>
-							<h5>Cart</h5>
+							<h4>Cart</h4>
 							<span className='text-xl relative'>
 								<FaShoppingCart />
 								{cartQuantity >= 1 && <span className='absolute -top-3 -right-3 flex text-white text-xs bg-[#ab7a5f] rounded-full h-6 w-6 justify-center items-center'>{cartQuantity}</span>}
@@ -76,7 +76,7 @@ const CartButtons = () => {
 							</div>
 						</div>
 					) : (
-						<Button title='Sign In' py={1} px={2} onClick={() => handleSignIn()} />
+						<Button title='Sign In' py={2} px={6} onClick={() => handleSignIn()} />
 					)}
 				</li>
 			</ul>

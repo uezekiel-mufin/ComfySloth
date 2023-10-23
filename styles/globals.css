@@ -3,203 +3,208 @@
 @tailwind utilities;
 
 :root {
-  /* dark shades of primary color*/
-  --clr-primary-1: hsl(22, 28%, 21%);
-  --clr-primary-2: hsl(22, 28%, 29%);
-  --clr-primary-3: hsl(22, 28%, 37%);
-  --clr-primary-4: hsl(22, 28%, 45%);
-  /* primary/main color */
-  --clr-primary-5: hsl(22, 31%, 52%);
-  /* lighter shades of primary color */
-  --clr-primary-6: hsl(22, 31%, 60%);
-  --clr-primary-7: hsl(22, 36%, 69%);
-  --clr-primary-8: hsl(20, 31%, 74%);
-  --clr-primary-9: hsl(22, 31%, 81%);
-  --clr-primary-10: hsl(22, 31%, 88%);
-  /* darkest grey - used for headings */
-  --clr-grey-1: hsl(209, 61%, 16%);
-  --clr-grey-2: hsl(211, 39%, 23%);
-  --clr-grey-3: hsl(209, 34%, 30%);
-  --clr-grey-4: hsl(209, 28%, 39%);
-  /* grey used for paragraphs */
-  --clr-grey-5: hsl(210, 22%, 49%);
-  --clr-grey-6: hsl(209, 23%, 60%);
-  --clr-grey-7: hsl(211, 27%, 70%);
-  --clr-grey-8: hsl(210, 31%, 80%);
-  --clr-grey-9: hsl(212, 33%, 89%);
-  --clr-grey-10: hsl(210, 36%, 96%);
-  --clr-white: #fff;
-  --clr-red-dark: hsl(360, 67%, 44%);
-  --clr-red-light: hsl(360, 71%, 66%);
-  --clr-green-dark: hsl(125, 67%, 44%);
-  --clr-green-light: hsl(125, 71%, 66%);
-  --clr-black: #222;
-  --transition: all 0.3s linear;
-  --spacing: 0.1rem;
-  --radius: 0.25rem;
-  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  --max-width: 1170px;
-  --fixed-width: 620px;
+	/* dark shades of primary color*/
+	--clr-primary-1: hsl(22, 28%, 21%);
+	--clr-primary-2: hsl(22, 28%, 29%);
+	--clr-primary-3: hsl(22, 28%, 37%);
+	--clr-primary-4: hsl(22, 28%, 45%);
+	/* primary/main color */
+	--clr-primary-5: hsl(22, 31%, 52%);
+	/* lighter shades of primary color */
+	--clr-primary-6: hsl(22, 31%, 60%);
+	--clr-primary-7: hsl(22, 36%, 69%);
+	--clr-primary-8: hsl(20, 31%, 74%);
+	--clr-primary-9: hsl(22, 31%, 81%);
+	--clr-primary-10: hsl(22, 31%, 88%);
+	/* darkest grey - used for headings */
+	--clr-grey-1: hsl(209, 61%, 16%);
+	--clr-grey-2: hsl(211, 39%, 23%);
+	--clr-grey-3: hsl(209, 34%, 30%);
+	--clr-grey-4: hsl(209, 28%, 39%);
+	/* grey used for paragraphs */
+	--clr-grey-5: hsl(210, 22%, 49%);
+	--clr-grey-6: hsl(209, 23%, 60%);
+	--clr-grey-7: hsl(211, 27%, 70%);
+	--clr-grey-8: hsl(210, 31%, 80%);
+	--clr-grey-9: hsl(212, 33%, 89%);
+	--clr-grey-10: hsl(210, 36%, 96%);
+	--clr-white: #fff;
+	--clr-red-dark: hsl(360, 67%, 44%);
+	--clr-red-light: hsl(360, 71%, 66%);
+	--clr-green-dark: hsl(125, 67%, 44%);
+	--clr-green-light: hsl(125, 71%, 66%);
+	--clr-black: #222;
+	--transition: all 0.3s linear;
+	--spacing: 0.1rem;
+	--radius: 0.25rem;
+	--light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	--dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	--max-width: 1170px;
+	--fixed-width: 620px;
 }
 /*
-=============== 
+===============
 Global Styles
 ===============
 */
 
 html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: var(--clr-white);
-  color: var(--clr-grey-1);
-  line-height: 1.5;
-  font-size: 0.875rem;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	background: var(--clr-white);
+	color: var(--clr-grey-1);
+	line-height: 1.5;
+	font-size: 0.875rem;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 ul {
-  list-style-type: none;
+	list-style-type: none;
 }
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 hr {
-  border: none;
-  border-top: 1px solid var(--clr-grey-8);
+	border: none;
+	border-top: 1px solid var(--clr-grey-8);
 }
 h1,
 h2,
 h3,
 h4,
 h5 {
-  letter-spacing: var(--spacing);
-  text-transform: capitalize;
-  line-height: 1.25;
-  /* margin-bottom: 0.75rem; */
+	letter-spacing: var(--spacing);
+	text-transform: capitalize;
+	line-height: 1.25;
+	/* margin-bottom: 0.75rem; */
 }
 h1 {
-  font-size: 2.5rem;
+	font-size: 2.5rem;
 }
 h2 {
-  font-size: 2rem;
+	font-size: 2rem;
 }
 h3 {
-  font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 h4 {
-  font-size: 1.25rem;
+	font-size: 1.25rem;
 }
 h5 {
-  font-size: 0.875rem;
+	font-size: 0.875rem;
 }
 p {
-  margin-bottom: 1.25rem;
-  color: var(--clr-grey-3);
+	margin-bottom: 1.25rem;
+	color: var(--clr-grey-3);
 }
 @media screen and (min-width: 800px) {
-  h1 {
-    font-size: 3rem;
-  }
-  h2 {
-    font-size: 2.5rem;
-  }
-  h3 {
-    font-size: 2rem;
-  }
-  h4 {
-    font-size: 1.5rem;
-  }
-  h5 {
-    font-size: 1rem;
-  }
-  body {
-    font-size: 1rem;
-  }
-  h1,
-  h2,
-  h3,
-  h4 {
-    line-height: 1;
-    margin: 0;
-  }
+	h1 {
+		font-size: 3rem;
+	}
+	h2 {
+		font-size: 2.5rem;
+	}
+	h3 {
+		font-size: 2rem;
+	}
+	h4 {
+		font-size: 1.5rem;
+	}
+	h5 {
+		font-size: 1rem;
+	}
+	body {
+		font-size: 1rem;
+	}
+	h1,
+	h2,
+	h3,
+	h4 {
+		line-height: 1;
+		margin: 0;
+	}
 }
 
 .footer {
-  @apply h-20 flex justify-center items-center  text-center;
+	@apply h-44  flex justify-center items-center  text-center;
 }
 
 .after {
-  @apply before:absolute before:-left-[8%] before:h-4/5 before:mb-4 before:w-1/12 before:bottom-0 before:rounded-md;
+	@apply before:absolute before:-left-[8%] before:h-4/5 before:mb-4 before:w-1/12 before:bottom-0 before:rounded-md;
 }
 
 .productPageView {
-  display: grid;
-  grid-template-columns: 300px 1fr;
+	display: grid;
+	grid-template-columns: 300px 1fr;
 }
 
 @media screen and (max-width: 750px) {
-  .productPageViewSmall {
-    display: flex;
-    flex-direction: column;
-  }
+	.productPageViewSmall {
+		display: flex;
+		flex-direction: column;
+	}
 }
 .viewActive {
-  @apply bg-black text-white;
+	@apply bg-black text-white;
 }
 
 input,
 select,
 textarea {
-  @apply rounded border focus:outline-none p-4 active:outline-0;
+	@apply rounded border focus:outline-none p-4 active:outline-0;
 }
 
 .primary-button {
-  @apply rounded bg-amber-300 py-2 px-8 text-xl outline-none hover:bg-amber-400 active:bg-amber-600;
+	@apply rounded bg-amber-300 py-2 px-8 text-xl outline-none hover:bg-amber-400 active:bg-amber-600;
 }
 
 .default-button {
-  @apply rounded bg-gray-100 py-2 px-4 text-black shadow outline-none hover:bg-gray-200 active:bg-gray-300;
+	@apply rounded bg-gray-100 py-2 px-4 text-black shadow outline-none hover:bg-gray-200 active:bg-gray-300;
 }
 
 .card {
-  @apply mb-5 block rounded-lg border border-gray-200 shadow-md;
+	@apply mb-5 block rounded-lg border border-gray-200 shadow-md;
 }
 
 .alert-error {
-  @apply my-3 rounded-lg bg-red-100 p-3 text-red-700;
+	@apply my-3 rounded-lg bg-red-100 p-3 text-red-700;
 }
 
 .alert-success {
-  @apply my-3 rounded-lg bg-green-100 p-3 text-green-700;
+	@apply my-3 rounded-lg bg-green-100 p-3 text-green-700;
 }
 
 .filtersDisplay {
-  @apply transition duration-500 ease-linear;
+	@apply transition duration-500 ease-linear;
 }
 
 .activeCategory {
-  @apply bg-slate-300;
+	@apply bg-slate-300;
 }
 
 .notActiveCategory {
-  @apply bg-none;
+	@apply bg-none;
 }
 
 .categoryDisplay {
-  @apply hidden;
+	@apply hidden;
 }
 
 @layer components {
-  .login-button {
-    @apply rounded bg-[#996633] py-2 px-8 text-xl outline-none hover:bg-[#5f3811]  active:bg-[#58320c] text-gray-200;
-  }
+	.login-button {
+		@apply rounded bg-[#996633] py-2 px-8 text-xl outline-none hover:bg-[#5f3811]  active:bg-[#58320c] text-gray-200;
+	}
+}
+
+.shimmer {
+	background-image: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+	background-size: 200% auto;
+	animation: shimmer 1.5s infinite;
 }
