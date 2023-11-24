@@ -64,13 +64,13 @@ const SingleProductPage = () => {
 			<Layout title={`Product ${id}`}>
 				<ToastContainer position='top-center' limit={1} />
 				<HeroSection singleProduct={product} title='products' />
-				<div className='p-8 md:p-24'>
+				<div className='p-8 md:p-20 lg:px-32 xl:px-48'>
 					<Link href='/products'>
-						<button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white px-6 md:px-8 tracking-widest mb-10 rounded-md text-xl py-2 mt-4 md:py-2'>back to product</button>
+						<button className='bg-[#ab7a5f] transition-all duration-300 ease-linear hover:scale-105 hover:bg-[#cea792] text-white px-6 tracking-widest mb-10 rounded-md text-xl py-4'>back to product</button>
 					</Link>
-					<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-						<div className='h-11/12 md:w-11/12'>
-							<Image src='https://images.unsplash.com/photo-1618221710640-c0eaaa2adb49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZnVybml0dXJlc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=400&q=60' alt={name} height={100} width={100} layout='responsive' className='rounded-lg' />
+					<div className='grid grid-cols-1 md:grid-cols-2 gap-4 '>
+						<div className=''>
+							<Image src='https://images.unsplash.com/photo-1618221710640-c0eaaa2adb49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZnVybml0dXJlc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=400&q=60' alt={name} height={600} width={600} className='rounded-lg' />
 							{/* <div className='flex gap-4 mt-4'>
 								{images?.map((item, index) => (
 									<div key={item.id} className='h-15 flex-1'>
@@ -79,9 +79,9 @@ const SingleProductPage = () => {
 								))}
 							</div> */}
 						</div>
-						<div className='flex flex-col gap-2'>
-							<h3 className='flex-1 font-bold'>{name}</h3>
-							<h4 className='flex-1 flex gap-4'>
+						<div className='flex flex-col'>
+							<h3 className='flex-1 m-0 font-bold'>{name}</h3>
+							<h4 className='flex-1 m-0 flex gap-4'>
 								<Stars stars={stars} /> ({reviews} customer reviews)
 							</h4>
 							<div className='flex-1 font-semibold text-[#ab7a5f]'>{formatPrice(price)}</div>
@@ -97,7 +97,7 @@ const SingleProductPage = () => {
 								<span className='font-bold'>Brand:</span> {company}
 							</div>
 							<hr />
-							<div className='flex capitalize items-center gap-8 flex-1 '>
+							<div className='flex capitalize items-center gap-4 flex-1 '>
 								<span className='font-bold'>Colors:</span>
 								<div className='flex gap-2'>
 									{colors?.map((color) => (
@@ -142,7 +142,7 @@ const SingleProductPage = () => {
 									}>
 									<FiMinus />
 								</button>
-								<h3>{quantityOrdered}</h3>
+								<h3 className='text-base font-bold'>{quantityOrdered}</h3>
 								<button
 									onClick={() =>
 										setQuantityOrdered(() => {
@@ -195,7 +195,12 @@ export default SingleProductPage;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => (context) => {
 	const { slug } = context.params;
-	slug && store.dispatch(fetchProduct(`${slug}`));
+
+	try {
+		slug && store.dispatch(fetchProduct(`${slug}`));
+	} catch (error) {
+		console.log(error);
+	}
 
 	return {
 		props: {},

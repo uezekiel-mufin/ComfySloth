@@ -76,7 +76,13 @@ export default Products;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
 	console.log(context);
-	store.dispatch(fetchProductss());
+
+	try {
+
+		store.dispatch(fetchProductss());
+	} catch (error) {
+console.log(error)
+	}
 
 	return {
 		props: {},

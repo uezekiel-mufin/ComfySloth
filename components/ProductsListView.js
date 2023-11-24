@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React,{useState} from 'react';
 import { FcSearch } from 'react-icons/fc';
 import { formatPrice } from '../utils/helpers';
 
 const ProductsListView = ({ newProducts }) => {
+	const [imageLoading,setImageLoading]=useState(true)
 	return (
 		<div className='flex flex-col md:gap-16 px-2'>
 			{newProducts.map((product) => (
@@ -16,7 +17,8 @@ const ProductsListView = ({ newProducts }) => {
 							layout='intrinsic'
 							width='450px'
 							height='300px'
-							className='rounded-lg hover:brightness-50  transition-all duration-300 ease-linear'
+									className={`rounded-lg hover:brightness-50  transition-all duration-300 ease-linear ${imageLoading ? ' blur-xl shimmer' : ' blur-0'}`}
+									onLoadingComplete={() => setImageLoading(false)}
 						/>
 						<Link href={`/products/${product.id}`}>
 							<a className='absolute top-0  right-0 flex justify-center transition-all duration-300 ease-linear items-center w-full h-full text-4xl opacity-5 hover:opacity-100 hover:bg-none '>
