@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React,{useState} from 'react';
 import { FcSearch } from 'react-icons/fc';
 import { useSelector } from 'react-redux';
 import { formatPrice } from '../utils/helpers';
 const ProductsGridView = ({ newProducts }) => {
+	const [imageLoading,setImageLoading]=useState(true)
 	const loading = useSelector((state) => state.productSlice.products_loading);
 	const error = useSelector((state) => state.productSlice.products_error);
 	return (
@@ -22,7 +23,8 @@ const ProductsGridView = ({ newProducts }) => {
 									layout='intrinsic'
 									width='450px'
 									height='300px'
-									className='rounded-lg hover:brightness-50  transition-all duration-300 ease-linear'
+									className={`rounded-lg hover:brightness-50  transition-all duration-300 ease-linear ${imageLoading ? ' blur-xl shimmer' : ' blur-0'}`}
+									onLoadingComplete={() => setImageLoading(false)}
 								/>
 
 								<Link href={`/products/${item.id}`}>

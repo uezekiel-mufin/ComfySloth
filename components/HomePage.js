@@ -9,12 +9,12 @@ const HomePage = () => {
 	const [loading, setLoading] = useState(true);
 	return (
 		<div className='flex flex-col w-full '>
-			<div className='flex md:px-16 xl:px-32  flex-col md:grid grid-cols-2 gap-16 mx-auto w-full p-8 pb-16'>
+			<div className='flex md:px-16 xl:px-44  flex-col md:grid grid-cols-2 gap-16 mx-auto w-full p-8 pb-16'>
 				<div className='flex flex-col justify-center items-start mt-12 '>
-					<h1 className='text-[#102a42] font-bold mb-4'>
+					<h1 className='text-[#102a42] md:text-4xl lg:text-6xl font-extrabold mb-4'>
 						Design Your <br /> Comfort Zone
 					</h1>
-					<h5 className='text-[#617d98] leading-5'>
+					<h5 className='text-[#617d98] text-xl leading-7'>
 						Explore our handpicked collection of furniture that transcends mere <br /> functionality. Let each piece resonate with your soul and transform <br /> your home into a haven of comfort and style. It's time to design your comfort zone."
 					</h5>
 					<Link href='/products'>
